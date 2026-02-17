@@ -1,5 +1,4 @@
-# Proyecto MERN - Ejemplo
-
+# Proyecto MERN 
 ## Descripción
 
 Este proyecto es la estructura inicial de una aplicación web utilizando el stack MERN:
