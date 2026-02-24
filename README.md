@@ -39,3 +39,5 @@ Estructura inicial creada.
 ## Autor
 
 Celia Abigail Blanco Ojeda
+Eduardo Abundis Quiroga
+Axel Garcia Valdez
