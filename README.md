@@ -1,7 +1,7 @@
-# Proyecto MERN 
+# Proyecto MultiServicios
 ## Descripción
 
-Este proyecto es la estructura inicial de una aplicación web utilizando el stack MERN:
+"Multiservicios Técnicos" es una aplicación web moderna (SPA) diseñada para conectar a usuarios con especialistas técnicos verificados en la región de Monterrey. La web funciona como un marketplace de servicios para el hogar y la oficina.
 
 - MongoDB
 - Express
@@ -14,9 +14,12 @@ Proyecto.Mern/
 
 backend/
 Servidor Node.js con Express
+Diseño de la base de datos.
 
 frontend/
 Aplicación React
+Pantallas actualizadas.
+
 
 ## Instalación
 
