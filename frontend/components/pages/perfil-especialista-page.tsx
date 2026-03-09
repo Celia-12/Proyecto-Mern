@@ -55,12 +55,12 @@ export function PerfilEspecialistaPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       <div className="grid gap-6 lg:grid-cols-5">
-        {/* Profile section */}
+        {}
         <div className="lg:col-span-3">
           <Card className="border border-border bg-card">
             <CardContent className="p-6">
               <div className="grid gap-6 sm:grid-cols-3">
-                {/* Photo & basic info */}
+                {}
                 <div className="flex flex-col items-center sm:items-start gap-4">
                   <h2 className="font-heading font-bold text-lg text-card-foreground flex items-center gap-2">
                     <User className="h-5 w-5 text-primary" />
@@ -94,7 +94,7 @@ export function PerfilEspecialistaPage() {
                   </div>
                 </div>
 
-                {/* Order history */}
+                {}
                 <div>
                   <h3 className="font-heading font-semibold text-card-foreground mb-3 flex items-center gap-2">
                     <History className="h-4 w-4 text-primary" />
@@ -112,7 +112,7 @@ export function PerfilEspecialistaPage() {
                   </div>
                 </div>
 
-                {/* Reviews */}
+                {}
                 <div>
                   <h3 className="font-heading font-semibold text-card-foreground mb-3 flex items-center gap-2">
                     <Star className="h-4 w-4 text-primary" />
@@ -132,7 +132,7 @@ export function PerfilEspecialistaPage() {
           </Card>
         </div>
 
-        {/* Current offer panel */}
+        {}
         <div className="lg:col-span-2">
           <Card className="border border-border bg-card sticky top-6">
             <CardHeader className="pb-4">
