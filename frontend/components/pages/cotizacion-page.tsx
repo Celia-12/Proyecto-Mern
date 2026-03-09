@@ -132,7 +132,7 @@ export function CotizacionPage({
           </div>
         </div>
 
-        {/* Materials pricing clarification */}
+        {}
         <div className="mb-6 rounded-xl border border-amber-300/50 bg-amber-50 p-4 flex items-start gap-3">
           <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
           <div className="text-sm leading-relaxed">
@@ -144,9 +144,9 @@ export function CotizacionPage({
         </div>
 
         <div className="grid gap-6 lg:grid-cols-5">
-          {/* Left panel - Cart items */}
+          {}
           <div className="lg:col-span-3 flex flex-col gap-6">
-            {/* Service cards */}
+            {}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {cart.map((item) => (
                 <Card key={item.specialist.id} className="overflow-hidden border border-border bg-card relative group">
@@ -188,7 +188,7 @@ export function CotizacionPage({
               ))}
             </div>
 
-            {/* Date, time, specs */}
+            {}
             <Card className="border border-border bg-card">
               <CardContent className="p-5 flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -244,7 +244,7 @@ export function CotizacionPage({
             </Card>
           </div>
 
-          {/* Right panel - Receipt */}
+          {}
           <div className="lg:col-span-2">
             <Card className="border border-border bg-card sticky top-6">
               <CardHeader className="pb-4">
@@ -372,7 +372,7 @@ export function CotizacionPage({
         </div>
       </div>
 
-      {/* Materials pricing clarification */}
+      {}
       <div className="mb-6 rounded-xl border border-amber-300/50 bg-amber-50 p-4 flex items-start gap-3">
         <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
         <div className="text-sm leading-relaxed">
@@ -384,9 +384,9 @@ export function CotizacionPage({
       </div>
 
       <div className="grid gap-6 lg:grid-cols-5">
-        {/* Left - Chat & services */}
+        {}
         <div className="lg:col-span-3 flex flex-col gap-6">
-          {/* Selected services summary */}
+          {}
           <div className="flex gap-3 overflow-x-auto pb-2">
             {cart.map((item) => (
               <Card key={item.specialist.id} className="shrink-0 w-48 overflow-hidden border border-border bg-card relative">
@@ -412,7 +412,7 @@ export function CotizacionPage({
             ))}
           </div>
 
-          {/* Chat area */}
+          {}
           <Card className="border border-border bg-card flex-1">
             <CardHeader className="pb-2">
               <CardTitle className="font-heading text-base flex items-center gap-2">
@@ -422,7 +422,7 @@ export function CotizacionPage({
               <p className="text-xs text-muted-foreground">Coordina los detalles del servicio con los especialistas</p>
             </CardHeader>
             <CardContent className="flex flex-col gap-3 p-4">
-              {/* Messages */}
+              {}
               <div className="flex flex-col gap-3 max-h-80 overflow-y-auto rounded-lg bg-muted/50 p-4">
                 {messages.map((msg) => (
                   <div
@@ -444,7 +444,7 @@ export function CotizacionPage({
                 ))}
               </div>
 
-              {/* Message input */}
+              {}
               <div className="flex gap-2">
                 <Textarea
                   placeholder="Escribe tu mensaje..."
@@ -469,7 +469,7 @@ export function CotizacionPage({
           </Card>
         </div>
 
-        {/* Right panel - Receipt */}
+        {}
         <div className="lg:col-span-2">
           <Card className="border border-border bg-card sticky top-6">
             <CardHeader className="pb-4">
