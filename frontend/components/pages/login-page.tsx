@@ -20,7 +20,7 @@ export function LoginPage({
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="grid gap-8 lg:grid-cols-2">
-        {/* Login */}
+        {}
         <Card className="border border-border bg-card">
           <CardHeader>
             <CardTitle className="font-heading text-xl flex items-center gap-2">
@@ -72,7 +72,7 @@ export function LoginPage({
           </CardContent>
         </Card>
 
-        {/* Register */}
+        {}
         <Card className="border border-border bg-card">
           <CardHeader>
             <CardTitle className="font-heading text-xl flex items-center gap-2">
