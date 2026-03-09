@@ -50,7 +50,7 @@ export function PerfilClientePage({ onNavigate }: { onNavigate: (page: string) =
 
   const handlePay = () => {
     setPaymentStatus("processing")
-    // Simulated payment
+    
     setTimeout(() => {
       setPaymentStatus("success")
     }, 2500)
@@ -63,12 +63,12 @@ export function PerfilClientePage({ onNavigate }: { onNavigate: (page: string) =
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       <div className="grid gap-6 lg:grid-cols-5">
-        {/* Profile section */}
+        {}
         <div className="lg:col-span-3">
           <Card className="border border-border bg-card">
             <CardContent className="p-6">
               <div className="grid gap-6 sm:grid-cols-3">
-                {/* Photo & basic info */}
+                {}
                 <div className="flex flex-col items-center sm:items-start gap-4">
                   <h2 className="font-heading font-bold text-lg text-card-foreground flex items-center gap-2">
                     <User className="h-5 w-5 text-primary" />
@@ -102,7 +102,7 @@ export function PerfilClientePage({ onNavigate }: { onNavigate: (page: string) =
                   </div>
                 </div>
 
-                {/* Order history */}
+                {}
                 <div>
                   <h3 className="font-heading font-semibold text-card-foreground mb-3 flex items-center gap-2">
                     <History className="h-4 w-4 text-primary" />
@@ -120,7 +120,7 @@ export function PerfilClientePage({ onNavigate }: { onNavigate: (page: string) =
                   </div>
                 </div>
 
-                {/* Reviews */}
+                {}
                 <div>
                   <h3 className="font-heading font-semibold text-card-foreground mb-3 flex items-center gap-2">
                     <Star className="h-4 w-4 text-primary" />
@@ -155,7 +155,7 @@ export function PerfilClientePage({ onNavigate }: { onNavigate: (page: string) =
           </Card>
         </div>
 
-        {/* Order panel */}
+        {}
         <div className="lg:col-span-2">
           <Card className="border border-border bg-card sticky top-6">
             <CardHeader className="pb-4">
@@ -166,7 +166,7 @@ export function PerfilClientePage({ onNavigate }: { onNavigate: (page: string) =
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               {paymentStatus === "success" ? (
-                /* Payment success state */
+                
                 <div className="flex flex-col items-center gap-4 py-6">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
                     <CheckCircle2 className="h-10 w-10 text-accent" />
@@ -203,7 +203,7 @@ export function PerfilClientePage({ onNavigate }: { onNavigate: (page: string) =
                   </div>
                 </div>
               ) : (
-                /* Normal payment form */
+                
                 <>
                   <div>
                     <label className="mb-1.5 block text-sm font-medium text-foreground">
