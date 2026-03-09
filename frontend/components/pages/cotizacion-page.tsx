@@ -94,7 +94,7 @@ export function CotizacionPage({
     setNewMessage("")
   }
 
-  // Empty cart state
+  
   if (cart.length === 0) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-10">
@@ -118,7 +118,7 @@ export function CotizacionPage({
     )
   }
 
-  // ---- NOT LOGGED IN: Cart mode ----
+
   if (!isLoggedIn) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-10">
@@ -359,7 +359,7 @@ export function CotizacionPage({
     )
   }
 
-  // ---- LOGGED IN: Communication mode ----
+  
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       <div className="mb-8">
