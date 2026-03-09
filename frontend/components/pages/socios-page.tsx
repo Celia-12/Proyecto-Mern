@@ -52,7 +52,7 @@ export function SociosPage({
         <p className="mt-2 text-muted-foreground">Encuentra al especialista ideal para tu necesidad</p>
       </div>
 
-      {/* Security notice */}
+      {}
       <div className="mb-6 rounded-xl border border-primary/20 bg-primary/5 p-4 flex items-start gap-3">
         <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" />
         <div className="text-sm text-foreground leading-relaxed">
@@ -63,7 +63,7 @@ export function SociosPage({
         </div>
       </div>
 
-      {/* Filters */}
+      {}
       <div className="mb-8 flex flex-wrap items-end gap-4 rounded-xl bg-card p-4 border border-border shadow-sm">
         <div className="flex-1 min-w-[160px]">
           <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-foreground">
@@ -124,7 +124,7 @@ export function SociosPage({
         </Button>
       </div>
 
-      {/* Price clarification */}
+      {}
       <div className="mb-6 rounded-xl border border-amber-300/50 bg-amber-50 p-4 flex items-start gap-3">
         <DollarSign className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
         <div className="text-sm leading-relaxed">
@@ -135,12 +135,12 @@ export function SociosPage({
         </div>
       </div>
 
-      {/* Results count */}
+      {}
       <p className="mb-4 text-sm text-muted-foreground">
         {filtered.length} especialista{filtered.length !== 1 ? "s" : ""} encontrado{filtered.length !== 1 ? "s" : ""}
       </p>
 
-      {/* Specialist cards */}
+      {}
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {filtered.map((specialist) => {
           const inCart = isInCart(specialist.id)
@@ -149,7 +149,7 @@ export function SociosPage({
               key={specialist.id}
               className="group overflow-hidden border border-border bg-card transition-all hover:shadow-lg"
             >
-              {/* Image - only shows work-related photo, no personal faces */}
+              {}
               <div className="relative aspect-square overflow-hidden bg-muted">
                 <img
                   src={specialist.image}
@@ -173,11 +173,11 @@ export function SociosPage({
                 )}
               </div>
               <CardContent className="p-4">
-                {/* Only show specialty and work info, NOT personal name */}
+                {}
                 <h3 className="text-lg font-heading font-bold text-card-foreground">{specialist.specialty}</h3>
                 <p className="mt-0.5 text-xs text-muted-foreground">{specialist.highlight}</p>
 
-                {/* Price per visit */}
+                {}
                 <div className="mt-2 flex items-baseline gap-1">
                   <span className="text-xl font-bold text-primary">${specialist.pricePerVisit.toLocaleString()}</span>
                   <span className="text-xs text-muted-foreground">/visita</span>
