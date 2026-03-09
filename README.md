@@ -35,6 +35,7 @@ npm start
 ## Estado del proyecto
 
 Estructura inicial creada.
+frontend sin conexion con backend subido.
 
 ## Autor
 
