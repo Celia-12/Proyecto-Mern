@@ -1,0 +1,35 @@
+[1G[0K⠙[1G[0K
+> rest-express@1.0.0 dev
+> cross-env NODE_ENV=development tsx server/index.ts
+
+[1G[0K⠙[1G[0K9:28:42 PM [express] serving on port 5000
+
+A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+9:28:46 PM [express] GET /api/categories 200 in 2ms :: [{"name":"Plomeria","slug":"plomeria","description":"Instalacion, reparacion y mantenimiento de sistemas de agua, drenaje y gas. Destape de tuberias, reparacion de fugas y mas.","icon":"droplets","image":"/images/service-plumbing.png","id":"32c7sfsss"},{"name":"Electricidad","slug":"electricidad","description":"Instalaciones electricas residenciales y comerciales, reparacion de cortocircuitos, cableado y tableros electricos.","icon":"zap","image":"/images/service-electrical.png","id":"p0zhrvhxe"},{"name":"Aire Acondicionado","slug":"aire-acondicionado","description":"Instalacion, mantenimiento y reparacion de equipos de climatizacion, splits, minisplits y sistemas centrales.","icon":"wind","image":"/images/service-hvac.png","id":"spspqhx4u"},{"name":"Mantenimiento","slug":"mantenimiento","description":"Mantenimiento general del hogar y oficina, pintura, impermeabilizacion, limpieza profunda y remodelaciones.","icon":"paintbrush","image":"/images/service-maintenance.png","id":"nu9s6mf2b"},{"name":"Cerrajeria","slug":"cerrajeria","description":"Apertura de cerraduras, cambio de chapas, instalacion de sistemas de seguridad y cerraduras inteligentes.","icon":"lock","image":"/images/service-locksmith.png","id":"2a3wwukfn"},{"name":"Carpinteria","slug":"carpinteria","description":"Fabricacion e instalacion de muebles a medida, closets, cocinas integrales, puertas y pisos de madera.","icon":"hammer","image":"/images/service-carpentry.png","id":"qy0vptezc"}]
+9:28:46 PM [express] GET /api/specialists 200 in 1ms :: [{"name":"Carlos Martinez","email":"carlos.martinez@correo.com","phone":"55 2345 6789","bio":"Plomero certificado con mas de 15 anos de experiencia en instalaciones residenciales y comerciales.","categoryId":"32c7sfsss","specialties":["Destape de tuberias","Reparacion de fugas","Instalacion de calentadores"],"location":"Ciudad de Mexico, Zona Norte","rating":"4.9","reviewCount":127,"yearsExperience":15,"verified":true,"available":true,"id":"a1ycn1evr","avatar":null},{"name":"Roberto Hernandez","email":"roberto.h@correo.com","phone":"55 3456 7890","bio":"Electricista industrial y residencial. Especialista en instalaciones de alta y baja tension.","categoryId":"p0zhrvhxe","specialties":["Instalacion electrica","Cortocircuitos","Tableros electricos"],"location":"Ciudad de Mexico, Zona Sur","rating":"4.8","reviewCount":98,"yearsExperience":12,"verified":true,"available":true,"id":"her01r4mz","avatar":null}]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:30:00 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/quote.tsx, /src/index.css[22m
