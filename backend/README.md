@@ -33,29 +33,29 @@ cd backend
 
 # 2. Instalar dependencias
 npm install
-
-# 3. Crear archivo de variables de entorno
-cp .env.example .env
 ```
 
-Edita el archivo `.env` con tus valores:
+Crear el archivo de variables de entorno desde CMD:
 
-```env
-PORT=3001
-MONGODB_URI=mongodb://localhost:27017/multiservicios
-JWT_SECRET=MultiserviciosTecnicos2026
-JWT_EXPIRES_IN=7d
-NODE_ENV=development
-FRONTEND_URL=http://localhost:3000
+```bash
+(
+echo PORT=3001
+echo MONGODB_URI=mongodb://localhost:27017/multiservicios
+echo JWT_SECRET=MultiserviciosTecnicos2026
+echo JWT_EXPIRES_IN=7d
+echo NODE_ENV=development
+echo FRONTEND_URL=http://localhost:3000
+) > .env
 ```
 
 ```bash
-# 4. Poblar la base de datos con datos de prueba
+# 3. Poblar la base de datos con datos de prueba
 npm run seed
 
-# 5. Iniciar el servidor
+# 4. Iniciar el servidor
 npm run dev
 ```
+
 
 El servidor estará disponible en: `http://localhost:3001`
 Para ver su estado: `http://localhost:3001/api/health`
