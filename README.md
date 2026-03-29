@@ -38,14 +38,14 @@ npm run dev
 
 Abrir en: `http://localhost:3000`
 
-## Estado del proyecto
+## Estado del proyecto (1 Version)
 
 - ✅ Frontend conectado con backend
-- ✅ Base de datos con 6 colecciones
-- ✅ API REST con autenticación JWT
-- ✅ Login y registro de usuarios
-- ✅ Listado de especialistas
-- ✅ Formulario de cotizaciones
+- ✅ Base de datos con 6 colecciones 
+- ✅ API REST con autenticación JWT 
+- ✅ Login y registro de usuarios 
+- ✅ Listado de especialistas 
+- ✅ Formulario de cotizaciones 
 - ✅ Sistema de logging
 
 ## Cuentas de prueba
