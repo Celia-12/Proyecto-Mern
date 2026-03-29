@@ -35,15 +35,15 @@ cd frontend
 # 2. Instalar dependencias
 npm install
 ```
+Crear el archivo de variables de entorno desde CMD:
 
 ```bash
-# 3. Crear el archivo de variables de entorno desde CMD:
 
 echo VITE_API_URL=http://localhost:3001/api > .env
 ```
 
 ```bash
-# 4. Iniciar la aplicación
+# 3. Iniciar la aplicación
 npm run dev
 ```
 
