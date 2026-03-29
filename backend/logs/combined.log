@@ -1,0 +1,190 @@
+[2026-03-27 18:27:35] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 18:27:35] INFO: 📄 Ambiente: development
+[2026-03-27 18:27:35] INFO: MongoDB conectado: localhost
+[2026-03-27 18:40:25] INFO: ::1 - - [28/Mar/2026:00:40:25 +0000] "GET / HTTP/1.1" 404 55 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 18:40:26] INFO: ::1 - - [28/Mar/2026:00:40:26 +0000] "GET /favicon.ico HTTP/1.1" 404 66 "http://localhost:3001/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 18:40:39] INFO: ::1 - - [28/Mar/2026:00:40:39 +0000] "GET /api/especialistas HTTP/1.1" 200 68 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 18:44:53] INFO: ::1 - - [28/Mar/2026:00:44:53 +0000] "GET /api/especialistas HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 18:44:53] INFO: ::1 - - [28/Mar/2026:00:44:53 +0000] "GET /api/especialistas HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 18:48:29] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 18:48:29] INFO: 📄 Ambiente: development
+[2026-03-27 18:48:29] INFO: MongoDB conectado: localhost
+[2026-03-27 18:49:23] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 18:49:23] INFO: 📄 Ambiente: development
+[2026-03-27 18:49:23] INFO: MongoDB conectado: localhost
+[2026-03-27 18:50:26] INFO: ::1 - - [28/Mar/2026:00:50:26 +0000] "GET /api/especialistas HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 18:51:47] INFO: ::1 - - [28/Mar/2026:00:51:47 +0000] "GET /api/usuario HTTP/1.1" 404 66 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 18:51:51] INFO: ::1 - - [28/Mar/2026:00:51:51 +0000] "GET /api/usuarios HTTP/1.1" 404 67 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 18:52:00] INFO: ::1 - - [28/Mar/2026:00:52:00 +0000] "GET /api/especialistas HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 19:15:44] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 19:15:44] INFO: 📄 Ambiente: development
+[2026-03-27 19:15:44] INFO: MongoDB conectado: localhost
+[2026-03-27 19:20:11] INFO: ::1 - - [28/Mar/2026:01:20:11 +0000] "GET /api/especialistas HTTP/1.1" 200 3706 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 19:21:28] INFO: ::1 - - [28/Mar/2026:01:21:28 +0000] "GET /api/cotizaciones HTTP/1.1" 401 63 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 19:29:01] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 19:29:01] INFO: 📄 Ambiente: development
+[2026-03-27 19:29:01] INFO: MongoDB conectado: localhost
+[2026-03-27 19:32:24] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 19:32:24] INFO: 📄 Ambiente: development
+[2026-03-27 19:32:24] INFO: MongoDB conectado: localhost
+[2026-03-27 19:32:29] INFO: ::1 - - [28/Mar/2026:01:32:29 +0000] "GET /api/especialistas HTTP/1.1" 200 4151 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 19:34:20] INFO: ::1 - - [28/Mar/2026:01:34:20 +0000] "GET /api/especialistas HTTP/1.1" 200 4151 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"
+[2026-03-27 19:34:20] INFO: ::1 - - [28/Mar/2026:01:34:20 +0000] "GET /favicon.ico HTTP/1.1" 404 66 "http://localhost:3001/api/especialistas" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"
+[2026-03-27 20:24:32] WARN: MongoDB desconectado
+[2026-03-27 20:24:42] INFO: MongoDB reconectado
+[2026-03-27 20:31:52] INFO: ::1 - - [28/Mar/2026:02:31:52 +0000] "GET /api/especialistas HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 20:55:25] INFO: ::1 - - [28/Mar/2026:02:55:25 +0000] "GET /api/especialista HTTP/1.1" 404 71 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 20:55:36] INFO: ::1 - - [28/Mar/2026:02:55:36 +0000] "GET /api/especialistas HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 21:24:32] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 21:24:32] INFO: 📄 Ambiente: development
+[2026-03-27 21:24:32] INFO: MongoDB conectado: localhost
+[2026-03-27 23:03:29] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:03:29] INFO: 📄 Ambiente: development
+[2026-03-27 23:03:29] INFO: MongoDB conectado: localhost
+[2026-03-27 23:04:02] INFO: ::1 - - [28/Mar/2026:05:04:02 +0000] "GET /api/especialistas HTTP/1.1" 200 4151 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:04:16] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:04:16] INFO: 📄 Ambiente: development
+[2026-03-27 23:04:16] INFO: MongoDB conectado: localhost
+[2026-03-27 23:19:35] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:19:35] INFO: 📄 Ambiente: development
+[2026-03-27 23:19:35] INFO: MongoDB conectado: localhost
+[2026-03-27 23:19:42] INFO: ::1 - - [28/Mar/2026:05:19:42 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:24:34] INFO: ::1 - - [28/Mar/2026:05:24:34 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:25:55] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:25:55] INFO: 📄 Ambiente: development
+[2026-03-27 23:25:55] INFO: MongoDB conectado: localhost
+[2026-03-27 23:26:42] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:26:42] INFO: 📄 Ambiente: development
+[2026-03-27 23:26:42] INFO: MongoDB conectado: localhost
+[2026-03-27 23:26:44] INFO: ::1 - - [28/Mar/2026:05:26:44 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:29:35] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:29:35] INFO: 📄 Ambiente: development
+[2026-03-27 23:29:35] INFO: MongoDB conectado: localhost
+[2026-03-27 23:29:40] INFO: ::1 - - [28/Mar/2026:05:29:40 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:29:45] INFO: ::1 - - [28/Mar/2026:05:29:45 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 200 4151 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:30:14] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"cliente@demo.com","contrasena":"demo123456"}}
+[2026-03-27 23:30:15] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at login (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:68:19) | META: {"method":"POST","path":"/api/auth/login","ip":"::1"}
+[2026-03-27 23:30:15] INFO: ::1 - - [28/Mar/2026:05:30:15 +0000] "POST /api/auth/login HTTP/1.1" 500 66 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:32:06] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:32:06] INFO: 📄 Ambiente: development
+[2026-03-27 23:32:06] INFO: MongoDB conectado: localhost
+[2026-03-27 23:32:58] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:32:58] INFO: 📄 Ambiente: development
+[2026-03-27 23:32:58] INFO: MongoDB conectado: localhost
+[2026-03-27 23:33:03] INFO: ::1 - - [28/Mar/2026:05:33:03 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:33:17] INFO: ::1 - - [28/Mar/2026:05:33:17 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 200 4151 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:33:28] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"cliente@demo.com","contrasena":"demo123456"}}
+[2026-03-27 23:33:28] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at login (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:68:19) | META: {"method":"POST","path":"/api/auth/login","ip":"::1"}
+[2026-03-27 23:33:28] INFO: ::1 - - [28/Mar/2026:05:33:28 +0000] "POST /api/auth/login HTTP/1.1" 500 66 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:35:44] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:35:44] INFO: 📄 Ambiente: development
+[2026-03-27 23:35:44] INFO: MongoDB conectado: localhost
+[2026-03-27 23:35:47] INFO: ::1 - - [28/Mar/2026:05:35:47 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:35:47] INFO: ::1 - - [28/Mar/2026:05:35:47 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:35:48] INFO: ::1 - - [28/Mar/2026:05:35:48 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:36:30] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:36:30] INFO: 📄 Ambiente: development
+[2026-03-27 23:36:30] INFO: MongoDB conectado: localhost
+[2026-03-27 23:36:36] INFO: ::1 - - [28/Mar/2026:05:36:36 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:36:38] INFO: ::1 - - [28/Mar/2026:05:36:38 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 200 4151 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:36:47] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"cliente@demo.com","contrasena":"demo123456"}}
+[2026-03-27 23:36:48] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at login (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:68:19) | META: {"method":"POST","path":"/api/auth/login","ip":"::1"}
+[2026-03-27 23:36:48] INFO: ::1 - - [28/Mar/2026:05:36:48 +0000] "POST /api/auth/login HTTP/1.1" 500 66 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:37:42] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"maria@demo.com","contrasena":"demo123456"}}
+[2026-03-27 23:37:42] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at login (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:68:19) | META: {"method":"POST","path":"/api/auth/login","ip":"::1"}
+[2026-03-27 23:37:42] INFO: ::1 - - [28/Mar/2026:05:37:42 +0000] "POST /api/auth/login HTTP/1.1" 500 66 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:38:29] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"Ana","email":"ana@demo.com","contrasena":"Caracol.1","telefono":"8112420500","tipo":"cliente"}}
+[2026-03-27 23:38:29] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at registro (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:32:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) | META: {"method":"POST","path":"/api/auth/registro","ip":"::1"}
+[2026-03-27 23:38:29] INFO: ::1 - - [28/Mar/2026:05:38:29 +0000] "POST /api/auth/registro HTTP/1.1" 500 66 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:39:11] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:39:11] INFO: 📄 Ambiente: development
+[2026-03-27 23:39:11] INFO: MongoDB conectado: localhost
+[2026-03-27 23:43:53] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:43:53] INFO: 📄 Ambiente: development
+[2026-03-27 23:43:53] INFO: MongoDB conectado: localhost
+[2026-03-27 23:44:25] INFO: ::1 - - [28/Mar/2026:05:44:25 +0000] "GET /api/especialistas HTTP/1.1" 200 4151 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:44:31] INFO: ::1 - - [28/Mar/2026:05:44:31 +0000] "GET /api/health HTTP/1.1" 200 69 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:44:34] INFO: ::1 - - [28/Mar/2026:05:44:34 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 200 4151 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:44:42] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"cliente@demo.com","contrasena":"demo123456"}}
+[2026-03-27 23:44:42] INFO: LOGIN exitoso: 69c76a9279155acba2117d14 (cliente@demo.com)
+[2026-03-27 23:44:42] INFO: ::1 - - [28/Mar/2026:05:44:42 +0000] "POST /api/auth/login HTTP/1.1" 200 492 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:45:09] INFO: ::1 - - [28/Mar/2026:05:45:09 +0000] "GET /api/especialistas/69c76a9479155acba2117d30 HTTP/1.1" 200 697 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:45:22] INFO: ::1 - - [28/Mar/2026:05:45:22 +0000] "GET /api/cotizaciones HTTP/1.1" 200 2393 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:46:46] INFO: ::1 - - [28/Mar/2026:05:46:46 +0000] "GET /api/especialistas/69c76a9379155acba2117d24 HTTP/1.1" 200 709 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:48:08] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:48:08] INFO: 📄 Ambiente: development
+[2026-03-27 23:48:08] INFO: MongoDB conectado: localhost
+[2026-03-27 23:48:33] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:48:33] INFO: 📄 Ambiente: development
+[2026-03-27 23:48:33] INFO: MongoDB conectado: localhost
+[2026-03-27 23:48:46] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:48:46] INFO: 📄 Ambiente: development
+[2026-03-27 23:48:46] INFO: MongoDB conectado: localhost
+[2026-03-27 23:53:08] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:53:08] INFO: 📄 Ambiente: development
+[2026-03-27 23:53:08] INFO: MongoDB conectado: localhost
+[2026-03-27 23:53:12] INFO: ::1 - - [28/Mar/2026:05:53:12 +0000] "GET /api/health HTTP/1.1" 200 89 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:53:19] INFO: ::1 - - [28/Mar/2026:05:53:19 +0000] "GET /api/auth/perfil HTTP/1.1" 401 69 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:53:20] INFO: ::1 - - [28/Mar/2026:05:53:20 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 200 4151 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:53:28] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"cliente@demo.com","contrasena":"demo123456"}}
+[2026-03-27 23:53:28] INFO: LOGIN exitoso: 69c76cbd28284d63253275a2 (cliente@demo.com)
+[2026-03-27 23:53:28] INFO: ::1 - - [28/Mar/2026:05:53:28 +0000] "POST /api/auth/login HTTP/1.1" 200 492 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:54:21] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"Ana Lopez","email":"ana@demo.com","contrasena":"Caracol.1","telefono":"8112420500","tipo":"cliente"}}
+[2026-03-27 23:54:21] INFO: REGISTRO nuevo usuario: 69c76d0dbaab3d614bdb2263 (ana@demo.com)
+[2026-03-27 23:54:21] INFO: ::1 - - [28/Mar/2026:05:54:21 +0000] "POST /api/auth/registro HTTP/1.1" 201 492 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:54:56] INFO: ::1 - - [28/Mar/2026:05:54:56 +0000] "GET /api/cotizaciones HTTP/1.1" 200 67 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:55:42] INFO: TRANSACCION [COTIZACION_NUEVA] | META: {"userId":"69c76d0dbaab3d614bdb2263","ip":"::1","body":{"descripcion":"Mi puerta se ha roto y necesito una nueva","categoria":"Carpintería","ubicacion":"Misuri 125, Colonia Perdida, 66677","fecha_preferida":"2026-03-30"}}
+[2026-03-27 23:55:42] INFO: COTIZACION creada: 69c76d5ebaab3d614bdb2269 por cliente 69c76d0dbaab3d614bdb2263
+[2026-03-27 23:55:42] INFO: ::1 - - [28/Mar/2026:05:55:42 +0000] "POST /api/cotizaciones HTTP/1.1" 201 483 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:55:51] INFO: ::1 - - [28/Mar/2026:05:55:51 +0000] "GET /api/cotizaciones HTTP/1.1" 200 596 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:56:26] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"juan@multiservicios.mx","contrasena":"tecnico123456"}}
+[2026-03-27 23:56:26] INFO: LOGIN exitoso: 69c76cbe28284d63253275b4 (juan@multiservicios.mx)
+[2026-03-27 23:56:26] INFO: ::1 - - [28/Mar/2026:05:56:26 +0000] "POST /api/auth/login HTTP/1.1" 200 499 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-27 23:57:02] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-27 23:57:02] INFO: 📄 Ambiente: development
+[2026-03-27 23:57:02] INFO: MongoDB conectado: localhost
+[2026-03-28 00:00:05] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-28 00:00:05] INFO: 📄 Ambiente: development
+[2026-03-28 00:00:05] INFO: MongoDB conectado: localhost
+[2026-03-28 00:00:07] INFO: ::1 - - [28/Mar/2026:06:00:07 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 200 4151 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 00:00:09] INFO: ::1 - - [28/Mar/2026:06:00:09 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 00:00:10] INFO: ::1 - - [28/Mar/2026:06:00:10 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 00:00:22] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"ana@demo.com","contrasena":"Caracol.1"}}
+[2026-03-28 00:00:22] WARN: LOGIN fallido para email: ana@demo.com | META: {"ip":"::1"}
+[2026-03-28 00:00:22] INFO: ::1 - - [28/Mar/2026:06:00:22 +0000] "POST /api/auth/login HTTP/1.1" 401 55 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 00:00:34] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"cliente@demo.com","contrasena":"Caracol.1"}}
+[2026-03-28 00:00:35] WARN: LOGIN fallido para email: cliente@demo.com | META: {"ip":"::1"}
+[2026-03-28 00:00:35] INFO: ::1 - - [28/Mar/2026:06:00:35 +0000] "POST /api/auth/login HTTP/1.1" 401 55 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 00:00:45] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"cliente@demo.com","contrasena":"demo123456"}}
+[2026-03-28 00:00:45] INFO: LOGIN exitoso: 69c76e50d70b78d728ef6c7a (cliente@demo.com)
+[2026-03-28 00:00:45] INFO: ::1 - - [28/Mar/2026:06:00:45 +0000] "POST /api/auth/login HTTP/1.1" 200 492 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 00:00:54] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-28 00:00:54] INFO: 📄 Ambiente: development
+[2026-03-28 00:00:54] INFO: MongoDB conectado: localhost
+[2026-03-28 19:10:09] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-28 19:10:09] INFO: 📄 Ambiente: development
+[2026-03-28 19:10:09] INFO: MongoDB conectado: localhost
+[2026-03-28 19:10:28] INFO: ::1 - - [29/Mar/2026:01:10:28 +0000] "GET /api/auth/perfil HTTP/1.1" 200 281 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 19:10:31] INFO: ::1 - - [29/Mar/2026:01:10:31 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 19:10:38] INFO: ::1 - - [29/Mar/2026:01:10:38 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 19:10:42] INFO: ::1 - - [29/Mar/2026:01:10:42 +0000] "GET /api/health HTTP/1.1" 200 89 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 19:10:42] INFO: ::1 - - [29/Mar/2026:01:10:42 +0000] "GET /favicon.ico HTTP/1.1" 404 66 "http://localhost:3001/api/health" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 OPR/128.0.0.0"
+[2026-03-28 19:17:21] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-03-28 19:17:21] INFO: 📄 Ambiente: development
+[2026-03-28 19:17:21] INFO: MongoDB conectado: localhost

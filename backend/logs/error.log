@@ -1,0 +1,21 @@
+[2026-03-27 23:30:15] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at login (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:68:19) | META: {"method":"POST","path":"/api/auth/login","ip":"::1"}
+[2026-03-27 23:33:28] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at login (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:68:19) | META: {"method":"POST","path":"/api/auth/login","ip":"::1"}
+[2026-03-27 23:36:48] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at login (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:68:19) | META: {"method":"POST","path":"/api/auth/login","ip":"::1"}
+[2026-03-27 23:37:42] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at login (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:68:19) | META: {"method":"POST","path":"/api/auth/login","ip":"::1"}
+[2026-03-27 23:38:29] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
+    at registro (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:32:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) | META: {"method":"POST","path":"/api/auth/registro","ip":"::1"}
