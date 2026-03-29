@@ -36,8 +36,6 @@ cd frontend
 npm install
 ```
 
-Crear el archivo de variables de entorno desde CMD:
-
 ```bash
 # 3. Crear el archivo de variables de entorno desde CMD:
 
