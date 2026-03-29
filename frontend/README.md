@@ -34,14 +34,12 @@ cd frontend
 
 # 2. Instalar dependencias
 npm install
-
-# 3. Crear archivo de variables de entorno
 ```
 
-Crea un archivo `.env` en la raíz de `frontend/` con el siguiente contenido:
+Crear el archivo de variables de entorno desde CMD:
 
-```env
-VITE_API_URL=http://localhost:3001/api
+```bash
+echo VITE_API_URL=http://localhost:3001/api > .env
 ```
 
 ```bash
