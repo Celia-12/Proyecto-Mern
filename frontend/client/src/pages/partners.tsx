@@ -1,22 +1,67 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState, useMemo } from "react";
+import { Link, useSearch } from "wouter";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Link, useSearch } from "wouter";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import type { ServiceCategory, Specialist } from "@shared/schema";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Search,
   Star,
   CheckCircle,
   MapPin,
-  Calendar,
+  Clock,
   ArrowRight,
+  Wrench,
+  AlertCircle,
 } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useEspecialistas } from "@/hooks/useApi";
+
+const ESPECIALIDADES = [
+  "Plomería",
+  "Electricidad",
+  "Carpintería",
+  "Cerrajería",
+  "Aire Acondicionado",
+  "Mantenimiento General",
+];
+
+const SPECIALTY_ICONS: Record<string, string> = {
+  "Plomería": "💧",
+  "Electricidad": "⚡",
+  "Carpintería": "🔨",
+  "Cerrajería": "🔐",
+  "Aire Acondicionado": "❄️",
+  "Mantenimiento General": "🔧",
+};
+
+function EspecialistaSkeleton() {
+  return (
+    <Card className="p-6">
+      <div className="flex items-start gap-4">
+        <Skeleton className="w-14 h-14 rounded-full shrink-0" />
+        <div className="flex-1 space-y-2">
+          <Skeleton className="h-5 w-36" />
+          <Skeleton className="h-4 w-24" />
+          <Skeleton className="h-4 w-full" />
+          <div className="flex gap-2 pt-1">
+            <Skeleton className="h-6 w-20 rounded-full" />
+            <Skeleton className="h-6 w-20 rounded-full" />
+          </div>
+        </div>
+      </div>
+      <Skeleton className="h-9 w-full mt-4" />
+    </Card>
+  );
+}
 
 export default function Partners() {
   const searchString = useSearch();
@@ -26,46 +71,48 @@ export default function Partners() {
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState(initialCategory);
 
-  const { data: specialists, isLoading } = useQuery<Specialist[]>({
-    queryKey: ["/api/specialists"],
+  const { data, isLoading, isError, refetch } = useEspecialistas({
+    disponible: true,
   });
 
-  const { data: categories } = useQuery<ServiceCategory[]>({
-    queryKey: ["/api/categories"],
-  });
+  const especialistas = data?.especialistas ?? [];
 
   const filtered = useMemo(() => {
-    if (!specialists) return [];
-    let result = specialists;
+    let result = especialistas;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       result = result.filter(
         (s) =>
-          s.name.toLowerCase().includes(q) ||
-          s.location.toLowerCase().includes(q) ||
-          s.specialties?.some((sp) => sp.toLowerCase().includes(q))
+          s.usuario_id?.nombre?.toLowerCase().includes(q) ||
+          s.especialidad.toLowerCase().includes(q) ||
+          s.ubicacion.toLowerCase().includes(q)
       );
     }
     if (categoryFilter && categoryFilter !== "all") {
-      result = result.filter((s) => s.categoryId === categoryFilter);
+      result = result.filter((s) => s.especialidad === categoryFilter);
     }
     return result;
-  }, [specialists, searchQuery, categoryFilter]);
+  }, [especialistas, searchQuery, categoryFilter]);
 
   return (
     <div className="min-h-screen">
+      {/* Header */}
       <section className="bg-card border-b py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-partners-title">
-              Nuestros Socios
+            <h1
+              className="text-3xl md:text-4xl font-bold tracking-tight"
+              data-testid="text-partners-title"
+            >
+              Nuestros Especialistas
             </h1>
             <p className="text-muted-foreground leading-relaxed">
-              Especialistas verificados y certificados listos para ayudarte
-              con cualquier proyecto tecnico.
+              Técnicos verificados y certificados listos para ayudarte con
+              cualquier proyecto en el área metropolitana de Monterrey.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 max-w-lg">
+            {/* Filters */}
+            <div className="flex flex-wrap items-center gap-3 max-w-xl pt-2">
               <div className="flex-1 min-w-[200px] relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -78,14 +125,14 @@ export default function Partners() {
                 />
               </div>
               <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="w-[180px]" data-testid="select-category-filter">
-                  <SelectValue placeholder="Categoria" />
+                <SelectTrigger className="w-[200px]">
+                  <SelectValue placeholder="Todas las especialidades" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todas</SelectItem>
-                  {categories?.map((cat) => (
-                    <SelectItem key={cat.id} value={cat.id}>
-                      {cat.name}
+                  <SelectItem value="all">Todas las especialidades</SelectItem>
+                  {ESPECIALIDADES.map((esp) => (
+                    <SelectItem key={esp} value={esp}>
+                      {SPECIALTY_ICONS[esp]} {esp}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -95,100 +142,157 @@ export default function Partners() {
         </div>
       </section>
 
+      {/* Grid */}
       <section className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Stats bar */}
+          {!isLoading && !isError && (
+            <div className="flex items-center justify-between mb-8">
+              <p className="text-sm text-muted-foreground">
+                {filtered.length === 0
+                  ? "Sin resultados"
+                  : `${filtered.length} especialista${filtered.length !== 1 ? "s" : ""} encontrado${filtered.length !== 1 ? "s" : ""}`}
+              </p>
+              {(searchQuery || categoryFilter !== "all") && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setCategoryFilter("all");
+                  }}
+                >
+                  Limpiar filtros
+                </Button>
+              )}
+            </div>
+          )}
+
+          {/* Error state */}
+          {isError && (
+            <div className="flex flex-col items-center justify-center py-20 gap-4 text-center">
+              <AlertCircle className="w-12 h-12 text-destructive/50" />
+              <p className="text-muted-foreground">
+                No se pudo cargar la lista de especialistas.
+              </p>
+              <Button variant="outline" onClick={() => refetch()}>
+                Intentar de nuevo
+              </Button>
+            </div>
+          )}
+
+          {/* Skeleton loading */}
+          {isLoading && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <Card key={i} className="p-5">
-                  <div className="flex items-start gap-4">
-                    <Skeleton className="w-14 h-14 rounded-full shrink-0" />
-                    <div className="flex-1 space-y-2">
-                      <Skeleton className="h-4 w-32" />
-                      <Skeleton className="h-3 w-24" />
-                      <Skeleton className="h-3 w-full" />
-                    </div>
-                  </div>
-                </Card>
+                <EspecialistaSkeleton key={i} />
               ))}
             </div>
-          ) : filtered.length === 0 ? (
-            <div className="text-center py-16 space-y-4">
-              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-muted mx-auto">
-                <Search className="w-6 h-6 text-muted-foreground" />
-              </div>
-              <h3 className="text-lg font-semibold">No se encontraron especialistas</h3>
-              <p className="text-muted-foreground text-sm">
-                Intenta con otros terminos de busqueda o cambia la categoria
+          )}
+
+          {/* Empty state */}
+          {!isLoading && !isError && filtered.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-20 gap-4 text-center">
+              <Wrench className="w-12 h-12 text-muted-foreground/30" />
+              <p className="font-medium">Sin especialistas para tu búsqueda</p>
+              <p className="text-sm text-muted-foreground max-w-xs">
+                Intenta cambiar los filtros o busca otra especialidad.
               </p>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filtered.map((specialist) => (
+          )}
+
+          {/* Specialist cards */}
+          {!isLoading && !isError && filtered.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map((esp) => (
                 <Card
-                  key={specialist.id}
-                  className="p-5 hover-elevate active-elevate-2 transition-all"
-                  data-testid={`card-partner-${specialist.id}`}
+                  key={esp._id}
+                  className="p-6 flex flex-col gap-4 hover:shadow-md transition-shadow"
+                  data-testid={`card-specialist-${esp._id}`}
                 >
                   <div className="flex items-start gap-4">
-                    <Avatar className="w-14 h-14 shrink-0">
-                      <AvatarImage src={specialist.avatar || undefined} alt={specialist.name} />
-                      <AvatarFallback className="text-base font-semibold bg-primary/10 text-primary">
-                        {specialist.name.split(" ").map(n => n[0]).join("")}
-                      </AvatarFallback>
-                    </Avatar>
+                    <div className="relative">
+                      <Avatar className="w-14 h-14 border-2 border-border">
+                        <AvatarImage src={esp.usuario_id?.foto ?? undefined} />
+                        <AvatarFallback className="bg-primary/10 text-primary font-semibold">
+                          {esp.usuario_id?.nombre
+                            ?.split(" ")
+                            .map((n) => n[0])
+                            .join("")
+                            .toUpperCase()
+                            .slice(0, 2) ?? "??"}
+                        </AvatarFallback>
+                      </Avatar>
+                      {esp.verificado && (
+                        <div className="absolute -bottom-1 -right-1 bg-background rounded-full p-0.5">
+                          <CheckCircle className="w-4 h-4 text-primary fill-primary/20" />
+                        </div>
+                      )}
+                    </div>
 
-                    <div className="flex-1 min-w-0 space-y-2">
-                      <div>
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <h3 className="font-semibold text-sm truncate">{specialist.name}</h3>
-                          {specialist.verified && (
-                            <CheckCircle className="w-3.5 h-3.5 text-primary shrink-0" />
-                          )}
-                        </div>
-                        <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-3 h-3" />
-                            {specialist.location}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-3 h-3" />
-                            {specialist.yearsExperience} anos
-                          </span>
-                        </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <h3 className="font-semibold truncate">
+                          {esp.usuario_id?.nombre ?? "Especialista"}
+                        </h3>
+                        <Badge
+                          variant={esp.disponible ? "default" : "secondary"}
+                          className="shrink-0 text-xs"
+                        >
+                          {esp.disponible ? "Disponible" : "Ocupado"}
+                        </Badge>
                       </div>
 
-                      <div className="flex items-center gap-1.5">
-                        <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium">{specialist.rating}</span>
+                      <p className="text-sm text-primary font-medium mt-0.5">
+                        {SPECIALTY_ICONS[esp.especialidad]} {esp.especialidad}
+                      </p>
+
+                      {/* Rating */}
+                      <div className="flex items-center gap-1 mt-1">
+                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <span className="text-sm font-medium">
+                          {esp.calificacion_promedio.toFixed(1)}
+                        </span>
                         <span className="text-xs text-muted-foreground">
-                          ({specialist.reviewCount} resenas)
+                          ({esp.total_resenas} reseñas)
                         </span>
                       </div>
-
-                      <div className="flex flex-wrap gap-1">
-                        {specialist.specialties?.map((s) => (
-                          <Badge key={s} variant="secondary" className="text-xs">
-                            {s}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-2 pt-1">
-                        <Badge
-                          variant={specialist.available ? "default" : "secondary"}
-                          className="text-xs"
-                        >
-                          {specialist.available ? "Disponible" : "Ocupado"}
-                        </Badge>
-                        <Link href={`/cotizacion?categoria=${categories?.find(c => c.id === specialist.categoryId)?.slug}&especialista=${specialist.id}`}>
-                          <Button variant="ghost" size="sm" data-testid={`button-contact-${specialist.id}`}>
-                            Contactar
-                            <ArrowRight className="w-3 h-3 ml-1" />
-                          </Button>
-                        </Link>
-                      </div>
                     </div>
+                  </div>
+
+                  {/* Bio */}
+                  {esp.bio && (
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                      {esp.bio}
+                    </p>
+                  )}
+
+                  {/* Meta chips */}
+                  <div className="flex flex-wrap gap-2">
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <MapPin className="w-3 h-3" />
+                      {esp.ubicacion}
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Clock className="w-3 h-3" />
+                      {esp.experiencia_anos} años exp.
+                    </div>
+                    <Badge variant="outline" className="text-xs">
+                      ${esp.precio_hora}/hr
+                    </Badge>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-2 mt-auto pt-2 border-t">
+                    <Link
+                      href={`/cotizacion?especialista=${esp._id}`}
+                      className="flex-1"
+                    >
+                      <Button size="sm" className="w-full gap-1">
+                        Contratar
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Button>
+                    </Link>
                   </div>
                 </Card>
               ))}
