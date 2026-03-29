@@ -43,7 +43,7 @@ Edita el archivo `.env` con tus valores:
 ```env
 PORT=3001
 MONGODB_URI=mongodb://localhost:27017/multiservicios
-JWT_SECRET=escribe_aqui_una_clave_secreta_larga
+JWT_SECRET=MultiserviciosTecnicos2026
 JWT_EXPIRES_IN=7d
 NODE_ENV=development
 FRONTEND_URL=http://localhost:3000
