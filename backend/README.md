@@ -58,6 +58,7 @@ npm run dev
 ```
 
 El servidor estará disponible en: `http://localhost:3001`
+Para ver su estado: `http://localhost:3001/api/health`
 
 ---
 
