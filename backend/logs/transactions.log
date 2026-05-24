@@ -188,3 +188,500 @@
 [2026-03-28 19:17:21] INFO: 🚀 Servidor corriendo en http://localhost:3001
 [2026-03-28 19:17:21] INFO: 📄 Ambiente: development
 [2026-03-28 19:17:21] INFO: MongoDB conectado: localhost
+[2026-05-23 18:22:20] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 18:22:20] INFO: 📄 Ambiente: development
+[2026-05-23 18:22:20] INFO: MongoDB conectado: localhost
+[2026-05-23 18:28:07] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"Eduardo Abundis","email":"eduarabundis@gmail.com","contrasena":"l4c3d3m0n!A","telefono":"8120077860","tipo":"cliente"}}
+[2026-05-23 18:28:08] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\Eduardo\Documents\GitHub\Proyecto-Mern\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\Eduardo\Documents\GitHub\Proyecto-Mern\backend\src\controllers\authController.js:6:7)
+    at registro (C:\Users\Eduardo\Documents\GitHub\Proyecto-Mern\backend\src\controllers\authController.js:32:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) | META: {"method":"POST","path":"/api/auth/registro","ip":"::1"}
+[2026-05-23 18:28:08] INFO: ::1 - - [24/May/2026:00:28:08 +0000] "POST /api/auth/registro HTTP/1.1" 500 66 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:30:47] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 18:30:47] INFO: 📄 Ambiente: development
+[2026-05-23 18:30:47] INFO: MongoDB conectado: localhost
+[2026-05-23 18:30:55] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"Eduardo Abundis","email":"eduarabundis@gmail.com","contrasena":"l4c3d3m0n!A","telefono":"8120077860","tipo":"cliente"}}
+[2026-05-23 18:30:55] INFO: ::1 - - [24/May/2026:00:30:55 +0000] "POST /api/auth/registro HTTP/1.1" 409 65 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:33:28] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"Eduardo Abundis Quiroga","email":"eduardodoria@gmail.com","contrasena":"l4c3d3m0n!A","telefono":"8120077860","tipo":"cliente"}}
+[2026-05-23 18:33:28] INFO: REGISTRO nuevo usuario: 6a1247588c85f887d37c5bd7 (eduardodoria@gmail.com)
+[2026-05-23 18:33:28] INFO: ::1 - - [24/May/2026:00:33:28 +0000] "POST /api/auth/registro HTTP/1.1" 201 516 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:33:38] INFO: ::1 - - [24/May/2026:00:33:38 +0000] "GET /api/cotizaciones HTTP/1.1" 200 67 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:41:36] INFO: ::1 - - [24/May/2026:00:41:36 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 200 4151 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:44:24] INFO: ::1 - - [24/May/2026:00:44:24 +0000] "GET /api/auth/perfil HTTP/1.1" 200 295 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:44:25] INFO: ::1 - - [24/May/2026:00:44:25 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:45:02] INFO: ::1 - - [24/May/2026:00:45:02 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:45:06] INFO: ::1 - - [24/May/2026:00:45:06 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:50:12] INFO: TRANSACCION [COTIZACION_NUEVA] | META: {"userId":"6a1247588c85f887d37c5bd7","ip":"::1","body":{"descripcion":"siasdasdasdasdasd","categoria":"Plomería","ubicacion":"pin pon papas","fecha_preferida":"2027-05-23"}}
+[2026-05-23 18:50:12] INFO: COTIZACION creada: 6a124b448c85f887d37c5be6 por cliente 6a1247588c85f887d37c5bd7
+[2026-05-23 18:50:12] INFO: ::1 - - [24/May/2026:00:50:12 +0000] "POST /api/cotizaciones HTTP/1.1" 201 435 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 18:50:20] INFO: ::1 - - [24/May/2026:00:50:20 +0000] "GET /api/cotizaciones HTTP/1.1" 200 572 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:36:16] INFO: ::1 - - [24/May/2026:01:36:16 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:36:16] INFO: ::1 - - [24/May/2026:01:36:16 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:36:20] INFO: ::1 - - [24/May/2026:01:36:20 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:36:20] INFO: ::1 - - [24/May/2026:01:36:20 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:37:00] INFO: ::1 - - [24/May/2026:01:37:00 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:37:00] INFO: ::1 - - [24/May/2026:01:37:00 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:37:00] INFO: ::1 - - [24/May/2026:01:37:00 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:37:00] INFO: ::1 - - [24/May/2026:01:37:00 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:41:49] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 19:41:49] INFO: 📄 Ambiente: development
+[2026-05-23 19:41:49] INFO: MongoDB conectado: localhost
+[2026-05-23 19:43:10] INFO: ::1 - - [24/May/2026:01:43:10 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:43:10] INFO: ::1 - - [24/May/2026:01:43:10 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:45:06] INFO: ::1 - - [24/May/2026:01:45:06 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:45:06] INFO: ::1 - - [24/May/2026:01:45:06 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:46:00] INFO: COTIZACION actualizada: 6a124b448c85f887d37c5be6 -> estado: rechazada
+[2026-05-23 19:46:00] INFO: ::1 - - [24/May/2026:01:46:00 +0000] "PUT /api/cotizaciones/6a124b448c85f887d37c5be6 HTTP/1.1" 200 435 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:46:00] INFO: ::1 - - [24/May/2026:01:46:00 +0000] "GET /api/cotizaciones HTTP/1.1" 200 572 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:46:04] INFO: ::1 - - [24/May/2026:01:46:04 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:46:04] INFO: ::1 - - [24/May/2026:01:46:04 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:46:05] INFO: ::1 - - [24/May/2026:01:46:05 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:46:05] INFO: ::1 - - [24/May/2026:01:46:05 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:47:22] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 19:47:22] INFO: 📄 Ambiente: development
+[2026-05-23 19:47:22] INFO: MongoDB conectado: localhost
+[2026-05-23 19:47:43] INFO: ::1 - - [24/May/2026:01:47:43 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:48:12] INFO: ::1 - - [24/May/2026:01:48:12 +0000] "GET /api/especialistas/69efb848af0fd2424bd84b12 HTTP/1.1" 200 708 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:49:18] INFO: TRANSACCION [COTIZACION_NUEVA] | META: {"userId":"6a1247588c85f887d37c5bd7","ip":"::1","body":{"descripcion":"cuando le pico al contacto con un tenedor, me da toques","categoria":"Electricidad","ubicacion":"vicente guerrero 2607 lomas de tolteca","fecha_preferida":"2027-12-02"}}
+[2026-05-23 19:49:18] INFO: COTIZACION creada: 6a12591e7b6311de14845a07 por cliente 6a1247588c85f887d37c5bd7
+[2026-05-23 19:49:18] INFO: ::1 - - [24/May/2026:01:49:18 +0000] "POST /api/cotizaciones HTTP/1.1" 201 501 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:49:22] INFO: ::1 - - [24/May/2026:01:49:22 +0000] "GET /api/cotizaciones HTTP/1.1" 200 1144 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:52:10] INFO: ::1 - - [24/May/2026:01:52:10 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:52:10] INFO: ::1 - - [24/May/2026:01:52:10 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:54:23] INFO: ::1 - - [24/May/2026:01:54:23 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:54:26] INFO: ::1 - - [24/May/2026:01:54:26 +0000] "GET /api/especialistas/69efb848af0fd2424bd84b1e HTTP/1.1" 200 696 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:59:16] INFO: ::1 - - [24/May/2026:01:59:16 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 19:59:29] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 19:59:29] INFO: 📄 Ambiente: development
+[2026-05-23 19:59:29] INFO: MongoDB conectado: localhost
+[2026-05-23 20:02:03] INFO: ::1 - - [24/May/2026:02:02:03 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:19:04] INFO: ::1 - - [24/May/2026:02:19:04 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:20:17] INFO: ::1 - - [24/May/2026:02:20:17 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:21:36] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"Jesus de Nazaret","email":"jesus@gmail.com","contrasena":"l4c3d3m0n!A","tipo":"tecnico"}}
+[2026-05-23 20:21:36] INFO: REGISTRO nuevo usuario: 6a1260b08d6ad65840d1d311 (jesus@gmail.com)
+[2026-05-23 20:21:36] INFO: ::1 - - [24/May/2026:02:21:36 +0000] "POST /api/auth/registro HTTP/1.1" 201 478 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:23:54] INFO: ::1 - - [24/May/2026:02:23:54 +0000] "GET /api/cotizaciones HTTP/1.1" 200 8168 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:25:37] INFO: ::1 - - [24/May/2026:02:25:37 +0000] "GET /api/auth/perfil HTTP/1.1" 200 257 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:25:37] INFO: ::1 - - [24/May/2026:02:25:37 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:26:38] INFO: ::1 - - [24/May/2026:02:26:38 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:26:38] INFO: ::1 - - [24/May/2026:02:26:38 +0000] "GET /api/cotizaciones HTTP/1.1" 200 638 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:28:43] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 20:28:43] INFO: 📄 Ambiente: development
+[2026-05-23 20:28:43] INFO: MongoDB conectado: localhost
+[2026-05-23 20:39:46] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 20:39:46] INFO: 📄 Ambiente: development
+[2026-05-23 20:39:46] INFO: MongoDB conectado: localhost
+[2026-05-23 20:43:08] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"Jesús de Nazaret","email":"jesus@gmail.com","contrasena":"l4c3d3m0n!A","tipo":"tecnico","especialidad":"Carpintero"}}
+[2026-05-23 20:43:08] INFO: ::1 - - [24/May/2026:02:43:08 +0000] "POST /api/auth/registro HTTP/1.1" 409 65 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:43:17] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"Jesús de Nazaret","email":"jesus@carpintero.com","contrasena":"l4c3d3m0n!A","tipo":"tecnico","especialidad":"Carpintero"}}
+[2026-05-23 20:43:18] INFO: REGISTRO nuevo usuario: 6a1265c57f3dbcc7067449b0 (jesus@carpintero.com)
+[2026-05-23 20:43:18] INFO: ::1 - - [24/May/2026:02:43:18 +0000] "POST /api/auth/registro HTTP/1.1" 201 512 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:43:23] INFO: ::1 - - [24/May/2026:02:43:23 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:47:31] INFO: ::1 - - [24/May/2026:02:47:31 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:54:38] INFO: ::1 - - [24/May/2026:02:54:38 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 20:58:48] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 20:58:48] INFO: 📄 Ambiente: development
+[2026-05-23 20:58:48] INFO: MongoDB conectado: localhost
+[2026-05-23 21:00:29] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 21:00:29] INFO: 📄 Ambiente: development
+[2026-05-23 21:00:29] INFO: MongoDB conectado: localhost
+[2026-05-23 21:00:34] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 21:00:34] INFO: 📄 Ambiente: development
+[2026-05-23 21:00:34] INFO: MongoDB conectado: localhost
+[2026-05-23 21:00:45] INFO: ::1 - - [24/May/2026:03:00:45 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 21:03:34] INFO: ::1 - - [24/May/2026:03:03:34 +0000] "GET /api/auth/perfil HTTP/1.1" 200 291 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 21:03:34] INFO: ::1 - - [24/May/2026:03:03:34 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 21:04:44] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 21:04:44] INFO: 📄 Ambiente: development
+[2026-05-23 21:04:44] INFO: MongoDB conectado: localhost
+[2026-05-23 21:08:34] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 21:08:34] INFO: 📄 Ambiente: development
+[2026-05-23 21:08:34] INFO: MongoDB conectado: localhost
+[2026-05-23 21:17:30] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 21:17:30] INFO: 📄 Ambiente: development
+[2026-05-23 21:17:30] INFO: MongoDB conectado: localhost
+[2026-05-23 21:17:49] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 21:17:49] INFO: 📄 Ambiente: development
+[2026-05-23 21:17:49] INFO: MongoDB conectado: localhost
+[2026-05-23 21:18:08] INFO: ::1 - - [24/May/2026:03:18:08 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 21:18:12] INFO: ::1 - - [24/May/2026:03:18:12 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 21:21:09] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-23 21:21:09] INFO: 📄 Ambiente: development
+[2026-05-23 21:21:09] INFO: MongoDB conectado: localhost
+[2026-05-23 21:21:17] INFO: ::1 - - [24/May/2026:03:21:17 +0000] "GET /api/auth/perfil HTTP/1.1" 200 302 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 21:21:20] INFO: ::1 - - [24/May/2026:03:21:20 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 22:24:20] INFO: ::1 - - [24/May/2026:04:24:20 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 22:24:20] INFO: ::1 - - [24/May/2026:04:24:20 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-23 22:24:41] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"jesus@carpintero.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-23 22:24:42] INFO: LOGIN exitoso: 6a1265c57f3dbcc7067449b0 (jesus@carpintero.com)
+[2026-05-23 22:24:42] INFO: ::1 - - [24/May/2026:04:24:42 +0000] "POST /api/auth/login HTTP/1.1" 200 513 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:05:35] INFO: PERFIL actualizado: 6a1265c57f3dbcc7067449b0
+[2026-05-24 00:05:35] INFO: ::1 - - [24/May/2026:06:05:35 +0000] "PUT /api/auth/perfil HTTP/1.1" 200 310 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:05:52] INFO: ::1 - - [24/May/2026:06:05:52 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:05:58] INFO: ::1 - - [24/May/2026:06:05:58 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:07:46] INFO: ::1 - - [24/May/2026:06:07:46 +0000] "GET /api/auth/perfil HTTP/1.1" 200 310 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:09:17] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 00:09:17] INFO: 📄 Ambiente: development
+[2026-05-24 00:09:17] INFO: MongoDB conectado: localhost
+[2026-05-24 00:10:24] INFO: ::1 - - [24/May/2026:06:10:24 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:10:31] INFO: ::1 - - [24/May/2026:06:10:31 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:10:52] INFO: ::1 - - [24/May/2026:06:10:52 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:11:08] INFO: ::1 - - [24/May/2026:06:11:08 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:11:08] INFO: ::1 - - [24/May/2026:06:11:08 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:11:56] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 00:11:56] INFO: 📄 Ambiente: development
+[2026-05-24 00:11:56] INFO: MongoDB conectado: localhost
+[2026-05-24 00:11:56] INFO: ::1 - - [24/May/2026:06:11:56 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:12:19] INFO: ::ffff:127.0.0.1 - - [24/May/2026:06:12:19 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 200 659 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:23:34] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 00:23:34] INFO: 📄 Ambiente: development
+[2026-05-24 00:23:34] INFO: MongoDB conectado: localhost
+[2026-05-24 00:40:44] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 00:40:44] INFO: 📄 Ambiente: development
+[2026-05-24 00:40:44] INFO: MongoDB conectado: localhost
+[2026-05-24 00:40:44] INFO: MongoDB conectado: localhost
+[2026-05-24 00:41:50] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"jesus@carpintero.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 00:41:50] INFO: LOGIN exitoso: 6a1265c57f3dbcc7067449b0 (jesus@carpintero.com)
+[2026-05-24 00:41:50] INFO: ::1 - - [24/May/2026:06:41:50 +0000] "POST /api/auth/login HTTP/1.1" 200 521 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:41:53] INFO: ::1 - - [24/May/2026:06:41:53 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 200 673 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:41:54] INFO: ::1 - - [24/May/2026:06:41:54 +0000] "GET /api/cotizaciones/6a12591e7b6311de14845a07 HTTP/1.1" 200 615 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:56:51] INFO: ::1 - - [24/May/2026:06:56:51 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 00:56:53] INFO: ::1 - - [24/May/2026:06:56:53 +0000] "GET /api/cotizaciones HTTP/1.1" 200 652 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:04:46] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"don plomerio","email":"plomerio@gmail.com","contrasena":"l4c3d3m0n!A","telefono":"8120077860","tipo":"tecnico","especialidad":"Plomero"}}
+[2026-05-24 01:04:46] INFO: REGISTRO nuevo usuario: 6a12a30e5e51e814c444cefd (plomerio@gmail.com)
+[2026-05-24 01:04:46] INFO: ::1 - - [24/May/2026:07:04:46 +0000] "POST /api/auth/registro HTTP/1.1" 201 537 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:04:58] INFO: ::1 - - [24/May/2026:07:04:58 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:05:10] INFO: ::1 - - [24/May/2026:07:05:10 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:05:13] INFO: ::1 - - [24/May/2026:07:05:13 +0000] "GET /api/cotizaciones/6a12591e7b6311de14845a07 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:05:29] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 01:05:29] INFO: 📄 Ambiente: development
+[2026-05-24 01:05:29] INFO: MongoDB conectado: localhost
+[2026-05-24 01:05:29] INFO: ::1 - - [24/May/2026:07:05:29 +0000] "GET /api/auth/perfil HTTP/1.1" 200 316 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:05:29] INFO: ::1 - - [24/May/2026:07:05:29 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:06:09] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::ffff:127.0.0.1","body":{"email":"eduardodoria@gmail.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 01:06:09] INFO: LOGIN exitoso: 6a1247588c85f887d37c5bd7 (eduardodoria@gmail.com)
+[2026-05-24 01:06:09] INFO: ::ffff:127.0.0.1 - - [24/May/2026:07:06:09 +0000] "POST /api/auth/login HTTP/1.1" 200 537 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:06:15] INFO: ::ffff:127.0.0.1 - - [24/May/2026:07:06:15 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:10:46] WARN: [422] El código postal es requerido | META: {"method":"POST","path":"/api/cotizaciones/6a12591e7b6311de14845a07/imagenes","userId":"6a1247588c85f887d37c5bd7"}
+[2026-05-24 01:10:46] INFO: ::1 - - [24/May/2026:07:10:46 +0000] "POST /api/cotizaciones/6a12591e7b6311de14845a07/imagenes HTTP/1.1" 422 630 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:12:14] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 01:12:14] INFO: 📄 Ambiente: development
+[2026-05-24 01:12:14] INFO: MongoDB conectado: localhost
+[2026-05-24 01:12:14] INFO: ::1 - - [24/May/2026:07:12:14 +0000] "GET /api/auth/perfil HTTP/1.1" 200 326 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:12:14] INFO: ::1 - - [24/May/2026:07:12:14 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:12:14] INFO: ::1 - - [24/May/2026:07:12:14 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:12:57] INFO: PERFIL actualizado: 6a1247588c85f887d37c5bd7
+[2026-05-24 01:12:57] INFO: ::ffff:127.0.0.1 - - [24/May/2026:07:12:57 +0000] "PUT /api/auth/perfil HTTP/1.1" 200 350 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:13:03] INFO: ::ffff:127.0.0.1 - - [24/May/2026:07:13:03 +0000] "GET /api/cotizaciones/6a12591e7b6311de14845a07 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:13:09] WARN: [422] El código postal es requerido | META: {"method":"POST","path":"/api/cotizaciones/6a12591e7b6311de14845a07/imagenes","userId":"6a1247588c85f887d37c5bd7"}
+[2026-05-24 01:13:09] INFO: ::ffff:127.0.0.1 - - [24/May/2026:07:13:09 +0000] "POST /api/cotizaciones/6a12591e7b6311de14845a07/imagenes HTTP/1.1" 422 630 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:13:16] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 01:13:16] INFO: 📄 Ambiente: development
+[2026-05-24 01:13:16] INFO: MongoDB conectado: localhost
+[2026-05-24 01:13:35] INFO: ::1 - - [24/May/2026:07:13:35 +0000] "GET /api/auth/perfil HTTP/1.1" 200 350 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:13:35] INFO: ::1 - - [24/May/2026:07:13:35 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:15:11] INFO: ::1 - - [24/May/2026:07:15:11 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:15:11] INFO: ::1 - - [24/May/2026:07:15:11 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:15:11] INFO: ::1 - - [24/May/2026:07:15:11 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:16:12] INFO: ::1 - - [24/May/2026:07:16:12 +0000] "GET /api/cotizaciones/6a12591e7b6311de14845a07 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:16:19] WARN: [422] El código postal es requerido | META: {"method":"POST","path":"/api/cotizaciones/6a12591e7b6311de14845a07/imagenes","userId":"6a1247588c85f887d37c5bd7"}
+[2026-05-24 01:16:19] INFO: ::1 - - [24/May/2026:07:16:19 +0000] "POST /api/cotizaciones/6a12591e7b6311de14845a07/imagenes HTTP/1.1" 422 630 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:16:58] INFO: PERFIL actualizado: 6a1247588c85f887d37c5bd7
+[2026-05-24 01:16:58] INFO: ::1 - - [24/May/2026:07:16:58 +0000] "PUT /api/auth/perfil HTTP/1.1" 200 350 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:17:02] INFO: ::1 - - [24/May/2026:07:17:02 +0000] "GET /api/auth/perfil HTTP/1.1" 200 350 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:17:02] INFO: ::1 - - [24/May/2026:07:17:02 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:17:04] INFO: ::1 - - [24/May/2026:07:17:04 +0000] "GET /api/cotizaciones/6a12591e7b6311de14845a07 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:17:09] WARN: [422] El código postal es requerido | META: {"method":"POST","path":"/api/cotizaciones/6a12591e7b6311de14845a07/imagenes","userId":"6a1247588c85f887d37c5bd7"}
+[2026-05-24 01:17:09] INFO: ::1 - - [24/May/2026:07:17:09 +0000] "POST /api/cotizaciones/6a12591e7b6311de14845a07/imagenes HTTP/1.1" 422 630 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:22:04] WARN: [422] El código postal es requerido | META: {"method":"POST","path":"/api/cotizaciones/6a12591e7b6311de14845a07/imagenes","userId":"6a1247588c85f887d37c5bd7"}
+[2026-05-24 01:22:04] INFO: ::1 - - [24/May/2026:07:22:04 +0000] "POST /api/cotizaciones/6a12591e7b6311de14845a07/imagenes HTTP/1.1" 422 630 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:22:07] INFO: ::1 - - [24/May/2026:07:22:07 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:22:07] INFO: ::1 - - [24/May/2026:07:22:07 +0000] "GET /api/cotizaciones/6a12591e7b6311de14845a07 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:22:12] WARN: [422] El código postal es requerido | META: {"method":"POST","path":"/api/cotizaciones/6a12591e7b6311de14845a07/imagenes","userId":"6a1247588c85f887d37c5bd7"}
+[2026-05-24 01:22:12] INFO: ::1 - - [24/May/2026:07:22:12 +0000] "POST /api/cotizaciones/6a12591e7b6311de14845a07/imagenes HTTP/1.1" 422 630 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:22:19] INFO: ::1 - - [24/May/2026:07:22:19 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:22:25] WARN: [422] El código postal es requerido | META: {"method":"POST","path":"/api/cotizaciones/6a12591e7b6311de14845a07/imagenes","userId":"6a1247588c85f887d37c5bd7"}
+[2026-05-24 01:22:25] INFO: ::1 - - [24/May/2026:07:22:25 +0000] "POST /api/cotizaciones/6a12591e7b6311de14845a07/imagenes HTTP/1.1" 422 630 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:22:44] INFO: COTIZACION actualizada: 6a12591e7b6311de14845a07 -> estado: rechazada
+[2026-05-24 01:22:44] INFO: ::1 - - [24/May/2026:07:22:44 +0000] "PUT /api/cotizaciones/6a12591e7b6311de14845a07 HTTP/1.1" 200 515 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:22:44] INFO: ::1 - - [24/May/2026:07:22:44 +0000] "GET /api/cotizaciones HTTP/1.1" 200 652 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:23:32] INFO: ::1 - - [24/May/2026:07:23:32 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:23:32] INFO: ::1 - - [24/May/2026:07:23:32 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:24:31] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 01:24:31] INFO: 📄 Ambiente: development
+[2026-05-24 01:24:31] INFO: MongoDB conectado: localhost
+[2026-05-24 01:27:50] INFO: ::1 - - [24/May/2026:07:27:50 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:32:43] INFO: TRANSACCION [COTIZACION_NUEVA] | META: {"userId":"6a1247588c85f887d37c5bd7","ip":"::1","body":{"descripcion":"Cuando meto mi tenedor en esa cosa que sirve para conectar cosas, me da toques.","categoria":"Electricidad","ubicacion":"vicente guerrero 2607 lomas de tolteca","codigo_postal":"67178"}}
+[2026-05-24 01:32:43] INFO: COTIZACION creada: 6a12a99be04c49f32b9d3d6e por cliente 6a1247588c85f887d37c5bd7
+[2026-05-24 01:32:43] INFO: Notificados 0 especialistas: 
+[2026-05-24 01:32:43] INFO: ::1 - - [24/May/2026:07:32:43 +0000] "POST /api/cotizaciones HTTP/1.1" 201 609 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:32:56] INFO: ::1 - - [24/May/2026:07:32:56 +0000] "GET /api/cotizaciones HTTP/1.1" 200 1332 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:33:05] INFO: ::1 - - [24/May/2026:07:33:05 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 200 709 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:34:15] INFO: ::1 - - [24/May/2026:07:34:15 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:34:15] INFO: ::1 - - [24/May/2026:07:34:15 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:34:42] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 01:34:42] INFO: 📄 Ambiente: development
+[2026-05-24 01:34:42] INFO: MongoDB conectado: localhost
+[2026-05-24 01:35:01] INFO: ::1 - - [24/May/2026:07:35:01 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:35:01] INFO: ::1 - - [24/May/2026:07:35:01 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:35:01] INFO: ::1 - - [24/May/2026:07:35:01 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:36:07] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"jesus@carpintero.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 01:36:07] INFO: LOGIN exitoso: 6a1265c57f3dbcc7067449b0 (jesus@carpintero.com)
+[2026-05-24 01:36:07] INFO: ::1 - - [24/May/2026:07:36:07 +0000] "POST /api/auth/login HTTP/1.1" 200 521 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:36:10] INFO: ::1 - - [24/May/2026:07:36:10 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:36:14] INFO: ::1 - - [24/May/2026:07:36:14 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 200 767 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:36:53] INFO: ::1 - - [24/May/2026:07:36:53 +0000] "GET /api/auth/perfil HTTP/1.1" 200 310 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:36:53] INFO: ::1 - - [24/May/2026:07:36:53 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:36:53] INFO: ::1 - - [24/May/2026:07:36:53 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:37:29] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 01:37:29] INFO: 📄 Ambiente: development
+[2026-05-24 01:37:29] INFO: MongoDB conectado: localhost
+[2026-05-24 01:37:44] INFO: ::1 - - [24/May/2026:07:37:44 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:37:44] INFO: ::1 - - [24/May/2026:07:37:44 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:38:55] INFO: ::1 - - [24/May/2026:07:38:55 +0000] "POST /api/cotizaciones/6a12a99be04c49f32b9d3d6e/imagenes HTTP/1.1" 403 43 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:40:04] INFO: ::1 - - [24/May/2026:07:40:04 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:42:00] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 01:42:00] INFO: 📄 Ambiente: development
+[2026-05-24 01:42:00] INFO: MongoDB conectado: localhost
+[2026-05-24 01:42:05] INFO: ::1 - - [24/May/2026:07:42:05 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:42:05] INFO: ::1 - - [24/May/2026:07:42:05 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:42:06] INFO: ::1 - - [24/May/2026:07:42:06 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:42:06] INFO: ::1 - - [24/May/2026:07:42:06 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:42:24] INFO: ::1 - - [24/May/2026:07:42:24 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:42:24] INFO: ::1 - - [24/May/2026:07:42:24 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:42:26] INFO: ::1 - - [24/May/2026:07:42:26 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 01:55:55] INFO: ::1 - - [24/May/2026:07:55:55 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:08:28] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 02:08:28] INFO: 📄 Ambiente: development
+[2026-05-24 02:08:28] INFO: MongoDB conectado: localhost
+[2026-05-24 02:10:20] INFO: ::1 - - [24/May/2026:08:10:20 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:13:09] INFO: ::1 - - [24/May/2026:08:13:09 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:13:45] INFO: ::1 - - [24/May/2026:08:13:45 +0000] "GET /api/especialistas?disponible=true HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:17:37] INFO: ::1 - - [24/May/2026:08:17:37 +0000] "GET /api/especialistas HTTP/1.1" 200 4151 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:17:37] INFO: ::1 - - [24/May/2026:08:17:37 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:17:37] INFO: ::1 - - [24/May/2026:08:17:37 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:22:59] INFO: ::1 - - [24/May/2026:08:22:59 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:22:59] INFO: ::1 - - [24/May/2026:08:22:59 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:25:12] INFO: ::1 - - [24/May/2026:08:25:12 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:25:15] INFO: ::1 - - [24/May/2026:08:25:15 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:26:51] INFO: ::1 - - [24/May/2026:08:26:51 +0000] "GET /api/especialistas HTTP/1.1" 200 68 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:26:51] INFO: ::1 - - [24/May/2026:08:26:51 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:27:00] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"eduardodoria@gmail.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 02:27:01] INFO: LOGIN exitoso: 6a1247588c85f887d37c5bd7 (eduardodoria@gmail.com)
+[2026-05-24 02:27:01] INFO: ::1 - - [24/May/2026:08:27:01 +0000] "POST /api/auth/login HTTP/1.1" 200 561 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:29:21] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 02:29:21] INFO: 📄 Ambiente: development
+[2026-05-24 02:29:21] INFO: MongoDB conectado: localhost
+[2026-05-24 02:29:48] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 02:29:48] INFO: 📄 Ambiente: development
+[2026-05-24 02:29:48] INFO: MongoDB conectado: localhost
+[2026-05-24 02:35:40] INFO: ::1 - - [24/May/2026:08:35:40 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:36:13] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"jesus@carpintero.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 02:36:13] INFO: LOGIN exitoso: 6a1265c57f3dbcc7067449b0 (jesus@carpintero.com)
+[2026-05-24 02:36:13] INFO: ::1 - - [24/May/2026:08:36:13 +0000] "POST /api/auth/login HTTP/1.1" 200 521 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:39:09] INFO: ::1 - - [24/May/2026:08:39:09 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:53:07] INFO: ::1 - - [24/May/2026:08:53:07 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:53:59] INFO: ::1 - - [24/May/2026:08:53:59 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:56:12] INFO: ::1 - - [24/May/2026:08:56:12 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 02:56:18] INFO: ::1 - - [24/May/2026:08:56:18 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:08:41] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 03:08:41] INFO: 📄 Ambiente: development
+[2026-05-24 03:08:41] INFO: MongoDB conectado: localhost
+[2026-05-24 03:08:50] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 03:08:50] INFO: 📄 Ambiente: development
+[2026-05-24 03:08:50] INFO: MongoDB conectado: localhost
+[2026-05-24 03:08:58] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 03:08:58] INFO: 📄 Ambiente: development
+[2026-05-24 03:08:58] INFO: MongoDB conectado: localhost
+[2026-05-24 03:09:02] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 03:09:02] INFO: 📄 Ambiente: development
+[2026-05-24 03:09:02] INFO: MongoDB conectado: localhost
+[2026-05-24 03:11:46] INFO: ::1 - - [24/May/2026:09:11:46 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:11:53] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"eduardodoria@gmail.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 03:11:53] INFO: LOGIN exitoso: 6a1247588c85f887d37c5bd7 (eduardodoria@gmail.com)
+[2026-05-24 03:11:53] INFO: ::1 - - [24/May/2026:09:11:53 +0000] "POST /api/auth/login HTTP/1.1" 200 561 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:18:14] INFO: ::1 - - [24/May/2026:09:18:14 +0000] "GET /api/auth/perfil HTTP/1.1" 200 350 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:18:23] INFO: ::1 - - [24/May/2026:09:18:23 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:18:23] INFO: ::1 - - [24/May/2026:09:18:23 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:39:46] INFO: ::1 - - [24/May/2026:09:39:46 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:43:25] INFO: ::1 - - [24/May/2026:09:43:25 +0000] "GET /api/especialistas HTTP/1.1" 200 68 "-" "-"
+[2026-05-24 03:47:27] INFO: ::1 - - [24/May/2026:09:47:27 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:47:32] INFO: ::1 - - [24/May/2026:09:47:32 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:50:24] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 03:50:24] INFO: 📄 Ambiente: development
+[2026-05-24 03:50:24] INFO: MongoDB conectado: localhost
+[2026-05-24 03:51:21] INFO: ::1 - - [24/May/2026:09:51:21 +0000] "GET /api/especialistas HTTP/1.1" 200 3576 "-" "-"
+[2026-05-24 03:52:34] INFO: ::1 - - [24/May/2026:09:52:34 +0000] "GET /api/especialistas HTTP/1.1" 200 3576 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:53:34] INFO: ::1 - - [24/May/2026:09:53:34 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:53:34] INFO: ::1 - - [24/May/2026:09:53:34 +0000] "GET /api/especialistas HTTP/1.1" 200 1183 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 03:54:30] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 03:54:30] INFO: 📄 Ambiente: development
+[2026-05-24 03:54:30] INFO: MongoDB conectado: localhost
+[2026-05-24 03:58:21] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 03:58:21] INFO: 📄 Ambiente: development
+[2026-05-24 03:58:21] INFO: MongoDB conectado: localhost
+[2026-05-24 04:00:22] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 04:00:22] INFO: 📄 Ambiente: development
+[2026-05-24 04:00:22] INFO: MongoDB conectado: localhost
+[2026-05-24 04:01:42] INFO: ::1 - - [24/May/2026:10:01:42 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:01:45] INFO: ::1 - - [24/May/2026:10:01:45 +0000] "GET /api/especialistas HTTP/1.1" 200 737 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:02:11] INFO: ::1 - - [24/May/2026:10:02:11 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:02:11] INFO: ::1 - - [24/May/2026:10:02:11 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:02:57] INFO: ::1 - - [24/May/2026:10:02:57 +0000] "GET /api/calificaciones?a_quien=6a1265c57f3dbcc7067449b0&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 200 69 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:02:57] INFO: ::1 - - [24/May/2026:10:02:57 +0000] "GET /api/especialistas/6a1265c57f3dbcc7067449b0 HTTP/1.1" 200 364 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:08:42] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 04:08:42] INFO: 📄 Ambiente: development
+[2026-05-24 04:08:42] INFO: MongoDB conectado: localhost
+[2026-05-24 04:08:43] INFO: ::1 - - [24/May/2026:10:08:43 +0000] "GET /api/calificaciones?a_quien=6a1265c57f3dbcc7067449b0&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:08:43] INFO: ::1 - - [24/May/2026:10:08:43 +0000] "GET /api/especialistas/6a1265c57f3dbcc7067449b0 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:14:11] INFO: ::1 - - [24/May/2026:10:14:11 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:14:18] INFO: ::1 - - [24/May/2026:10:14:18 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:14:25] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"jesus@carpintero.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 04:14:25] INFO: LOGIN exitoso: 6a1265c57f3dbcc7067449b0 (jesus@carpintero.com)
+[2026-05-24 04:14:25] INFO: ::1 - - [24/May/2026:10:14:25 +0000] "POST /api/auth/login HTTP/1.1" 200 521 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:14:27] INFO: ::1 - - [24/May/2026:10:14:27 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:14:32] INFO: ::1 - - [24/May/2026:10:14:32 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:14:35] INFO: ::1 - - [24/May/2026:10:14:35 +0000] "GET /api/calificaciones?a_quien=6a1265c57f3dbcc7067449b0&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:14:35] INFO: ::1 - - [24/May/2026:10:14:35 +0000] "GET /api/especialistas/6a1265c57f3dbcc7067449b0 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:17:58] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 04:17:58] INFO: 📄 Ambiente: development
+[2026-05-24 04:17:58] INFO: MongoDB conectado: localhost
+[2026-05-24 04:17:59] INFO: ::1 - - [24/May/2026:10:17:59 +0000] "GET /api/calificaciones?a_quien=6a1265c57f3dbcc7067449b0&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:17:59] INFO: ::1 - - [24/May/2026:10:17:59 +0000] "GET /api/auth/perfil HTTP/1.1" 200 329 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:17:59] INFO: ::1 - - [24/May/2026:10:17:59 +0000] "GET /api/especialistas/6a1265c57f3dbcc7067449b0 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:18:31] INFO: ::ffff:127.0.0.1 - - [24/May/2026:10:18:31 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:19:57] INFO: ::1 - - [24/May/2026:10:19:57 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:20:13] INFO: PERFIL actualizado: 6a1265c57f3dbcc7067449b0
+[2026-05-24 04:20:13] INFO: ::1 - - [24/May/2026:10:20:13 +0000] "PUT /api/auth/perfil HTTP/1.1" 200 328 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:22:13] INFO: ::1 - - [24/May/2026:10:22:13 +0000] "GET /api/calificaciones?a_quien=6a1265c57f3dbcc7067449b0&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:22:13] INFO: ::1 - - [24/May/2026:10:22:13 +0000] "GET /api/auth/perfil HTTP/1.1" 200 328 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:22:13] INFO: ::1 - - [24/May/2026:10:22:13 +0000] "GET /api/especialistas/6a1265c57f3dbcc7067449b0 HTTP/1.1" 200 366 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:22:17] INFO: ::1 - - [24/May/2026:10:22:17 +0000] "GET /api/calificaciones?a_quien=6a1265c57f3dbcc7067449b0&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:22:17] INFO: ::1 - - [24/May/2026:10:22:17 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:22:17] INFO: ::1 - - [24/May/2026:10:22:17 +0000] "GET /api/especialistas/6a1265c57f3dbcc7067449b0 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:23:20] INFO: ::1 - - [24/May/2026:10:23:20 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:23:33] INFO: ::1 - - [24/May/2026:10:23:33 +0000] "GET /api/especialistas HTTP/1.1" 200 739 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:23:35] INFO: ::1 - - [24/May/2026:10:23:35 +0000] "GET /api/calificaciones?a_quien=6a12a30e5e51e814c444cefd&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 200 69 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:23:35] INFO: ::1 - - [24/May/2026:10:23:35 +0000] "GET /api/especialistas/6a12a30e5e51e814c444cefd HTTP/1.1" 200 368 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:27:43] INFO: ::1 - - [24/May/2026:10:27:43 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:29:51] INFO: ::1 - - [24/May/2026:10:29:51 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:31:19] INFO: ::1 - - [24/May/2026:10:31:19 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:31:44] INFO: ::1 - - [24/May/2026:10:31:44 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:31:57] INFO: ::1 - - [24/May/2026:10:31:57 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:34:22] INFO: TRANSACCION [AUTH_REGISTRO] | META: {"ip":"::1","body":{"nombre":"Voltairo Cablez","email":"voltairo@gmail.com","contrasena":"l4c3d3m0n!A","telefono":"8120077860","tipo":"tecnico","especialidad":"Electricista"}}
+[2026-05-24 04:34:22] INFO: REGISTRO nuevo usuario: 6a12d42e4fd1a524990ca762 (voltairo@gmail.com)
+[2026-05-24 04:34:22] INFO: ::1 - - [24/May/2026:10:34:22 +0000] "POST /api/auth/registro HTTP/1.1" 201 564 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:34:47] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 04:34:47] INFO: 📄 Ambiente: development
+[2026-05-24 04:34:47] INFO: MongoDB conectado: localhost
+[2026-05-24 04:35:38] INFO: ::1 - - [24/May/2026:10:35:38 +0000] "GET /api/auth/perfil HTTP/1.1" 200 343 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:37:49] INFO: ::1 - - [24/May/2026:10:37:49 +0000] "GET /api/especialistas HTTP/1.1" 200 1084 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:38:35] INFO: ::1 - - [24/May/2026:10:38:35 +0000] "GET /api/calificaciones?a_quien=6a12a30e5e51e814c444cefd&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:38:35] INFO: ::1 - - [24/May/2026:10:38:35 +0000] "GET /api/especialistas/6a12a30e5e51e814c444cefd HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:43:04] INFO: ::1 - - [24/May/2026:10:43:04 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:43:04] INFO: ::1 - - [24/May/2026:10:43:04 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:43:06] INFO: ::1 - - [24/May/2026:10:43:06 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:44:01] INFO: ::1 - - [24/May/2026:10:44:01 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:44:02] INFO: ::1 - - [24/May/2026:10:44:02 +0000] "GET /api/calificaciones?a_quien=6a1265c57f3dbcc7067449b0&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:44:02] INFO: ::1 - - [24/May/2026:10:44:02 +0000] "GET /api/especialistas/6a1265c57f3dbcc7067449b0 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:48:29] INFO: ::1 - - [24/May/2026:10:48:29 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:49:50] INFO: ::1 - - [24/May/2026:10:49:50 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:51:16] INFO: ::1 - - [24/May/2026:10:51:16 +0000] "GET /api/calificaciones?a_quien=6a1265c57f3dbcc7067449b0&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:51:16] INFO: ::1 - - [24/May/2026:10:51:16 +0000] "GET /api/especialistas/6a1265c57f3dbcc7067449b0 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:52:26] INFO: ::1 - - [24/May/2026:10:52:26 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:52:27] INFO: ::1 - - [24/May/2026:10:52:27 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:56:29] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"eduardodoria@gmail.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 04:56:29] INFO: LOGIN exitoso: 6a1247588c85f887d37c5bd7 (eduardodoria@gmail.com)
+[2026-05-24 04:56:29] INFO: ::1 - - [24/May/2026:10:56:29 +0000] "POST /api/auth/login HTTP/1.1" 200 580 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:56:39] INFO: ::1 - - [24/May/2026:10:56:39 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:57:09] INFO: ::1 - - [24/May/2026:10:57:09 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:58:09] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"eduardodoria@gmail.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 04:58:09] INFO: LOGIN exitoso: 6a1247588c85f887d37c5bd7 (eduardodoria@gmail.com)
+[2026-05-24 04:58:09] INFO: ::1 - - [24/May/2026:10:58:09 +0000] "POST /api/auth/login HTTP/1.1" 200 580 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 04:59:43] INFO: ::1 - - [24/May/2026:10:59:43 +0000] "GET /api/auth/perfil HTTP/1.1" 200 369 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:00:00] INFO: ::1 - - [24/May/2026:11:00:00 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:00:45] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::1","body":{"email":"plomerio@gmail.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 05:00:45] INFO: LOGIN exitoso: 6a12a30e5e51e814c444cefd (plomerio@gmail.com)
+[2026-05-24 05:00:45] INFO: ::1 - - [24/May/2026:11:00:45 +0000] "POST /api/auth/login HTTP/1.1" 200 546 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:01:48] INFO: ::1 - - [24/May/2026:11:01:48 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:01:58] INFO: ::1 - - [24/May/2026:11:01:58 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:07:17] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 05:07:17] INFO: 📄 Ambiente: development
+[2026-05-24 05:07:17] INFO: MongoDB conectado: localhost
+[2026-05-24 05:07:22] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 05:07:22] INFO: 📄 Ambiente: development
+[2026-05-24 05:07:22] INFO: MongoDB conectado: localhost
+[2026-05-24 05:07:25] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 05:07:25] INFO: 📄 Ambiente: development
+[2026-05-24 05:07:25] INFO: MongoDB conectado: localhost
+[2026-05-24 05:07:36] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 05:07:36] INFO: 📄 Ambiente: development
+[2026-05-24 05:07:36] INFO: MongoDB conectado: localhost
+[2026-05-24 05:07:49] INFO: ::1 - - [24/May/2026:11:07:49 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 200 727 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:07:56] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 05:07:56] INFO: 📄 Ambiente: development
+[2026-05-24 05:07:56] INFO: MongoDB conectado: localhost
+[2026-05-24 05:09:47] INFO: ::1 - - [24/May/2026:11:09:47 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 200 785 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:09:53] INFO: ::1 - - [24/May/2026:11:09:53 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:20:54] INFO: ::1 - - [24/May/2026:11:20:54 +0000] "GET /api/auth/perfil HTTP/1.1" 200 335 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:21:53] INFO: ::1 - - [24/May/2026:11:21:53 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:22:00] INFO: ::1 - - [24/May/2026:11:22:00 +0000] "GET /api/cotizaciones HTTP/1.1" 200 1368 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:22:17] INFO: PERFIL actualizado: 6a12a30e5e51e814c444cefd
+[2026-05-24 05:22:17] INFO: ::1 - - [24/May/2026:11:22:17 +0000] "PUT /api/auth/perfil HTTP/1.1" 200 359 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:22:20] INFO: ::1 - - [24/May/2026:11:22:20 +0000] "GET /api/auth/perfil HTTP/1.1" 200 359 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:22:20] INFO: ::1 - - [24/May/2026:11:22:20 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:22:26] INFO: ::1 - - [24/May/2026:11:22:26 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:22:28] INFO: ::1 - - [24/May/2026:11:22:28 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:27:03] INFO: ::1 - - [24/May/2026:11:27:03 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:27:03] INFO: ::1 - - [24/May/2026:11:27:03 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:27:04] INFO: ::1 - - [24/May/2026:11:27:04 +0000] "GET /api/cotizaciones/recientes HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:27:10] INFO: ::1 - - [24/May/2026:11:27:10 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:27:10] INFO: ::1 - - [24/May/2026:11:27:10 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:32:56] INFO: ::1 - - [24/May/2026:11:32:56 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:38:22] INFO: ::1 - - [24/May/2026:11:38:22 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:39:54] INFO: ::1 - - [24/May/2026:11:39:54 +0000] "PUT /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 403 62 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:40:00] INFO: ::1 - - [24/May/2026:11:40:00 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:40:02] INFO: ::1 - - [24/May/2026:11:40:02 +0000] "PUT /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 403 62 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:42:08] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 05:42:08] INFO: 📄 Ambiente: development
+[2026-05-24 05:42:08] INFO: MongoDB conectado: localhost
+[2026-05-24 05:44:29] INFO: ESPECIALISTA auto-creado para técnico 6a12a30e5e51e814c444cefd como 6a12e49d906430d4308b1d62
+[2026-05-24 05:44:29] INFO: COTIZACION actualizada: 6a12a99be04c49f32b9d3d6e -> estado: en_revision
+[2026-05-24 05:44:29] INFO: ::1 - - [24/May/2026:11:44:29 +0000] "PUT /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 200 1250 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:44:29] INFO: ::1 - - [24/May/2026:11:44:29 +0000] "GET /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 200 1250 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:44:42] INFO: ::1 - - [24/May/2026:11:44:42 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:45:09] INFO: TRANSACCION [AUTH_LOGIN] | META: {"ip":"::ffff:127.0.0.1","body":{"email":"eduardodoria@gmail.com","contrasena":"l4c3d3m0n!A"}}
+[2026-05-24 05:45:09] INFO: LOGIN exitoso: 6a1247588c85f887d37c5bd7 (eduardodoria@gmail.com)
+[2026-05-24 05:45:09] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:45:09 +0000] "POST /api/auth/login HTTP/1.1" 200 580 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:45:14] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:45:14 +0000] "GET /api/cotizaciones HTTP/1.1" 200 1891 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:45:21] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:45:21 +0000] "GET /api/calificaciones?a_quien=6a12e49d906430d4308b1d62&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 200 69 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:45:21] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:45:21 +0000] "GET /api/especialistas/6a12e49d906430d4308b1d62 HTTP/1.1" 200 586 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:45:44] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:45:44 +0000] "GET /api/auth/perfil HTTP/1.1" 200 369 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:45:46] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:45:46 +0000] "GET /api/cotizaciones HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:45:48] INFO: COTIZACION actualizada: 6a12a99be04c49f32b9d3d6e -> estado: aceptada
+[2026-05-24 05:45:48] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:45:48 +0000] "PUT /api/cotizaciones/6a12a99be04c49f32b9d3d6e HTTP/1.1" 200 2242 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:45:48] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:45:48 +0000] "GET /api/cotizaciones HTTP/1.1" 200 2883 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:46:12] INFO: 🚀 Servidor corriendo en http://localhost:3001
+[2026-05-24 05:46:12] INFO: 📄 Ambiente: development
+[2026-05-24 05:46:12] INFO: MongoDB conectado: localhost
+[2026-05-24 05:48:59] INFO: ::1 - - [24/May/2026:11:48:59 +0000] "GET /api/cotizaciones HTTP/1.1" 200 2883 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:50:00] INFO: TRABAJO actualizado: 6a12e4ec906430d4308b1d82 -> estado: completado
+[2026-05-24 05:50:00] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:50:00 +0000] "PUT /api/trabajos/6a12e4ec906430d4308b1d82 HTTP/1.1" 200 572 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:50:00] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:50:00 +0000] "GET /api/cotizaciones HTTP/1.1" 200 2883 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:50:23] INFO: TRANSACCION [CALIFICACION_NUEVA] | META: {"userId":"6a1247588c85f887d37c5bd7","ip":"::ffff:127.0.0.1","body":{"trabajo_id":"6a12e4ec906430d4308b1d82","a_quien":"6a12a30e5e51e814c444cefd","especialista_id":"6a12e49d906430d4308b1d62","estrellas":5,"comentario":"me destapó una coladera.","tipo":"cliente_a_tecnico"}}
+[2026-05-24 05:50:23] INFO: CALIFICACION creada: 6a12e5ffbe641742d160ded6 | 5 estrellas | trabajo: 6a12e4ec906430d4308b1d82
+[2026-05-24 05:50:23] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:50:23 +0000] "POST /api/calificaciones HTTP/1.1" 201 392 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:50:23] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:50:23 +0000] "GET /api/cotizaciones HTTP/1.1" 200 2882 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:50:38] INFO: ::1 - - [24/May/2026:11:50:38 +0000] "GET /api/especialistas HTTP/1.1" 200 622 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:50:41] INFO: ::1 - - [24/May/2026:11:50:41 +0000] "GET /api/calificaciones?a_quien=6a12e49d906430d4308b1d62&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 200 69 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:50:41] INFO: ::1 - - [24/May/2026:11:50:41 +0000] "GET /api/especialistas/6a12e49d906430d4308b1d62 HTTP/1.1" 200 586 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:52:09] INFO: ::1 - - [24/May/2026:11:52:09 +0000] "GET /api/calificaciones?especialista_id=6a12e49d906430d4308b1d62&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 200 528 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:57:51] INFO: ::1 - - [24/May/2026:11:57:51 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:57:56] INFO: ::1 - - [24/May/2026:11:57:56 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:58:14] INFO: ::ffff:127.0.0.1 - - [24/May/2026:11:58:14 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+[2026-05-24 05:59:03] INFO: ::1 - - [24/May/2026:11:59:03 +0000] "GET /api/auth/perfil HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:59:07] INFO: ::1 - - [24/May/2026:11:59:07 +0000] "GET /api/especialistas HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:59:10] INFO: ::1 - - [24/May/2026:11:59:10 +0000] "GET /api/especialistas/6a12e49d906430d4308b1d62 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:59:10] INFO: ::1 - - [24/May/2026:11:59:10 +0000] "GET /api/calificaciones?especialista_id=6a12e49d906430d4308b1d62&tipo=cliente_a_tecnico&limit=50 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+[2026-05-24 05:59:18] INFO: ::1 - - [24/May/2026:11:59:18 +0000] "GET /api/cotizaciones HTTP/1.1" 200 2882 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"

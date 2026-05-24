@@ -18,6 +18,9 @@ const especialistaSchema = new mongoose.Schema(
         "Cerrajería",
         "Aire Acondicionado",
         "Mantenimiento General",
+        "Paneles solares",
+        "Seguridad",
+        "Impermeabilización",
       ],
     },
     especialidades_adicionales: {
@@ -61,6 +64,12 @@ const especialistaSchema = new mongoose.Schema(
     bio: {
       type: String,
       maxlength: [500, "La bio no puede exceder 500 caracteres"],
+    },
+    codigo_postal: {
+      type: String,
+      required: [true, "El código postal es requerido"],
+      trim: true,
+      match: [/^[0-9]{5}$/, "El código postal debe tener 5 dígitos"],
     },
     ubicacion: {
       type: String,

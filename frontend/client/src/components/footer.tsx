@@ -17,15 +17,15 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Conectamos clientes con los mejores especialistas tecnicos de la region.
+              Conectamos clientes con los mejores técnicos de la region.
             </p>
           </div>
 
           <div className="space-y-3">
-            <h4 className="text-sm font-semibold">Servicios</h4>
+            <h4 className="text-sm font-semibold">Técnicos</h4>
             <div className="space-y-2">
-              <Link href="/servicios" className="block text-sm text-muted-foreground transition-colors" data-testid="link-footer-services">
-                Todos los servicios
+              <Link href="/tecnicos" className="block text-sm text-muted-foreground transition-colors" data-testid="link-footer-partners">
+                Ver técnicos
               </Link>
               <Link href="/cotizacion" className="block text-sm text-muted-foreground transition-colors" data-testid="link-footer-quote">
                 Solicitar cotizacion
@@ -39,8 +39,8 @@ export function Footer() {
               <Link href="/nosotros" className="block text-sm text-muted-foreground transition-colors" data-testid="link-footer-about">
                 Sobre nosotros
               </Link>
-              <Link href="/socios" className="block text-sm text-muted-foreground transition-colors" data-testid="link-footer-partners">
-                Nuestros socios
+              <Link href="/tecnicos" className="block text-sm text-muted-foreground transition-colors" data-testid="link-footer-partners">
+                Nuestros técnicos
               </Link>
             </div>
           </div>

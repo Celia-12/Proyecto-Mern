@@ -26,21 +26,29 @@ import {
 import { useEspecialistas } from "@/hooks/useApi";
 
 const ESPECIALIDADES = [
-  "Plomería",
-  "Electricidad",
-  "Carpintería",
-  "Cerrajería",
-  "Aire Acondicionado",
-  "Mantenimiento General",
+  "Plomero",
+  "Electricista",
+  "Técnico en aire acondicionado",
+  "Carpintero",
+  "Albañil",
+  "Pintor",
+  "Cerrajero",
+  "Paneles solares",
+  "Seguridad",
+  "Impermeabilización",
 ];
 
 const SPECIALTY_ICONS: Record<string, string> = {
-  "Plomería": "💧",
-  "Electricidad": "⚡",
-  "Carpintería": "🔨",
-  "Cerrajería": "🔐",
-  "Aire Acondicionado": "❄️",
-  "Mantenimiento General": "🔧",
+  "Plomero": "💧",
+  "Electricista": "⚡",
+  "Carpintero": "🔨",
+  "Cerrajero": "🔐",
+  "Técnico en aire acondicionado": "❄️",
+  "Albañil": "🧱",
+  "Pintor": "🎨",
+  "Paneles solares": "☀️",
+  "Seguridad": "🛡️",
+  "Impermeabilización": "🌧️",
 };
 
 function EspecialistaSkeleton() {
@@ -63,7 +71,7 @@ function EspecialistaSkeleton() {
   );
 }
 
-export default function Partners() {
+export default function Tecnicos() {
   const searchString = useSearch();
   const urlParams = new URLSearchParams(searchString);
   const initialCategory = urlParams.get("categoria") || "all";
@@ -101,7 +109,7 @@ export default function Partners() {
           <div className="max-w-2xl space-y-4">
             <h1
               className="text-3xl md:text-4xl font-bold tracking-tight"
-              data-testid="text-partners-title"
+              data-testid="text-tecnicos-title"
             >
               Nuestros Técnicos
             </h1>
@@ -120,7 +128,7 @@ export default function Partners() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-9"
-                  data-testid="input-search-partners"
+                  data-testid="input-search-tecnicos"
                 />
               </div>
               <Select value={categoryFilter} onValueChange={setCategoryFilter}>
@@ -250,10 +258,10 @@ export default function Partners() {
                       <div className="flex items-center gap-1 mt-1">
                         <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                         <span className="text-sm font-medium">
-                          {esp.calificacion_promedio.toFixed(1)}
+                          {(esp.calificacion_promedio ?? 0).toFixed(1)}
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          ({esp.total_resenas} reseñas)
+                          ({esp.total_resenas ?? 0} reseñas)
                         </span>
                       </div>
                     </div>
@@ -284,11 +292,11 @@ export default function Partners() {
                   {/* Actions */}
                   <div className="flex gap-2 mt-auto pt-2 border-t">
                     <Link
-                      href={`/cotizacion?especialista=${esp._id}`}
+                      href={`/tecnico/${esp._id}`}
                       className="flex-1"
                     >
                       <Button size="sm" className="w-full gap-1">
-                        Contratar
+                        Ver perfil
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Button>
                     </Link>

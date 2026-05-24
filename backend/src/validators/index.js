@@ -1,6 +1,6 @@
 const { body, param } = require("express-validator");
 
-// ─── AUTH ──────────────────────────────────────────────────────────────────
+
 const validarRegistro = [
   body("nombre")
     .trim()
@@ -15,11 +15,26 @@ const validarRegistro = [
     .notEmpty().withMessage("La contraseña es requerida")
     .isLength({ min: 6 }).withMessage("La contraseña debe tener al menos 6 caracteres"),
   body("telefono")
-    .optional()
+    .optional({ checkFalsy: true })
     .matches(/^[0-9]{10}$/).withMessage("El teléfono debe tener 10 dígitos"),
   body("tipo")
     .optional()
     .isIn(["cliente", "tecnico"]).withMessage("Tipo inválido"),
+  body("especialidad")
+    .if(body("tipo").equals("tecnico"))
+    .notEmpty().withMessage("La especialidad es requerida")
+    .isIn([
+      "Plomero",
+      "Electricista",
+      "Técnico en aire acondicionado",
+      "Carpintero",
+      "Albañil",
+      "Pintor",
+      "Cerrajero",
+      "Paneles solares",
+      "Seguridad",
+      "Impermeabilización",
+    ]).withMessage("Especialidad no válida"),
 ];
 
 const validarLogin = [
@@ -32,12 +47,25 @@ const validarLogin = [
     .notEmpty().withMessage("La contraseña es requerida"),
 ];
 
-// ─── ESPECIALISTA ──────────────────────────────────────────────────────────
+
 const validarEspecialista = [
   body("especialidad")
     .notEmpty().withMessage("La especialidad es requerida")
-    .isIn(["Plomería", "Electricidad", "Carpintería", "Cerrajería", "Aire Acondicionado", "Mantenimiento General"])
+    .isIn([
+      "Plomería",
+      "Electricidad",
+      "Carpintería",
+      "Cerrajería",
+      "Aire Acondicionado",
+      "Mantenimiento General",
+      "Paneles solares",
+      "Seguridad",
+      "Impermeabilización",
+    ])
     .withMessage("Especialidad no válida"),
+  body("codigo_postal")
+    .notEmpty().withMessage("El código postal es requerido")
+    .matches(/^[0-9]{5}$/).withMessage("El código postal debe tener 5 dígitos"),
   body("experiencia_anos")
     .notEmpty().withMessage("Los años de experiencia son requeridos")
     .isInt({ min: 0, max: 50 }).withMessage("Experiencia debe ser entre 0 y 50 años"),
@@ -52,7 +80,7 @@ const validarEspecialista = [
     .isLength({ max: 500 }).withMessage("La bio no puede exceder 500 caracteres"),
 ];
 
-// ─── COTIZACION ────────────────────────────────────────────────────────────
+
 const validarCotizacion = [
   body("descripcion")
     .trim()
@@ -60,17 +88,31 @@ const validarCotizacion = [
     .isLength({ min: 10, max: 1000 }).withMessage("La descripción debe tener entre 10 y 1000 caracteres"),
   body("categoria")
     .notEmpty().withMessage("La categoría es requerida")
-    .isIn(["Plomería", "Electricidad", "Carpintería", "Cerrajería", "Aire Acondicionado", "Mantenimiento General"])
+    .isIn([
+      "Plomería",
+      "Electricidad",
+      "Carpintería",
+      "Cerrajería",
+      "Aire Acondicionado",
+      "Mantenimiento General",
+      "Paneles solares",
+      "Seguridad",
+      "Impermeabilización",
+    ])
     .withMessage("Categoría no válida"),
   body("ubicacion")
     .trim()
     .notEmpty().withMessage("La ubicación es requerida"),
+  body("codigo_postal")
+    .trim()
+    .notEmpty().withMessage("El código postal es requerido")
+    .matches(/^[0-9]{5}$/).withMessage("El código postal debe tener 5 dígitos"),
   body("fecha_preferida")
     .optional()
     .isISO8601().withMessage("Fecha no válida"),
 ];
 
-// ─── TRABAJO ───────────────────────────────────────────────────────────────
+
 const validarTrabajo = [
   body("cotizacion_id")
     .notEmpty().withMessage("La cotización es requerida")
@@ -89,7 +131,7 @@ const validarTrabajo = [
     .notEmpty().withMessage("La ubicación es requerida"),
 ];
 
-// ─── CALIFICACION ──────────────────────────────────────────────────────────
+
 const validarCalificacion = [
   body("trabajo_id")
     .notEmpty().withMessage("El trabajo es requerido")
@@ -111,7 +153,7 @@ const validarCalificacion = [
     .isIn(["cliente_a_tecnico", "tecnico_a_cliente"]).withMessage("Tipo no válido"),
 ];
 
-// ─── MENSAJE ───────────────────────────────────────────────────────────────
+
 const validarMensaje = [
   body("cotizacion_id")
     .notEmpty().withMessage("La cotización es requerida")
@@ -125,7 +167,7 @@ const validarMensaje = [
     .isLength({ min: 1, max: 1000 }).withMessage("El mensaje no puede exceder 1000 caracteres"),
 ];
 
-// ─── ID PARAM ─────────────────────────────────────────────────────────────
+
 const validarIdParam = [
   param("id")
     .isMongoId().withMessage("ID no válido"),

@@ -22,6 +22,19 @@ import {
 } from "@/components/ui/select";
 import { Wrench, Eye, EyeOff, Loader2 } from "lucide-react";
 
+const TECNICOS = [
+  "Plomero",
+  "Electricista",
+  "Técnico en aire acondicionado",
+  "Carpintero",
+  "Albañil",
+  "Pintor",
+  "Cerrajero",
+  "Paneles solares",
+  "Seguridad",
+  "Impermeabilización",
+];
+
 export default function Registro() {
   const [, navigate] = useLocation();
   const { registro } = useAuth();
@@ -32,6 +45,7 @@ export default function Registro() {
     confirmar: "",
     telefono: "",
     tipo: "cliente" as "cliente" | "tecnico",
+    especialidad: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -50,14 +64,20 @@ export default function Registro() {
       return;
     }
 
+    if (form.tipo === "tecnico" && !form.especialidad) {
+      setError("Selecciona el tipo de técnico");
+      return;
+    }
+
     setLoading(true);
     try {
       await registro({
         nombre: form.nombre,
         email: form.email,
         contrasena: form.contrasena,
-        telefono: form.telefono || undefined,
+        telefono: form.telefono.trim() || undefined,
         tipo: form.tipo,
+        especialidad: form.tipo === "tecnico" ? form.especialidad : undefined,
       });
       navigate("/");
     } catch (err: unknown) {
@@ -99,7 +119,7 @@ export default function Registro() {
                 <Label htmlFor="nombre">Nombre completo</Label>
                 <Input
                   id="nombre"
-                  placeholder="Eduardo Abundis"
+                  placeholder="Tu nombre completo"
                   value={form.nombre}
                   onChange={(e) => setForm({ ...form, nombre: e.target.value })}
                   required
@@ -123,7 +143,7 @@ export default function Registro() {
                 <Input
                   id="telefono"
                   type="tel"
-                  placeholder="8120000000"
+                  placeholder="Tu número de teléfono"
                   value={form.telefono}
                   onChange={(e) => setForm({ ...form, telefono: e.target.value })}
                   maxLength={10}
@@ -134,7 +154,13 @@ export default function Registro() {
                 <Label>Tipo de cuenta</Label>
                 <Select
                   value={form.tipo}
-                  onValueChange={(v) => setForm({ ...form, tipo: v as "cliente" | "tecnico" })}
+                  onValueChange={(v) =>
+                    setForm({
+                      ...form,
+                      tipo: v as "cliente" | "tecnico",
+                      especialidad: v === "cliente" ? "" : form.especialidad,
+                    })
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -145,6 +171,27 @@ export default function Registro() {
                   </SelectContent>
                 </Select>
               </div>
+
+              {form.tipo === "tecnico" && (
+                <div className="space-y-2">
+                  <Label>Tipo de técnico</Label>
+                  <Select
+                    value={form.especialidad}
+                    onValueChange={(v) => setForm({ ...form, especialidad: v })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecciona una especialidad" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {TECNICOS.map((tipo) => (
+                        <SelectItem key={tipo} value={tipo}>
+                          {tipo}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
 
               <div className="space-y-2">
                 <Label htmlFor="contrasena">Contraseña</Label>

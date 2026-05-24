@@ -1,5 +1,30 @@
 const Especialista = require("../models/Especialista");
+const Usuario = require("../models/Usuario");
 const logger = require("../utils/logger");
+
+function mapUsuarioToEspecialista(usuario) {
+  return {
+    _id: usuario._id,
+    especialidad: usuario.especialidad || "General",
+    experiencia_anos: usuario.experiencia_anos || 0,
+    precio_hora: usuario.precio_hora || 0,
+    calificacion_promedio: usuario.calificacion_promedio ?? undefined,
+    total_resenas: usuario.total_resenas ?? undefined,
+    disponible: usuario.activo !== false,
+    verificado: usuario.activo !== false,
+    bio: usuario.bio || "",
+    horario: usuario.horario || "",
+    ubicacion: usuario.ciudad || "",
+    usuario_id: {
+      _id: usuario._id,
+      nombre: usuario.nombre,
+      email: usuario.email,
+      foto: usuario.foto,
+      ciudad: usuario.ciudad,
+      telefono: usuario.telefono,
+    },
+  };
+}
 
 // GET /api/especialistas
 const listar = async (req, res, next) => {
@@ -26,12 +51,36 @@ const listar = async (req, res, next) => {
       Especialista.countDocuments(filtro),
     ]);
 
+    if (total > 0) {
+      return res.json({
+        success: true,
+        total,
+        pagina: Number(page),
+        paginas: Math.ceil(total / Number(limit)),
+        especialistas,
+      });
+    }
+
+    // Fallback to technicians stored in the Usuario collection
+    const usuarioFiltro = { tipo: "tecnico", activo: true };
+    if (especialidad) usuarioFiltro.especialidad = especialidad;
+
+    const [usuarios, usuariosTotal] = await Promise.all([
+      Usuario.find(usuarioFiltro)
+        .select("-contrasena")
+        .skip(skip)
+        .limit(Number(limit)),
+      Usuario.countDocuments(usuarioFiltro),
+    ]);
+
+    const especialistasDesdeUsuarios = usuarios.map(mapUsuarioToEspecialista);
+
     res.json({
       success: true,
-      total,
+      total: usuariosTotal,
       pagina: Number(page),
-      paginas: Math.ceil(total / Number(limit)),
-      especialistas,
+      paginas: Math.ceil(usuariosTotal / Number(limit)),
+      especialistas: especialistasDesdeUsuarios,
     });
   } catch (error) {
     next(error);
@@ -45,10 +94,17 @@ const obtenerUno = async (req, res, next) => {
       "usuario_id",
       "nombre email foto ciudad telefono"
     );
-    if (!esp) {
+
+    if (esp) {
+      return res.json({ success: true, especialista: esp });
+    }
+
+    const usuario = await Usuario.findById(req.params.id).select("-contrasena");
+    if (!usuario || usuario.tipo !== "tecnico") {
       return res.status(404).json({ success: false, message: "Especialista no encontrado" });
     }
-    res.json({ success: true, especialista: esp });
+
+    res.json({ success: true, especialista: mapUsuarioToEspecialista(usuario) });
   } catch (error) {
     next(error);
   }

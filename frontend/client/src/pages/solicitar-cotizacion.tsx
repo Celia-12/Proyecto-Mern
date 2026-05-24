@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -38,18 +38,26 @@ const quoteSchema = z.object({
     .min(10, "Describe tu necesidad con al menos 10 caracteres")
     .max(1000, "Máximo 1000 caracteres"),
   ubicacion: z.string().min(5, "Ingresa una dirección válida"),
+  codigo_postal: z
+    .string()
+    .trim()
+    .length(5, "El código postal debe tener 5 dígitos"),
   fecha_preferida: z.string().optional(),
 });
 
 type QuoteFormValues = z.infer<typeof quoteSchema>;
 
 const CATEGORIAS = [
-  { valor: "Plomería", icono: "💧" },
-  { valor: "Electricidad", icono: "⚡" },
-  { valor: "Carpintería", icono: "🔨" },
-  { valor: "Cerrajería", icono: "🔐" },
-  { valor: "Aire Acondicionado", icono: "❄️" },
-  { valor: "Mantenimiento General", icono: "🔧" },
+  { valor: "Plomero", icono: "💧" },
+  { valor: "Electricista", icono: "⚡" },
+  { valor: "Técnico en aire acondicionado", icono: "❄️" },
+  { valor: "Carpintero", icono: "🔨" },
+  { valor: "Albañil", icono: "🧱" },
+  { valor: "Pintor", icono: "🎨" },
+  { valor: "Cerrajero", icono: "🔐" },
+  { valor: "Paneles solares", icono: "☀️" },
+  { valor: "Seguridad", icono: "🛡️" },
+  { valor: "Impermeabilización", icono: "🌧️" },
 ];
 
 export default function Quote() {
@@ -65,6 +73,8 @@ export default function Quote() {
 
   const { data: espData } = useEspecialista(especialistaId);
   const especialista = espData?.especialista;
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   const crearCotizacion = useCrearCotizacion();
 
@@ -74,9 +84,25 @@ export default function Quote() {
       categoria: categoriaParam || "",
       descripcion: "",
       ubicacion: "",
+      codigo_postal: usuario?.codigo_postal ?? "",
       fecha_preferida: "",
     },
   });
+
+  useEffect(() => {
+    if (usuario?.codigo_postal) {
+      form.setValue("codigo_postal", usuario.codigo_postal);
+    }
+  }, [usuario?.codigo_postal]);
+
+  useEffect(() => {
+    const urls = selectedFiles.map((file) => URL.createObjectURL(file));
+    setPreviewUrls(urls);
+
+    return () => {
+      urls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [selectedFiles]);
 
   const onSubmit = async (values: QuoteFormValues) => {
     try {
@@ -84,7 +110,9 @@ export default function Quote() {
         descripcion: values.descripcion,
         categoria: values.categoria,
         ubicacion: values.ubicacion,
+        codigo_postal: values.codigo_postal,
         fecha_preferida: values.fecha_preferida || undefined,
+        archivos: selectedFiles,
       });
 
       setEnviado(true);
@@ -252,6 +280,66 @@ export default function Quote() {
                     )}
                   </div>
 
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">
+                      Código postal <span className="text-destructive">*</span>
+                    </label>
+                    <Input
+                      placeholder="64000"
+                      inputMode="numeric"
+                      pattern="[0-9]{5}"
+                      {...form.register("codigo_postal")}
+                      data-testid="input-postal-code"
+                      maxLength={5}
+                    />
+                    {form.formState.errors.codigo_postal && (
+                      <p className="text-sm text-destructive">
+                        {form.formState.errors.codigo_postal.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Imágenes (opcional)</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={(event) => {
+                        if (!event.target.files) return;
+                        setSelectedFiles((previousFiles) => [
+                          ...previousFiles,
+                          ...Array.from(event.target.files),
+                        ]);
+                      }}
+                      className="block w-full text-sm text-muted-foreground"
+                      data-testid="input-quote-images"
+                    />
+                    {selectedFiles.length > 0 && (
+                      <>
+                        <div className="mt-2 space-y-1 text-sm text-muted-foreground">
+                          {selectedFiles.map((file) => (
+                            <p key={file.name}>{file.name}</p>
+                          ))}
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-3">
+                          {previewUrls.map((url, index) => (
+                            <div
+                              key={url}
+                              className="h-24 overflow-hidden rounded-lg border border-border bg-background"
+                            >
+                              <img
+                                src={url}
+                                alt={`Preview ${index + 1}`}
+                                className="h-full w-full object-cover"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+
                   {/* Preferred date */}
                   <div className="space-y-2">
                     <label className="text-sm font-medium">
@@ -347,7 +435,7 @@ export default function Quote() {
                 <ol className="space-y-3">
                   {[
                     "Describe tu necesidad en el formulario",
-                    "Un especialista revisa tu solicitud",
+                    "Un técnico revisa tu solicitud",
                     "Recibes cotización en menos de 24h",
                     "Confirma y agenda el servicio",
                   ].map((step, i) => (
@@ -367,7 +455,7 @@ export default function Quote() {
                   <span className="font-medium text-sm">Respuesta rápida</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Nuestros especialistas responden en menos de{" "}
+                  Nuestros técnicos responden en menos de{" "}
                   <strong>24 horas</strong> en días hábiles.
                 </p>
               </Card>

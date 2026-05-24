@@ -19,20 +19,25 @@ import {
   User,
   FileText,
   ChevronDown,
+  Search,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/", label: "Inicio" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/socios", label: "Especialistas" },
-  { href: "/nosotros", label: "Nosotros" },
+  { href: "/tecnicos", label: "Directorio de técnicos" },
 ];
 
 export function Navbar() {
   const [location] = useLocation();
   const { usuario, logout, estaAutenticado } = useAuth();
+  const [, navigate] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const enlaces = [
+    ...navLinks,
+    ...(usuario?.tipo === "tecnico" ? [{ href: "/nuevos-trabajos", label: "Nuevos Trabajos" }] : []),
+  ];
 
   const initials = usuario?.nombre
     .split(" ")
@@ -44,46 +49,71 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg tracking-tight">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
-              <Wrench className="w-4 h-4" />
-            </div>
-            <span>
-              Multiservicios{" "}
-              <span className="text-primary">TÉCNICOS</span>
-            </span>
-          </Link>
+        <div className="flex h-16 items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2.5 font-bold text-lg tracking-tight">
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
+                <Wrench className="w-4 h-4" />
+              </div>
+              <span>
+                Multiservicios{" "}
+                <span className="text-primary">TÉCNICOS</span>
+              </span>
+            </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                  location === link.href
-                    ? "bg-muted text-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+            {/* Desktop nav */}
+            <nav className="hidden md:flex items-center gap-1">
+              {enlaces.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    location === link.href
+                      ? "bg-muted text-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            <form
+              className="hidden lg:flex items-center rounded-full border border-border/80 bg-background px-3 py-1.5 shadow-sm"
+              onSubmit={(event) => {
+                event.preventDefault();
+                navigate(
+                  searchQuery.trim()
+                    ? `/tecnicos?q=${encodeURIComponent(searchQuery.trim())}`
+                    : "/tecnicos"
+                );
+              }}
+            >
+              <Search className="mr-2 h-4 w-5 text-muted-foreground" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="¿Qué necesitas? Ej: plomería, electricidad..."
+                className="w-96 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              />
+            </form>
+          </div>
 
           {/* Desktop auth */}
           <div className="hidden md:flex items-center gap-2">
             {estaAutenticado ? (
               <>
-                <Link href="/cotizacion">
-                  <Button size="sm" className="gap-1.5">
-                    <FileText className="w-4 h-4" />
-                    Solicitar Cotización
-                  </Button>
-                </Link>
+                {usuario?.tipo !== "tecnico" && (
+                  <Link href="/cotizacion">
+                    <Button size="sm" className="gap-1.5">
+                      <FileText className="w-4 h-4" />
+                      Solicitar Cotización
+                    </Button>
+                  </Link>
+                )}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button className="flex items-center gap-2 rounded-full px-2 py-1 hover:bg-muted transition-colors">
@@ -148,7 +178,7 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <div className="flex flex-col gap-1 mt-6">
-                {navLinks.map((link) => (
+                {enlaces.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -177,11 +207,13 @@ export function Navbar() {
                           <p className="text-xs text-muted-foreground capitalize">{usuario?.tipo}</p>
                         </div>
                       </div>
-                      <Link href="/cotizacion" onClick={() => setMobileOpen(false)}>
-                        <Button className="w-full" size="sm">
-                          Solicitar Cotización
-                        </Button>
-                      </Link>
+                      {usuario?.tipo !== "tecnico" && (
+                        <Link href="/cotizacion" onClick={() => setMobileOpen(false)}>
+                          <Button className="w-full" size="sm">
+                            Solicitar Cotización
+                          </Button>
+                        </Link>
+                      )}
                       <Button
                         variant="ghost"
                         size="sm"

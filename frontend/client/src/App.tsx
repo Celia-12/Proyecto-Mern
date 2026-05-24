@@ -4,17 +4,19 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
-import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import Home from "@/pages/home";
-import Services from "@/pages/services";
-import Partners from "@/pages/partners";
-import Quote from "@/pages/quote";
+import Tecnicos from "@/pages/tecnicos";
+import Quote from "@/pages/solicitar-cotizacion";
 import About from "@/pages/about";
 import Login from "@/pages/login";
 import Registro from "@/pages/registro";
 import Perfil from "@/pages/perfil";
+import TecnicoPerfil from "@/pages/tecnico";
+import NuevosTrabajos from "@/pages/nuevos-trabajos";
+import CotizacionDetalle from "@/pages/cotizacion-detalle";
 import NotFound from "@/pages/not-found";
 import { Loader2 } from "lucide-react";
 import { useLocation } from "wouter";
@@ -71,8 +73,16 @@ function Router() {
     <Switch>
       {/* Public routes */}
       <Route path="/" component={Home} />
-      <Route path="/servicios" component={Services} />
-      <Route path="/socios" component={Partners} />
+      <Route path="/tecnicos" component={Tecnicos} />
+      <Route path="/socios">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate("/tecnicos");
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
       <Route path="/nosotros" component={About} />
 
       {/* Public-only routes (redirect if logged in) */}
@@ -84,11 +94,18 @@ function Router() {
       </Route>
 
       {/* Protected routes */}
+      <Route path="/cotizacion/:id">
+        {() => <ProtectedRoute component={CotizacionDetalle} />}
+      </Route>
       <Route path="/cotizacion">
         {() => <ProtectedRoute component={Quote} />}
       </Route>
       <Route path="/perfil">
         {() => <ProtectedRoute component={Perfil} />}
+      </Route>
+      <Route path="/tecnico/:id" component={TecnicoPerfil} />
+      <Route path="/nuevos-trabajos">
+        {() => <ProtectedRoute component={NuevosTrabajos} />}
       </Route>
 
       <Route component={NotFound} />
@@ -101,16 +118,14 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ThemeProvider>
-          <AuthProvider>
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-1">
-                <Router />
-              </main>
-              <Footer />
-            </div>
-            <Toaster />
-          </AuthProvider>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-1">
+              <Router />
+            </main>
+            <Footer />
+          </div>
+          <Toaster />
         </ThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>

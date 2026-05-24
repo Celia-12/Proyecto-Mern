@@ -76,7 +76,7 @@ export default function Services() {
             </h1>
             <p className="text-muted-foreground leading-relaxed">
               Explora nuestra amplia gama de servicios tecnicos profesionales.
-              Contamos con especialistas certificados en cada area.
+              Contamos con técnicos certificados en cada area.
             </p>
 
             <div className="flex items-center gap-2 max-w-md">
@@ -163,9 +163,9 @@ export default function Services() {
                           <ArrowRight className="w-3.5 h-3.5 ml-1" />
                         </Button>
                       </Link>
-                      <Link href={`/socios?categoria=${category.slug}`}>
+                      <Link href={`/tecnicos?categoria=${category.slug}`}>
                         <Badge variant="secondary" className="cursor-pointer" data-testid={`badge-specialists-${category.slug}`}>
-                          Ver especialistas
+                          Ver técnicos
                         </Badge>
                       </Link>
                     </div>

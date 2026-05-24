@@ -51,7 +51,7 @@ function HeroSection() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         <div className="max-w-2xl space-y-6">
           <Badge variant="secondary" className="bg-white/10 text-white border-white/20 backdrop-blur-sm">
-            Especialistas verificados
+            Técnicos verificados
           </Badge>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
@@ -60,23 +60,23 @@ function HeroSection() {
           </h1>
 
           <p className="text-lg text-white/80 leading-relaxed max-w-lg">
-            Conectamos a clientes con los mejores especialistas tecnicos de la region.
+            Conectamos a clientes con los mejores técnicos de Monterrey.
             Servicios de calidad para tu hogar y oficina.
           </p>
 
-          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-md p-1.5 max-w-md">
+          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-md p-1.0 max-w-xl">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
               <Input
                 type="search"
-                placeholder="Que servicio buscas?"
+                placeholder="¿Qué técnico buscas? ejemplo: plomería, electricidad, carpintería..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-9 bg-transparent border-0 text-white placeholder:text-white/50 focus-visible:ring-0"
                 data-testid="input-hero-search"
               />
             </div>
-            <Link href={searchQuery ? `/servicios?q=${encodeURIComponent(searchQuery)}` : "/servicios"}>
+            <Link href={searchQuery ? `/tecnicos?q=${encodeURIComponent(searchQuery)}` : "/tecnicos"}>
               <Button data-testid="button-hero-search">
                 Buscar
               </Button>
@@ -86,7 +86,7 @@ function HeroSection() {
           <div className="flex flex-wrap items-center gap-6 pt-2">
             <div className="flex items-center gap-2 text-white/70 text-sm">
               <CheckCircle className="w-4 h-4 text-green-400" />
-              <span>Socios verificados</span>
+              <span>Técnicos verificados</span>
             </div>
             <div className="flex items-center gap-2 text-white/70 text-sm">
               <Shield className="w-4 h-4 text-blue-400" />
@@ -113,7 +113,7 @@ function CategoriesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-3 mb-12">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-            Nuestros Servicios
+            Nuestras Especialidades
           </h2>
           <p className="text-muted-foreground max-w-md mx-auto">
             Cubrimos todas las necesidades tecnicas de tu hogar y oficina
@@ -131,7 +131,7 @@ function CategoriesSection() {
                 </Card>
               ))
             : categories?.map((category) => (
-                <Link key={category.id} href={`/servicios?categoria=${category.slug}`}>
+                <Link key={category.id} href={`/tecnicos?categoria=${category.slug}`}>
                   <Card
                     className="p-6 cursor-pointer hover-elevate active-elevate-2 transition-all"
                     data-testid={`card-category-${category.slug}`}
@@ -164,13 +164,13 @@ function FeaturedSpecialists() {
         <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
           <div className="space-y-3">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-              Especialistas Destacados
+              Técnicos Destacados
             </h2>
             <p className="text-muted-foreground max-w-md">
               Profesionales verificados con las mejores calificaciones
             </p>
           </div>
-          <Link href="/socios">
+          <Link href="/tecnicos">
             <Button variant="outline" data-testid="button-view-all-specialists">
               Ver todos
               <ArrowRight className="w-4 h-4 ml-1" />
@@ -243,13 +243,13 @@ function WhyUsSection() {
       icon: <Users className="w-6 h-6" />,
       title: "Equipo Profesional",
       description:
-        "Contamos con especialistas verificados y certificados en todas las areas de servicio tecnico.",
+        "Contamos con técnicos verificados y certificados en todas las areas de servicio tecnico.",
     },
     {
       icon: <Shield className="w-6 h-6" />,
       title: "Confianza y Seguridad",
       description:
-        "Todos nuestros socios pasan por un proceso de verificacion para garantizar la calidad del servicio.",
+        "Todos nuestros técnicos pasan por un proceso de verificacion para garantizar la calidad del servicio.",
     },
     {
       icon: <Clock className="w-6 h-6" />,
@@ -307,11 +307,11 @@ function CtaSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-2xl mx-auto space-y-6">
           <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground tracking-tight">
-            Necesitas un especialista?
+            Necesitas un técnico?
           </h2>
           <p className="text-primary-foreground/80 leading-relaxed">
             Solicita una cotizacion gratuita y recibe respuesta en menos de 24 horas.
-            Nuestros especialistas estan listos para ayudarte.
+            Nuestros técnicos estan listos para ayudarte.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link href="/cotizacion">
@@ -319,9 +319,9 @@ function CtaSection() {
                 Solicitar Cotizacion
               </Button>
             </Link>
-            <Link href="/socios">
+            <Link href="/tecnicos">
               <Button variant="outline" size="lg" className="text-white border-white/30 bg-white/10 backdrop-blur-sm" data-testid="button-cta-specialists">
-                Ver Especialistas
+                Ver técnicos
               </Button>
             </Link>
           </div>

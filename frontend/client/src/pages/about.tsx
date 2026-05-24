@@ -18,13 +18,13 @@ export default function About() {
       icon: <Users className="w-6 h-6" />,
       title: "Equipo Profesional",
       description:
-        "Contamos con especialistas verificados y certificados en todas las areas de servicio tecnico.",
+        "Contamos con técnicos verificados y certificados en todas las areas de servicio tecnico.",
     },
     {
       icon: <Shield className="w-6 h-6" />,
       title: "Confianza y Seguridad",
       description:
-        "Todos nuestros socios pasan por un proceso de verificacion para garantizar la calidad del servicio.",
+        "Todos nuestros técnicos pasan por un proceso de verificacion para garantizar la calidad del servicio.",
     },
     {
       icon: <Clock className="w-6 h-6" />,
@@ -42,7 +42,7 @@ export default function About() {
 
   const stats = [
     { value: "500+", label: "Servicios realizados" },
-    { value: "50+", label: "Especialistas activos" },
+    { value: "50+", label: "Técnicos activos" },
     { value: "4.8", label: "Calificacion promedio" },
     { value: "98%", label: "Clientes satisfechos" },
   ];
@@ -76,19 +76,19 @@ export default function About() {
                 </h2>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Somos una plataforma que conecta a clientes con los mejores especialistas
-                tecnicos de la region. Nuestra mision es facilitar el acceso a servicios
+                Somos una plataforma que conecta a clientes con los mejores técnicos
+                de la region. Nuestra mision es facilitar el acceso a servicios
                 de calidad para tu hogar y oficina.
               </p>
               <p className="text-muted-foreground leading-relaxed">
                 Desde nuestra fundacion, nos hemos comprometido a brindar un servicio
-                excepcional, asegurandonos de que cada especialista cumpla con los mas
+                excepcional, asegurandonos de que cada técnico cumpla con los mas
                 altos estandares de calidad y profesionalismo.
               </p>
 
               <div className="space-y-3 pt-2">
                 {[
-                  "Especialistas verificados y certificados",
+                  "Técnicos verificados y certificados",
                   "Proceso de cotizacion transparente",
                   "Garantia en todos los servicios",
                   "Atencion al cliente personalizada",
@@ -185,7 +185,7 @@ export default function About() {
                 <h3 className="font-semibold">Mision</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Facilitar el acceso a servicios tecnicos de calidad, conectando
-                  clientes con especialistas verificados de manera rapida y segura.
+                  clientes con técnicos verificados de manera rapida y segura.
                 </p>
               </div>
             </Card>
@@ -198,7 +198,7 @@ export default function About() {
                 <h3 className="font-semibold">Vision</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Ser la plataforma lider en servicios tecnicos en toda la region,
-                  reconocida por la calidad y confiabilidad de nuestros especialistas.
+                  reconocida por la calidad y confiabilidad de nuestros técnicos.
                 </p>
               </div>
             </Card>
@@ -227,7 +227,7 @@ export default function About() {
             </h2>
             <p className="text-muted-foreground">
               Solicita una cotizacion gratuita o explora nuestro directorio de
-              especialistas verificados.
+              técnicos verificados.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link href="/cotizacion">
@@ -236,9 +236,9 @@ export default function About() {
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
-              <Link href="/socios">
+              <Link href="/tecnicos">
                 <Button variant="outline" size="lg" data-testid="button-about-cta-partners">
-                  Ver Especialistas
+                  Ver técnicos
                 </Button>
               </Link>
             </div>

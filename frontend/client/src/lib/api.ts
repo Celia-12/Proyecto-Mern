@@ -1,5 +1,6 @@
 // ─── API Base URL ──────────────────────────────────────────────────────────
 export const API_BASE = "http://localhost:3001/api";
+export const API_ORIGIN = API_BASE.replace(/\/api$/, "");
 
 // ─── Token management ─────────────────────────────────────────────────────
 export const getToken = (): string | null => localStorage.getItem("token");
@@ -12,8 +13,9 @@ export async function apiFetch(
   options: RequestInit = {}
 ): Promise<Response> {
   const token = getToken();
+  const isFormData = options.body instanceof FormData;
   const headers: Record<string, string> = {
-    "Content-Type": "application/json",
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
     ...(options.headers as Record<string, string>),
   };
 

@@ -33,14 +33,50 @@ const usuarioSchema = new mongoose.Schema(
       trim: true,
       default: "Monterrey",
     },
+    codigo_postal: {
+      type: String,
+      trim: true,
+      match: [/^[0-9]{5}$/, "El código postal debe tener 5 dígitos"],
+    },
     foto: {
       type: String,
+      default: null,
+    },
+    bio: {
+      type: String,
+      trim: true,
+      maxlength: [500, "La descripción no puede exceder 500 caracteres"],
       default: null,
     },
     tipo: {
       type: String,
       enum: ["cliente", "tecnico", "admin"],
       default: "cliente",
+    },
+    especialidad: {
+      type: String,
+      enum: [
+        "Plomero",
+        "Electricista",
+        "Técnico en aire acondicionado",
+        "Carpintero",
+        "Albañil",
+        "Pintor",
+        "Cerrajero",
+        "Paneles solares",
+        "Seguridad",
+        "Impermeabilización",
+      ],
+      trim: true,
+      default: null,
+      required: function () {
+        return this.tipo === "tecnico";
+      },
+    },
+    precio_hora: {
+      type: Number,
+      min: [0, "El precio por visita debe ser un número positivo"],
+      default: null,
     },
     activo: {
       type: Boolean,

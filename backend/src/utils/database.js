@@ -1,3 +1,5 @@
+//esta cosa sirve para conectar mi aplicacion a mongodb 
+
 const mongoose = require("mongoose");
 const logger = require("./logger");
 

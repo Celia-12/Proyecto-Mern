@@ -9,6 +9,10 @@ interface Usuario {
   foto?: string;
   telefono?: string;
   ciudad?: string;
+  codigo_postal?: string;
+  especialidad?: string;
+  precio_hora?: number;
+  bio?: string | null;
 }
 
 interface AuthContextType {
@@ -16,6 +20,7 @@ interface AuthContextType {
   cargando: boolean;
   login: (email: string, contrasena: string) => Promise<void>;
   registro: (datos: RegistroDatos) => Promise<void>;
+  actualizarPerfil: (datos: Partial<Pick<Usuario, "nombre" | "telefono" | "ciudad" | "codigo_postal" | "foto" | "bio" | "precio_hora">>) => Promise<void>;
   logout: () => void;
   estaAutenticado: boolean;
 }
@@ -26,6 +31,7 @@ interface RegistroDatos {
   contrasena: string;
   telefono?: string;
   tipo?: "cliente" | "tecnico";
+  especialidad?: string;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -85,6 +91,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUsuario(data.usuario);
   };
 
+  const actualizarPerfil = async (datos: Partial<Pick<Usuario, "nombre" | "telefono" | "ciudad" | "codigo_postal" | "foto" | "bio" | "precio_hora">>) => {
+    const res = await api.put("/auth/perfil", datos);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Error al actualizar el perfil");
+    setUsuario(data.usuario);
+  };
+
   const logout = () => {
     removeToken();
     setUsuario(null);
@@ -97,6 +110,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         cargando,
         login,
         registro,
+        actualizarPerfil,
         logout,
         estaAutenticado: !!usuario,
       }}

@@ -19,3 +19,8 @@
     at generarToken (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:6:7)
     at registro (C:\Users\MAQUINA DEL MAL\Downloads\Proyecto-Mern-main\Proyecto-Mern-main\backend\src\controllers\authController.js:32:19)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5) | META: {"method":"POST","path":"/api/auth/registro","ip":"::1"}
+[2026-05-23 18:28:08] ERROR: Error: secretOrPrivateKey must have a value
+    at module.exports [as sign] (C:\Users\Eduardo\Documents\GitHub\Proyecto-Mern\backend\node_modules\jsonwebtoken\sign.js:111:20)
+    at generarToken (C:\Users\Eduardo\Documents\GitHub\Proyecto-Mern\backend\src\controllers\authController.js:6:7)
+    at registro (C:\Users\Eduardo\Documents\GitHub\Proyecto-Mern\backend\src\controllers\authController.js:32:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) | META: {"method":"POST","path":"/api/auth/registro","ip":"::1"}

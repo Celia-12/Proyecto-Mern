@@ -2,13 +2,14 @@ const Calificacion = require("../models/Calificacion");
 const Trabajo = require("../models/Trabajo");
 const logger = require("../utils/logger");
 
-// GET /api/calificaciones?especialista_id=xxx
+// GET /api/calificaciones?especialista_id=xxx&a_quien=xxx
 const listar = async (req, res, next) => {
   try {
-    const { especialista_id, tipo, page = 1, limit = 10 } = req.query;
+    const { especialista_id, a_quien, tipo, page = 1, limit = 10 } = req.query;
     const filtro = {};
 
     if (especialista_id) filtro.especialista_id = especialista_id;
+    if (a_quien) filtro.a_quien = a_quien;
     if (tipo) filtro.tipo = tipo;
 
     const skip = (Number(page) - 1) * Number(limit);

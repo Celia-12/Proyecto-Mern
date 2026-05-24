@@ -10,7 +10,7 @@ const generarToken = (id) =>
 // POST /api/auth/registro
 const registro = async (req, res, next) => {
   try {
-    const { nombre, email, contrasena, telefono, tipo, ciudad } = req.body;
+    const { nombre, email, contrasena, telefono, tipo, ciudad, especialidad, precio_hora, bio } = req.body;
 
     const existe = await Usuario.findOne({ email });
     if (existe) {
@@ -27,6 +27,9 @@ const registro = async (req, res, next) => {
       telefono,
       tipo: tipo || "cliente",
       ciudad,
+      especialidad: tipo === "tecnico" ? especialidad : undefined,
+      precio_hora: tipo === "tecnico" ? precio_hora : undefined,
+      bio,
     });
 
     const token = generarToken(usuario._id);
@@ -91,10 +94,14 @@ const obtenerPerfil = async (req, res) => {
 // PUT /api/auth/perfil
 const actualizarPerfil = async (req, res, next) => {
   try {
-    const { nombre, telefono, ciudad, foto } = req.body;
+    const { nombre, telefono, ciudad, foto, bio, codigo_postal, precio_hora } = req.body;
+    const updates = { nombre, telefono, ciudad, foto, bio, codigo_postal, precio_hora };
+    Object.keys(updates).forEach((key) => {
+      if (updates[key] === undefined) delete updates[key];
+    });
     const usuario = await Usuario.findByIdAndUpdate(
       req.usuario._id,
-      { nombre, telefono, ciudad, foto },
+      updates,
       { new: true, runValidators: true }
     );
     logger.info(`PERFIL actualizado: ${req.usuario._id}`);

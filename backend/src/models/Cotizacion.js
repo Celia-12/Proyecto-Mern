@@ -23,12 +23,25 @@ const cotizacionSchema = new mongoose.Schema(
         "Cerrajería",
         "Aire Acondicionado",
         "Mantenimiento General",
+        "Paneles solares",
+        "Seguridad",
+        "Impermeabilización",
       ],
     },
     ubicacion: {
       type: String,
       required: [true, "La ubicación es requerida"],
       trim: true,
+    },
+    codigo_postal: {
+      type: String,
+      required: [true, "El código postal es requerido"],
+      trim: true,
+      match: [/^[0-9]{5}$/, "El código postal debe tener 5 dígitos"],
+    },
+    imagenes: {
+      type: [String],
+      default: [],
     },
     estado: {
       type: String,
@@ -44,6 +57,11 @@ const cotizacionSchema = new mongoose.Schema(
     especialista_asignado: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Especialista",
+      default: null,
+    },
+    trabajo_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Trabajo",
       default: null,
     },
     fecha_preferida: {
@@ -71,6 +89,7 @@ const cotizacionSchema = new mongoose.Schema(
 );
 
 cotizacionSchema.index({ cliente_id: 1, estado: 1 });
+cotizacionSchema.index({ categoria: 1, codigo_postal: 1 });
 cotizacionSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model("Cotizacion", cotizacionSchema);
