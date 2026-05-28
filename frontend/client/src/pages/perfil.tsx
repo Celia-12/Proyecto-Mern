@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import {
+  useEspecialistas,
   useCotizaciones,
   useCancelarCotizacion,
   useAceptarCotizacionPorCliente,
+  useAceptarCotizacionPorTecnico,
+  useRechazarCotizacionPorTecnico,
   useConfirmarTrabajo,
   useCalificarTrabajo,
 } from "@/hooks/useApi";
@@ -42,6 +45,7 @@ import {
 
 interface Cotizacion {
   _id: string;
+  titulo: string;
   descripcion: string;
   categoria: string;
   ubicacion: string;
@@ -49,6 +53,7 @@ interface Cotizacion {
   createdAt: string;
   monto_estimado?: number;
   monto_final?: number;
+  especialistas_notificados?: string[];
   especialista_asignado?: {
     _id: string;
     usuario_id?: {
@@ -88,9 +93,29 @@ const ESTADO_CONFIG: Record<
     icon: <CheckCircle className="w-3 h-3" />,
   },
   completada: {
-    label: "Completada",
+    label: "Terminada",
     variant: "outline",
     icon: <CheckCircle className="w-3 h-3" />,
+  },
+  terminada: {
+    label: "Terminada",
+    variant: "outline",
+    icon: <CheckCircle className="w-3 h-3" />,
+  },
+  pendiente_confirmacion: {
+    label: "Pendiente de confirmación",
+    variant: "default",
+    icon: <Clock className="w-3 h-3" />,
+  },
+  inconcluso: {
+    label: "Inconcluso",
+    variant: "destructive",
+    icon: <XCircle className="w-3 h-3" />,
+  },
+  inconclusa: {
+    label: "Inconclusa",
+    variant: "destructive",
+    icon: <XCircle className="w-3 h-3" />,
   },
   rechazada: {
     label: "Cancelada por el cliente",
@@ -121,7 +146,9 @@ function CotizacionCard({
   detailHref?: string;
   actions?: React.ReactNode;
 }) {
-  const config = ESTADO_CONFIG[cot.estado] ?? ESTADO_CONFIG.pendiente;
+  const displayEstado =
+    cot.estado === "completada" ? "terminada" : cot.estado;
+  const config = ESTADO_CONFIG[displayEstado] ?? ESTADO_CONFIG.pendiente;
   const fecha = new Date(cot.createdAt).toLocaleDateString("es-MX", {
     day: "numeric",
     month: "long",
@@ -136,7 +163,7 @@ function CotizacionCard({
         <div className="flex-1 min-w-0 space-y-2">
           <div className="flex items-center gap-2">
             <span className="text-lg">{CATEGORIA_EMOJIS[cot.categoria] ?? "🔧"}</span>
-            <span className="font-medium">{cot.categoria}</span>
+            <span className="font-medium">{cot.titulo}</span>
             <Badge variant={config.variant} className="gap-1 text-xs ml-auto shrink-0">
               {config.icon}
               {config.label}
@@ -184,10 +211,14 @@ export default function Perfil() {
   const { data, isLoading } = useCotizaciones();
   const cancelarCotizacion = useCancelarCotizacion();
   const aceptarCotizacionCliente = useAceptarCotizacionPorCliente();
+  const aceptarCotizacionTecnico = useAceptarCotizacionPorTecnico();
+  const rechazarCotizacionTecnico = useRechazarCotizacionPorTecnico();
   const confirmarTrabajo = useConfirmarTrabajo();
   const calificarTrabajo = useCalificarTrabajo();
   const cancelando = cancelarCotizacion.status === "pending";
   const aceptandoCliente = aceptarCotizacionCliente.status === "pending";
+  const aceptandoTecnico = aceptarCotizacionTecnico.status === "pending";
+  const rechazandoTecnico = rechazarCotizacionTecnico.status === "pending";
   const confirmandoTrabajo = confirmarTrabajo.status === "pending";
   const calificando = calificarTrabajo.status === "pending";
   const { toast } = useToast();
@@ -208,6 +239,10 @@ export default function Perfil() {
   const [guardandoPrecio, setGuardandoPrecio] = useState(false);
 
   const esTecnico = usuario?.tipo === "tecnico";
+  const { data: especialistaData } = useEspecialistas(
+    esTecnico && usuario?._id ? { usuario_id: usuario._id } : undefined
+  );
+  const especialistaId = especialistaData?.especialistas?.[0]?._id;
   const cotizaciones: Cotizacion[] = data?.cotizaciones ?? [];
 
   useEffect(() => {
@@ -215,14 +250,30 @@ export default function Perfil() {
     setPostalDraft(usuario?.codigo_postal ?? "");
     setPrecioVisitaDraft(usuario?.precio_hora?.toString() ?? "");
   }, [usuario?.bio, usuario?.codigo_postal, usuario?.precio_hora]);
-  const notificaciones = cotizaciones.filter((c) => c.estado === "en_revision");
+  const notificacionesEnRevision = usuario?.tipo === "cliente"
+    ? cotizaciones.filter(
+        (c) =>
+          c.estado === "en_revision" ||
+          (c.estado === "aceptada" && c.especialista_asignado && !c.trabajo_id)
+      )
+    : [];
+  const notificacionesPendienteConfirmacion = usuario?.tipo === "cliente"
+    ? cotizaciones.filter((c) => c.estado === "pendiente_confirmacion")
+    : [];
+  const notificacionesTecnicoEnRevision = esTecnico
+    ? cotizaciones.filter((c) => c.estado === "en_revision")
+    : [];
+  const notificacionesTecnicoListos = esTecnico
+    ? cotizaciones.filter((c) => c.estado === "aceptada")
+    : [];
   const activas = cotizaciones.filter((c) =>
     esTecnico
-      ? ["aceptada"].includes(c.estado)
-      : ["pendiente", "en_revision", "aceptada"].includes(c.estado)
+      ? ["en_revision", "aceptada", "pendiente_confirmacion"].includes(c.estado) ||
+        (c.estado === "pendiente" && especialistaId !== undefined && c.especialistas_notificados?.includes(especialistaId))
+      : ["pendiente", "en_revision", "aceptada", "pendiente_confirmacion"].includes(c.estado)
   );
   const historial = cotizaciones.filter((c) =>
-    esTecnico ? ["completada"].includes(c.estado) : ["completada", "rechazada"].includes(c.estado)
+    esTecnico ? ["completada", "inconclusa"].includes(c.estado) : ["completada", "rechazada", "inconclusa"].includes(c.estado)
   );
 
   const initials =
@@ -268,12 +319,14 @@ export default function Perfil() {
             </div>
 
             <div className="flex gap-2 shrink-0">
-              <Link href="/cotizacion">
-                <Button size="sm" className="gap-1.5">
-                  <Plus className="w-4 h-4" />
-                  Nueva cotización
-                </Button>
-              </Link>
+              {usuario?.tipo !== "tecnico" && (
+                <Link href="/cotizacion">
+                  <Button size="sm" className="gap-1.5">
+                    <Plus className="w-4 h-4" />
+                    Nueva cotización
+                  </Button>
+                </Link>
+              )}
               <Button
                 variant="outline"
                 size="sm"
@@ -293,7 +346,7 @@ export default function Perfil() {
                 value: esTecnico ? activas.length + historial.length : cotizaciones.length,
               },
               {
-                label: esTecnico ? "Aceptadas" : "Activas",
+                label: "Activas",
                 value: activas.length,
               },
               { label: "Completadas", value: historial.filter((c) => c.estado === "completada").length },
@@ -526,7 +579,7 @@ export default function Perfil() {
                 </Card>
               ))}
 
-            {!isLoading && notificaciones.length > 0 && (
+            {!isLoading && notificacionesEnRevision.length > 0 && (
               <Card className="p-5 border border-amber-200 bg-amber-50">
                 <div className="flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />
@@ -538,12 +591,12 @@ export default function Perfil() {
                   </div>
                 </div>
                 <div className="mt-4 space-y-3">
-                  {notificaciones.map((cot) => (
+                  {notificacionesEnRevision.map((cot) => (
                     <Card key={cot._id} className="p-4 bg-white">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div>
                           <p className="text-sm text-muted-foreground">{cot.categoria}</p>
-                          <p className="font-medium">{cot.descripcion}</p>
+                          <p className="font-medium">{cot.titulo}</p>
                         </div>
                         <div className="flex gap-2 flex-wrap">
                           {cot.especialista_asignado?.usuario_id && (
@@ -586,6 +639,160 @@ export default function Perfil() {
               </Card>
             )}
 
+            {!isLoading && notificacionesPendienteConfirmacion.length > 0 && (
+              <Card className="p-5 border border-amber-200 bg-amber-50">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />
+                  <div>
+                    <p className="font-semibold">Tu técnico reportó que el trabajo está listo</p>
+                    <p className="text-sm text-muted-foreground">
+                      Confirma si el trabajo se completó o marca la solicitud como inconclusa.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-4 space-y-3">
+                  {notificacionesPendienteConfirmacion.map((cot) => (
+                    <Card key={cot._id} className="p-4 bg-white">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div>
+                          <p className="text-sm text-muted-foreground">{cot.categoria}</p>
+                          <p className="font-medium">{cot.titulo}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {cot.trabajo_id?._id && (
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              onClick={async () => {
+                                try {
+                                  await confirmarTrabajo.mutateAsync({ trabajoId: cot.trabajo_id!._id, estado: "completado" });
+                                  toast({
+                                    title: "Cotización terminada",
+                                    description: "El trabajo se marcó como completado y ahora puedes calificar al técnico.",
+                                  });
+                                } catch (err: unknown) {
+                                  toast({
+                                    variant: "destructive",
+                                    title: "No se pudo terminar la cotización",
+                                    description: err instanceof Error ? err.message : "Intenta de nuevo más tarde.",
+                                  });
+                                }
+                              }}
+                              disabled={confirmandoTrabajo}
+                            >
+                              {confirmandoTrabajo ? "Procesando..." : "Terminar cotización"}
+                            </Button>
+                          )}
+                          <Link href={`/cotizacion/${cot._id}`}>
+                            <Button size="sm" variant="outline">
+                              Ver detalles
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </Card>
+            )}
+
+            {!isLoading && notificacionesTecnicoEnRevision.length > 0 && (
+              <Card className="p-5 border border-amber-200 bg-amber-50">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />
+                  <div>
+                    <p className="font-semibold">Has aceptado solicitudes pendientes de confirmación</p>
+                    <p className="text-sm text-muted-foreground">
+                      Estas cotizaciones fueron aceptadas por ti y esperan que el cliente confirme el trabajo.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-4 space-y-3">
+                  {notificacionesTecnicoEnRevision.map((cot) => (
+                    <Card key={cot._id} className="p-4 bg-white">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div>
+                          <p className="text-sm text-muted-foreground">{cot.categoria}</p>
+                          <p className="font-medium">{cot.titulo}</p>
+                        </div>
+                        <Link href={`/cotizacion/${cot._id}`}>
+                          <Button size="sm" variant="outline">
+                            Ver detalles
+                          </Button>
+                        </Link>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </Card>
+            )}
+
+            {!isLoading && notificacionesTecnicoListos.length > 0 && (
+              <Card className="p-5 border border-amber-200 bg-amber-50">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />
+                  <div>
+                    <p className="font-semibold">Tienes trabajos listos para confirmar</p>
+                    <p className="text-sm text-muted-foreground">
+                      Un cliente ya aceptó la cotización. Marca el trabajo como realizado cuando completes el trabajo.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-4 space-y-3">
+                  {notificacionesTecnicoListos.map((cot) => (
+                    <Card key={cot._id} className="p-4 bg-white">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div>
+                          <p className="text-sm text-muted-foreground">{cot.categoria}</p>
+                          <p className="font-medium">{cot.titulo}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          <Link href={`/cotizacion/${cot._id}`}>
+                            <Button size="sm" variant="outline">
+                              Ver detalles
+                            </Button>
+                          </Link>
+                          {cot.trabajo_id?._id && (
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              onClick={async () => {
+                                const trabajoId = cot.trabajo_id?._id;
+                                if (!trabajoId) return;
+                                try {
+                                  await confirmarTrabajo.mutateAsync({
+                                    trabajoId,
+                                    estado: "pendiente_confirmacion",
+                                  });
+                                  toast({
+                                    title: "Trabajo marcado como realizado",
+                                    description:
+                                      "El cliente recibirá la notificación para confirmar la finalización.",
+                                  });
+                                } catch (err: unknown) {
+                                  toast({
+                                    variant: "destructive",
+                                    title: "No se pudo marcar como realizado",
+                                    description:
+                                      err instanceof Error
+                                        ? err.message
+                                        : "Intenta de nuevo más tarde.",
+                                  });
+                                }
+                              }}
+                              disabled={confirmandoTrabajo}
+                            >
+                              {confirmandoTrabajo ? "Marcando..." : "Marcar como realizado"}
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </Card>
+            )}
+
             {!isLoading && activas.length === 0 && (
               <Card className="p-10 text-center">
                 <FileText className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
@@ -594,8 +801,13 @@ export default function Perfil() {
             )}
 
             {!isLoading && activas.map((cot) => {
-              const puedeConfirmarTrabajo = cot.estado === "aceptada" && cot.trabajo_id?.estado !== "completado";
-              const puedeCalificar = cot.trabajo_id?.estado === "completado" && !cot.trabajo_id.calificado;
+              const puedeAceptarCotizacionCliente =
+                usuario?.tipo === "cliente" && cot.estado === "en_revision";
+              const puedeMarcarTrabajoRealizado =
+                usuario?.tipo === "tecnico" && ["aceptada", "en_revision"].includes(cot.estado);
+              const puedeConfirmarCompleto =
+                usuario?.tipo === "cliente" && cot.estado === "pendiente_confirmacion";
+              const puedeCalificar = cot.estado === "completada" && !cot.trabajo_id?.calificado;
               return (
                 <CotizacionCard
                   key={cot._id}
@@ -608,16 +820,16 @@ export default function Perfil() {
                   canceling={cancelando}
                   actions={
                     <>
-                      {puedeConfirmarTrabajo && cot.trabajo_id && (
+                      {puedeAceptarCotizacionCliente && (
                         <Button
                           size="sm"
                           variant="secondary"
                           onClick={async () => {
                             try {
-                              await confirmarTrabajo.mutateAsync({ trabajoId: cot.trabajo_id!._id });
+                              await aceptarCotizacionCliente.mutateAsync(cot._id);
                               toast({
-                                title: "Trabajo confirmado",
-                                description: "Marca como completado para poder calificar al técnico.",
+                                title: "Cotización confirmada",
+                                description: "El trabajo pasó a estado pendiente y se creó el registro de trabajo.",
                               });
                             } catch (err: unknown) {
                               toast({
@@ -630,10 +842,145 @@ export default function Perfil() {
                               });
                             }
                           }}
+                          disabled={aceptandoCliente}
+                        >
+                          {aceptandoCliente ? "Confirmando..." : "Aceptar cotización"}
+                        </Button>
+                      )}
+                      {esTecnico && especialistaId && cot.estado === "pendiente" && cot.especialistas_notificados?.includes(especialistaId) && (
+                        <>
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            onClick={async () => {
+                              try {
+                                await aceptarCotizacionTecnico.mutateAsync(cot._id);
+                                toast({
+                                  title: "Cotización aceptada",
+                                  description: "Has aceptado esta solicitud específica.",
+                                });
+                              } catch (err: unknown) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "No se pudo aceptar",
+                                  description:
+                                    err instanceof Error
+                                      ? err.message
+                                      : "Intenta de nuevo más tarde.",
+                                });
+                              }
+                            }}
+                            disabled={aceptandoTecnico}
+                          >
+                            {aceptandoTecnico ? "Aceptando..." : "Aceptar"}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={async () => {
+                              try {
+                                await rechazarCotizacionTecnico.mutateAsync(cot._id);
+                                toast({
+                                  title: "Cotización rechazada",
+                                  description: "Has rechazado esta solicitud específica.",
+                                });
+                              } catch (err: unknown) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "No se pudo rechazar",
+                                  description:
+                                    err instanceof Error
+                                      ? err.message
+                                      : "Intenta de nuevo más tarde.",
+                                });
+                              }
+                            }}
+                            disabled={rechazandoTecnico}
+                          >
+                            {rechazandoTecnico ? "Rechazando..." : "Rechazar"}
+                          </Button>
+                        </>
+                      )}
+                      {puedeMarcarTrabajoRealizado && cot.trabajo_id && (
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          onClick={async () => {
+                            try {
+                              await confirmarTrabajo.mutateAsync({ trabajoId: cot.trabajo_id!._id, estado: "pendiente_confirmacion" });
+                              toast({
+                                title: "Solicitud de término enviada",
+                                description: "El cliente recibirá la notificación para confirmar la finalización.",
+                              });
+                            } catch (err: unknown) {
+                              toast({
+                                variant: "destructive",
+                                title: "No se pudo terminar la cotización",
+                                description:
+                                  err instanceof Error
+                                    ? err.message
+                                    : "Intenta de nuevo más tarde.",
+                              });
+                            }
+                          }}
                           disabled={confirmandoTrabajo}
                         >
-                          {confirmandoTrabajo ? "Confirmando..." : "Confirmar trabajo realizado"}
+                          {confirmandoTrabajo ? "Procesando..." : "Terminar cotización"}
                         </Button>
+                      )}
+                      {puedeConfirmarCompleto && cot.trabajo_id && (
+                        <div className="flex flex-wrap gap-2">
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            onClick={async () => {
+                              try {
+                                await confirmarTrabajo.mutateAsync({ trabajoId: cot.trabajo_id!._id, estado: "completado" });
+                                toast({
+                                  title: "Cotización terminada",
+                                  description: "El trabajo se marcó como completado y podrás calificar al técnico.",
+                                });
+                              } catch (err: unknown) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "No se pudo terminar la cotización",
+                                  description:
+                                    err instanceof Error
+                                      ? err.message
+                                      : "Intenta de nuevo más tarde.",
+                                });
+                              }
+                            }}
+                            disabled={confirmandoTrabajo}
+                          >
+                            {confirmandoTrabajo ? "Procesando..." : "Terminar cotización"}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={async () => {
+                              try {
+                                await confirmarTrabajo.mutateAsync({ trabajoId: cot.trabajo_id!._id, estado: "inconcluso" });
+                                toast({
+                                  title: "Trabajo marcado como inconcluso",
+                                  description: "El trabajo se guardó como inconcluso en el historial.",
+                                });
+                              } catch (err: unknown) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "No se pudo marcar inconcluso",
+                                  description:
+                                    err instanceof Error
+                                      ? err.message
+                                      : "Intenta de nuevo más tarde.",
+                                });
+                              }
+                            }}
+                            disabled={confirmandoTrabajo}
+                          >
+                            {confirmandoTrabajo ? "Enviando..." : "Marcar inconcluso"}
+                          </Button>
+                        </div>
                       )}
                       {puedeCalificar && (
                         <Button
@@ -665,9 +1012,34 @@ export default function Perfil() {
                 </p>
               </Card>
             )}
-            {!isLoading && historial.map((cot) => (
-              <CotizacionCard key={cot._id} cot={cot} />
-            ))}
+            {!isLoading && historial.map((cot) => {
+              const puedeCalificarHistorial =
+                usuario?.tipo === "cliente" &&
+                cot.estado === "completada" &&
+                cot.trabajo_id?._id &&
+                !cot.trabajo_id?.calificado;
+
+              return (
+                <CotizacionCard
+                  key={cot._id}
+                  cot={cot}
+                  actions={
+                    puedeCalificarHistorial ? (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          setCotizacionACalificar(cot);
+                          setRatingDialogOpen(true);
+                        }}
+                      >
+                        Calificar técnico
+                      </Button>
+                    ) : undefined
+                  }
+                />
+              );
+            })}
           </TabsContent>
 
           {/* Account info */}

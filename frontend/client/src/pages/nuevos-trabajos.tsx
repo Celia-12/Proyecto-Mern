@@ -1,17 +1,22 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/context/AuthContext";
-import { useNuevosTrabajos } from "@/hooks/useApi";
+import type { Cotizacion } from "@/hooks/useApi";
+import { useNuevosTrabajos, useAceptarCotizacionPorTecnico, useRechazarCotizacionPorTecnico } from "@/hooks/useApi";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Clock, MapPin, FileText } from "lucide-react";
 
 export default function NuevosTrabajos() {
   const { usuario } = useAuth();
   const [, navigate] = useLocation();
   const { data, isLoading, isError, error } = useNuevosTrabajos();
+  const aceptarCotizacionTecnico = useAceptarCotizacionPorTecnico();
+  const rechazarCotizacionTecnico = useRechazarCotizacionPorTecnico();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (usuario && usuario.tipo !== "tecnico") {
@@ -19,7 +24,7 @@ export default function NuevosTrabajos() {
     }
   }, [usuario, navigate]);
 
-  const trabajos = data?.cotizaciones ?? [];
+  const trabajos = (data?.cotizaciones ?? []) as Cotizacion[];
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -81,7 +86,7 @@ export default function NuevosTrabajos() {
                     </Badge>
                     <span className="text-sm text-muted-foreground">{trabajo.codigo_postal}</span>
                   </div>
-                  <p className="text-lg font-semibold">{trabajo.descripcion}</p>
+                  <p className="text-lg font-semibold">{trabajo.titulo}</p>
                   <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
                     <span className="flex items-center gap-1">
                       <MapPin className="w-4 h-4" /> {trabajo.ubicacion}
@@ -108,11 +113,64 @@ export default function NuevosTrabajos() {
                       {trabajo.cliente_id?.ciudad ?? "No especificada"}
                     </span>
                   </div>
-                  <Link href={`/cotizacion/${trabajo._id}`} className="w-full">
-                    <Button size="sm" variant="outline" className="w-full">
-                      Ver detalles
+                  <div className="grid gap-2 w-full">
+                    <Button
+                      size="sm"
+                      onClick={async () => {
+                        try {
+                          await aceptarCotizacionTecnico.mutateAsync(trabajo._id);
+                          toast({
+                            title: "Cotización aceptada",
+                            description: "El cliente fue notificado y el trabajo queda en estado pendiente.",
+                          });
+                        } catch (err: unknown) {
+                          toast({
+                            variant: "destructive",
+                            title: "No se pudo aceptar la cotización",
+                            description:
+                              err instanceof Error ? err.message : "Intenta de nuevo más tarde.",
+                          });
+                        }
+                      }}
+                      disabled={aceptarCotizacionTecnico.status === "pending" || rechazarCotizacionTecnico.status === "pending"}
+                      className="w-full"
+                    >
+                      {aceptarCotizacionTecnico.status === "pending"
+                        ? "Aceptando..."
+                        : "Aceptar cotización"}
                     </Button>
-                  </Link>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={async () => {
+                        try {
+                          await rechazarCotizacionTecnico.mutateAsync(trabajo._id);
+                          toast({
+                            title: "Cotización rechazada",
+                            description: "El cliente recibió la notificación de rechazo.",
+                          });
+                        } catch (err: unknown) {
+                          toast({
+                            variant: "destructive",
+                            title: "No se pudo rechazar la cotización",
+                            description:
+                              err instanceof Error ? err.message : "Intenta de nuevo más tarde.",
+                          });
+                        }
+                      }}
+                      disabled={aceptarCotizacionTecnico.status === "pending" || rechazarCotizacionTecnico.status === "pending"}
+                      className="w-full"
+                    >
+                      {rechazarCotizacionTecnico.status === "pending"
+                        ? "Rechazando..."
+                        : "Rechazar cotización"}
+                    </Button>
+                    <Link href={`/cotizacion/${trabajo._id}`} className="w-full">
+                      <Button size="sm" variant="outline" className="w-full">
+                        Ver detalles
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </Card>

@@ -190,6 +190,7 @@ async function seed() {
     const cotizaciones = await Cotizacion.create([
       {
         cliente_id: clientesCreados[0]._id,
+        titulo: "Reparación urgente de fuga en cocina",
         descripcion: "Tengo una fuga debajo del fregadero de la cocina, el tubo de desagüe está goteando constantemente y está mojando el mueble de abajo.",
         categoria: "Plomería",
         ubicacion: "Calle Hidalgo 1234, Col. Centro, Monterrey",
@@ -202,6 +203,7 @@ async function seed() {
       },
       {
         cliente_id: clientesCreados[0]._id,
+        titulo: "Instalación de contactos y revisión eléctrica",
         descripcion: "Necesito instalar tres contactos dobles nuevos en la sala y revisar el tablero eléctrico porque se van los breakers seguido.",
         categoria: "Electricidad",
         ubicacion: "Av. Constitución 567, Col. Obispado, Monterrey",
@@ -211,6 +213,7 @@ async function seed() {
       },
       {
         cliente_id: clientesCreados[1]._id,
+        titulo: "Mini-split con falla de enfriamiento",
         descripcion: "El minisplit de la recámara principal no enfría bien, hace un ruido extraño y gotea agua al interior del cuarto.",
         categoria: "Aire Acondicionado",
         ubicacion: "Av. Vasconcelos 890, San Pedro Garza García",
@@ -222,6 +225,7 @@ async function seed() {
       },
       {
         cliente_id: clientesCreados[1]._id,
+        titulo: "Closet a medida para recámara",
         descripcion: "Quiero un closet de madera a medida para la recámara de mi hijo, con cajones y espacio para colgar ropa. El cuarto mide 3x4 metros.",
         categoria: "Carpintería",
         ubicacion: "Av. Vasconcelos 890, San Pedro Garza García",
@@ -234,6 +238,7 @@ async function seed() {
       },
       {
         cliente_id: clientesCreados[2]._id,
+        titulo: "Apertura de vehículo sin daño",
         descripcion: "Se me olvidaron las llaves adentro del carro, un Nissan Versa 2020. Necesito que lo abran sin dañar la cerradura.",
         categoria: "Cerrajería",
         ubicacion: "Blvd. Fresno 345, Col. Hacienda Los Morales, Apodaca",
@@ -245,6 +250,7 @@ async function seed() {
       },
       {
         cliente_id: clientesCreados[2]._id,
+        titulo: "Pintura y reparación de sala y comedor",
         descripcion: "Necesito pintar la sala y el comedor, son aproximadamente 40m². Las paredes tienen algunos hoyos que hay que rellenar primero.",
         categoria: "Mantenimiento General",
         ubicacion: "Blvd. Fresno 345, Col. Hacienda Los Morales, Apodaca",
@@ -254,6 +260,7 @@ async function seed() {
       },
       {
         cliente_id: clientesCreados[0]._id,
+        titulo: "Revisión de calentador de agua Bosch",
         descripcion: "El calentador de agua no enciende, es un Bosch de paso. Creo que es el piloto o el termostato.",
         categoria: "Plomería",
         ubicacion: "Calle Hidalgo 1234, Col. Centro, Monterrey",
@@ -262,6 +269,7 @@ async function seed() {
       },
       {
         cliente_id: clientesCreados[1]._id,
+        titulo: "Cambio de chapas por seguridad",
         descripcion: "Quiero cambiar las chapas de la casa por unas de seguridad. Son 3 puertas: entrada principal, cochera y jardín.",
         categoria: "Cerrajería",
         ubicacion: "Av. Vasconcelos 890, San Pedro Garza García",

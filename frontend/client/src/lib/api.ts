@@ -1,8 +1,11 @@
-// ─── API Base URL ──────────────────────────────────────────────────────────
+// ─── aqui define API base como la url base de la api ──────────────────────────────────────────────────────────
 export const API_BASE = "http://localhost:3001/api";
+// exporta API_ORIGIN como la url base sin el path /api, para usar en casos donde se necesite la url base sin el path
 export const API_ORIGIN = API_BASE.replace(/\/api$/, "");
 
-// ─── Token management ─────────────────────────────────────────────────────
+// aqui se guarda, lee y borra el token JWT en el localStorage, para manejar la autenticación del usuario
+// el token sirve para verificar el usuario sin enviar su conttraseña en cada petición, lo guarda en el localstorage del navegador.
+
 export const getToken = (): string | null => localStorage.getItem("token");
 export const setToken = (token: string) => localStorage.setItem("token", token);
 export const removeToken = () => localStorage.removeItem("token");

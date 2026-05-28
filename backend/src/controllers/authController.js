@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 const Usuario = require("../models/Usuario");
+const Especialista = require("../models/Especialista");
 const logger = require("../utils/logger");
 
+//se genera un token JWT para autenticar al usuario, crea un JWT que contiene el id del usuario y vence segun JWT_EXPIRES_IN, que por defecto es 7 días. Este token se envía al cliente para que lo use en futuras solicitudes autenticadas.
 const generarToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN || "7d",
@@ -104,6 +106,19 @@ const actualizarPerfil = async (req, res, next) => {
       updates,
       { new: true, runValidators: true }
     );
+
+    // If the user has an Especialista profile, keep shared fields in sync.
+    const especialistaUpdates = {};
+    if (precio_hora !== undefined) especialistaUpdates.precio_hora = precio_hora;
+    if (bio !== undefined) especialistaUpdates.bio = bio;
+    if (Object.keys(especialistaUpdates).length > 0) {
+      await Especialista.findOneAndUpdate(
+        { usuario_id: req.usuario._id },
+        especialistaUpdates,
+        { new: true, runValidators: true }
+      );
+    }
+
     logger.info(`PERFIL actualizado: ${req.usuario._id}`);
     res.json({ success: true, usuario });
   } catch (error) {

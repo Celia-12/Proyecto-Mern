@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { api, setToken, removeToken, getToken } from "@/lib/api";
+import { queryClient } from "@/lib/queryClient";
 
 interface Usuario {
   _id: string;
@@ -96,6 +97,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Error al actualizar el perfil");
     setUsuario(data.usuario);
+    queryClient.invalidateQueries({ queryKey: ["especialistas"], exact: false });
+    queryClient.invalidateQueries({ queryKey: ["especialista"], exact: false });
   };
 
   const logout = () => {

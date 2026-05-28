@@ -19,7 +19,15 @@ const trabajoSchema = new mongoose.Schema(
     },
     estado: {
       type: String,
-      enum: ["programado", "en_progreso", "pausado", "completado", "cancelado"],
+      enum: [
+        "programado",
+        "en_progreso",
+        "pausado",
+        "pendiente_confirmacion",
+        "completado",
+        "inconcluso",
+        "cancelado",
+      ],
       default: "programado",
     },
     fecha_inicio: {

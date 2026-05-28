@@ -3,10 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/AuthContext";
+import { useCotizaciones, useEspecialistas, useAceptarCotizacionPorTecnico, useRechazarCotizacionPorTecnico, useConfirmarTrabajo } from "@/hooks/useApi";
 import { useQuery } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { ServiceCategory, Specialist } from "@shared/schema";
+import type { Cotizacion } from "@/hooks/useApi";
 import {
   Search,
   Shield,
@@ -22,6 +26,7 @@ import {
   Lock,
   Hammer,
   Wrench,
+  AlertCircle,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -33,6 +38,15 @@ const categoryIcons: Record<string, React.ReactNode> = {
   cerrajeria: <Lock className="w-6 h-6" />,
   carpinteria: <Hammer className="w-6 h-6" />,
 };
+
+const TECHNICIAN_TRADES: { label: string; icon: React.ReactNode }[] = [
+  { label: "Plomero", icon: <Droplets className="w-6 h-6" /> },
+  { label: "Electricista", icon: <Zap className="w-6 h-6" /> },
+  { label: "Técnico en aire acondicionado", icon: <Wind className="w-6 h-6" /> },
+  { label: "Carpintero", icon: <Hammer className="w-6 h-6" /> },
+  { label: "Cerrajero", icon: <Lock className="w-6 h-6" /> },
+  { label: "Mantenimiento general", icon: <Paintbrush className="w-6 h-6" /> },
+];
 
 function HeroSection() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -103,6 +117,277 @@ function HeroSection() {
   );
 }
 
+function HomeNotifications() {
+  const { usuario } = useAuth();
+  const { data } = useCotizaciones();
+  const { toast } = useToast();
+  const confirmarTrabajo = useConfirmarTrabajo();
+  const aceptarCotizacionTecnico = useAceptarCotizacionPorTecnico();
+  const rechazarCotizacionTecnico = useRechazarCotizacionPorTecnico();
+  const { data: especialistaData } = useEspecialistas(
+    usuario?.tipo === "tecnico" && usuario?._id ? { usuario_id: usuario._id } : undefined
+  );
+  const especialistaId = especialistaData?.especialistas?.[0]?._id;
+
+  if (!usuario || !data?.cotizaciones) {
+    return null;
+  }
+
+  const cotizaciones = data.cotizaciones;
+
+  if (usuario.tipo === "cliente") {
+    const cotizacionesAprobacion = cotizaciones.filter((cot: Cotizacion) => cot.estado === "en_revision");
+    const cotizacionesConfirmacion = cotizaciones.filter(
+      (cot: Cotizacion) => cot.estado === "pendiente_confirmacion"
+    );
+    const confirmandoTrabajo = confirmarTrabajo.status === "pending";
+
+    if (cotizacionesAprobacion.length === 0 && cotizacionesConfirmacion.length === 0) {
+      return null;
+    }
+
+    return (
+      <section className="py-8 md:py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+          {cotizacionesAprobacion.length > 0 && (
+            <Card className="p-5 border border-amber-200 bg-amber-50">
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />
+                  <div>
+                    <p className="font-semibold">Tienes solicitudes que esperan tu aprobación</p>
+                    <p className="text-sm text-muted-foreground">
+                      Un técnico aceptó tu solicitud. Revisa tu perfil para confirmar la cotización y que el trabajo pueda empezar.
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {cotizacionesAprobacion.map((cot: Cotizacion) => {
+                    const profileHref = cot.especialista_asignado?._id
+                      ? `/tecnico/${cot.especialista_asignado._id}`
+                      : `/cotizacion/${cot._id}`;
+                    return (
+                      <div key={cot._id} className="rounded-xl border border-border bg-white p-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                          <div>
+                            <p className="text-sm text-muted-foreground">{cot.categoria}</p>
+                            <p className="font-medium">{cot.titulo}</p>
+                          </div>
+                          <Link href={profileHref}>
+                            <Button size="sm" variant="outline">
+                              Ver perfil del técnico
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {cotizacionesConfirmacion.length > 0 && (
+            <Card className="p-5 border border-amber-200 bg-amber-50">
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />
+                  <div>
+                    <p className="font-semibold">Tu técnico marcó el trabajo como realizado</p>
+                    <p className="text-sm text-muted-foreground">
+                      Revisa tu perfil y confirma si la cotización y el trabajo se completaron correctamente.
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {cotizacionesConfirmacion.map((cot: Cotizacion) => (
+                    <div key={cot._id} className="rounded-xl border border-border bg-white p-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div>
+                          <p className="text-sm text-muted-foreground">{cot.categoria}</p>
+                          <p className="font-medium">{cot.titulo}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            onClick={async () => {
+                              if (!cot.trabajo_id?._id) return;
+                              try {
+                                await confirmarTrabajo.mutateAsync({ trabajoId: cot.trabajo_id._id, estado: "completado" });
+                                toast({
+                                  title: "Cotización terminada",
+                                  description: "El trabajo se marcó como completado y podrás calificar al técnico.",
+                                });
+                              } catch (err: unknown) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "No se pudo terminar la cotización",
+                                  description: err instanceof Error ? err.message : "Intenta de nuevo más tarde.",
+                                });
+                              }
+                            }}
+                            disabled={confirmandoTrabajo}
+                          >
+                            {confirmandoTrabajo ? "Procesando..." : "Terminar cotización"}
+                          </Button>
+                          <Link href={`/cotizacion/${cot._id}`}>
+                            <Button size="sm" variant="outline">
+                              Ver detalles
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          )}
+        </div>
+      </section>
+    );
+  }
+
+  if (usuario.tipo === "tecnico") {
+    const cotizacionesDirectas = especialistaId
+      ? cotizaciones.filter(
+          (cot: Cotizacion) =>
+            cot.estado === "pendiente" &&
+            cot.especialistas_notificados?.includes(especialistaId)
+        )
+      : [];
+
+    const cotizacionesAsignadas = cotizaciones.filter(
+      (cot: Cotizacion) => cot.estado === "aceptada"
+    );
+
+    if (cotizacionesDirectas.length === 0 && cotizacionesAsignadas.length === 0) {
+      return null;
+    }
+
+    return (
+      <section className="py-8 md:py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+          {cotizacionesDirectas.length > 0 && (
+            <Card className="p-5 border border-blue-200 bg-blue-50">
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-blue-600 mt-1" />
+                  <div>
+                    <p className="font-semibold">Tienes nuevas solicitudes de cotización</p>
+                    <p className="text-sm text-muted-foreground">
+                      Un cliente te pidió una cotización específicamente. Revísala y acepta si te interesa.
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {cotizacionesDirectas.map((cot: Cotizacion) => (
+                    <div key={cot._id} className="rounded-xl border border-border bg-white p-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div>
+                          <p className="text-sm text-muted-foreground">{cot.categoria}</p>
+                          <p className="font-medium">{cot.titulo}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          <Link href={`/cotizacion/${cot._id}`}>
+                            <Button size="sm" variant="outline">
+                              Ver solicitud
+                            </Button>
+                          </Link>
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            onClick={async () => {
+                              try {
+                                await aceptarCotizacionTecnico.mutateAsync(cot._id);
+                                toast({
+                                  title: "Solicitud aceptada",
+                                  description: "La cotización fue aceptada y el cliente será notificado.",
+                                });
+                              } catch (err: unknown) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "No se pudo aceptar",
+                                  description: err instanceof Error ? err.message : "Intenta de nuevo más tarde.",
+                                });
+                              }
+                            }}
+                            disabled={aceptarCotizacionTecnico.status === "pending"}
+                          >
+                            Aceptar
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={async () => {
+                              try {
+                                await rechazarCotizacionTecnico.mutateAsync(cot._id);
+                                toast({
+                                  title: "Solicitud rechazada",
+                                  description: "La cotización fue rechazada y el cliente será notificado.",
+                                });
+                              } catch (err: unknown) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "No se pudo rechazar",
+                                  description: err instanceof Error ? err.message : "Intenta de nuevo más tarde.",
+                                });
+                              }
+                            }}
+                            disabled={rechazarCotizacionTecnico.status === "pending"}
+                          >
+                            Rechazar
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {cotizacionesAsignadas.length > 0 && (
+            <Card className="p-5 border border-amber-200 bg-amber-50">
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />
+                  <div>
+                    <p className="font-semibold">Tienes trabajos listos para confirmar</p>
+                    <p className="text-sm text-muted-foreground">
+                      Un cliente ya aceptó la cotización. Cuando termines el trabajo, confírmalo para que el cliente pueda calificarte.
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {cotizacionesAsignadas.map((cot: Cotizacion) => (
+                    <div key={cot._id} className="rounded-xl border border-border bg-white p-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div>
+                          <p className="text-sm text-muted-foreground">{cot.categoria}</p>
+                          <p className="font-medium">{cot.titulo}</p>
+                        </div>
+                        <Link href={`/cotizacion/${cot._id}`}>
+                          <Button size="sm" variant="outline">
+                            Ver detalles
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          )}
+        </div>
+      </section>
+    );
+  }
+
+  return null;
+}
+
 function CategoriesSection() {
   const { data: categories, isLoading } = useQuery<ServiceCategory[]>({
     queryKey: ["/api/categories"],
@@ -111,15 +396,6 @@ function CategoriesSection() {
   return (
     <section className="py-16 md:py-20" data-testid="section-categories">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-3 mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-            Nuestras Especialidades
-          </h2>
-          <p className="text-muted-foreground max-w-md mx-auto">
-            Cubrimos todas las necesidades tecnicas de tu hogar y oficina
-          </p>
-        </div>
-
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {isLoading
             ? Array.from({ length: 6 }).map((_, i) => (
@@ -145,6 +421,43 @@ function CategoriesSection() {
                   </Card>
                 </Link>
               ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TradesSection() {
+  return (
+    <section className="py-16 md:py-20 bg-slate-50" data-testid="section-trades">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center space-y-3 mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+            Oficios de nuestros técnicos
+          </h2>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            Elige un oficio y encuentra técnicos especializados rápidamente.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {TECHNICIAN_TRADES.map((trade) => (
+            <Link key={trade.label} href={`/tecnicos?q=${encodeURIComponent(trade.label)}`}>
+              <Card className="p-6 cursor-pointer hover-elevate active-elevate-2 transition-all">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary">
+                    {trade.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold">{trade.label}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Buscar técnicos de {trade.label.toLowerCase()}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
@@ -335,6 +648,8 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
+      <HomeNotifications />
+      <TradesSection />
       <CategoriesSection />
       <FeaturedSpecialists />
       <WhyUsSection />

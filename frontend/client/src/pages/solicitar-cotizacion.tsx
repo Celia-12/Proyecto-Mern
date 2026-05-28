@@ -33,6 +33,10 @@ import { useCrearCotizacion, useEspecialista } from "@/hooks/useApi";
 
 const quoteSchema = z.object({
   categoria: z.string().min(1, "Selecciona una categoría de servicio"),
+  titulo: z
+    .string()
+    .min(5, "El título debe tener al menos 5 caracteres")
+    .max(100, "Máximo 100 caracteres"),
   descripcion: z
     .string()
     .min(10, "Describe tu necesidad con al menos 10 caracteres")
@@ -69,7 +73,55 @@ export default function Quote() {
   const [enviado, setEnviado] = useState(false);
 
   const especialistaId = urlParams.get("especialista") || "";
-  const categoriaParam = urlParams.get("categoria") || "";
+  const rawCategoriaParam = urlParams.get("categoria") || "";
+
+  const CATEGORY_DISPLAY_LABELS: Record<string, string> = {
+    plomeria: "Plomero",
+    electricidad: "Electricista",
+    "aire-acondicionado": "Técnico en aire acondicionado",
+    mantenimiento: "Mantenimiento General",
+    cerrajeria: "Cerrajero",
+    carpinteria: "Carpintero",
+    "Plomería": "Plomero",
+    "Electricidad": "Electricista",
+    "Carpintería": "Carpintero",
+    "Cerrajería": "Cerrajero",
+    "Aire Acondicionado": "Aire Acondicionado",
+    "Técnico en aire acondicionado": "Técnico en aire acondicionado",
+    "Mantenimiento General": "Mantenimiento General",
+    "Paneles solares": "Paneles solares",
+    "Seguridad": "Seguridad",
+    "Impermeabilización": "Impermeabilización",
+  };
+
+  const CATEGORY_CANONICAL: Record<string, string> = {
+    Plomero: "Plomería",
+    Electricista: "Electricidad",
+    "Técnico en aire acondicionado": "Aire Acondicionado",
+    Carpintero: "Carpintería",
+    Albañil: "Mantenimiento General",
+    Pintor: "Mantenimiento General",
+    Cerrajero: "Cerrajería",
+    "Paneles solares": "Paneles solares",
+    Seguridad: "Seguridad",
+    Impermeabilización: "Impermeabilización",
+    "Mantenimiento General": "Mantenimiento General",
+    "Aire Acondicionado": "Aire Acondicionado",
+  };
+
+  const ESPECIALIDAD_TO_CATEGORIA: Record<string, string> = {
+    "Plomería": "Plomero",
+    "Electricidad": "Electricista",
+    "Aire Acondicionado": "Técnico en aire acondicionado",
+    "Carpintería": "Carpintero",
+    "Mantenimiento General": "Albañil",
+    "Cerrajería": "Cerrajero",
+    "Paneles solares": "Paneles solares",
+    "Seguridad": "Seguridad",
+    "Impermeabilización": "Impermeabilización",
+  };
+
+  const categoriaParam = CATEGORY_DISPLAY_LABELS[rawCategoriaParam] || rawCategoriaParam;
 
   const { data: espData } = useEspecialista(especialistaId);
   const especialista = espData?.especialista;
@@ -82,6 +134,7 @@ export default function Quote() {
     resolver: zodResolver(quoteSchema),
     defaultValues: {
       categoria: categoriaParam || "",
+      titulo: "",
       descripcion: "",
       ubicacion: "",
       codigo_postal: usuario?.codigo_postal ?? "",
@@ -95,6 +148,16 @@ export default function Quote() {
     }
   }, [usuario?.codigo_postal]);
 
+  // Pre-fill category based on specialist's expertise if preselected
+  useEffect(() => {
+    if (especialista?.especialidad) {
+      const categoriaFromEsp = ESPECIALIDAD_TO_CATEGORIA[especialista.especialidad];
+      if (categoriaFromEsp) {
+        form.setValue("categoria", categoriaFromEsp);
+      }
+    }
+  }, [especialista?.especialidad, form]);
+
   useEffect(() => {
     const urls = selectedFiles.map((file) => URL.createObjectURL(file));
     setPreviewUrls(urls);
@@ -104,21 +167,29 @@ export default function Quote() {
     };
   }, [selectedFiles]);
 
+  const destinatarioNombre = especialista?.usuario_id?.nombre;
+
   const onSubmit = async (values: QuoteFormValues) => {
     try {
       await crearCotizacion.mutateAsync({
+        titulo: values.titulo,
         descripcion: values.descripcion,
-        categoria: values.categoria,
+        categoria: CATEGORY_CANONICAL[values.categoria] || values.categoria,
         ubicacion: values.ubicacion,
         codigo_postal: values.codigo_postal,
         fecha_preferida: values.fecha_preferida || undefined,
         archivos: selectedFiles,
+        especialista_id: especialistaId || undefined,
       });
 
       setEnviado(true);
       toast({
-        title: "¡Cotización enviada!",
-        description: "Te contactaremos en menos de 24 horas.",
+        title: destinatarioNombre
+          ? `¡Cotización enviada a ${destinatarioNombre}!`
+          : "¡Cotización enviada!",
+        description: destinatarioNombre
+          ? `Tu solicitud fue enviada directamente a ${destinatarioNombre}. Te contactaremos en menos de 24 horas.`
+          : "Te contactaremos en menos de 24 horas.",
       });
     } catch (err: unknown) {
       toast({
@@ -139,10 +210,15 @@ export default function Quote() {
             <CheckCircle className="w-10 h-10 text-green-600" />
           </div>
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold">¡Cotización Enviada!</h2>
+            <h2 className="text-2xl font-bold">
+            {destinatarioNombre
+              ? `¡Cotización enviada a ${destinatarioNombre}!`
+              : "¡Cotización Enviada!"}
+          </h2>
             <p className="text-muted-foreground">
-              Tu solicitud fue registrada correctamente. Un especialista la revisará
-              y te contactaremos en menos de{" "}
+              {destinatarioNombre
+                ? `Tu solicitud fue enviada directamente a ${destinatarioNombre}. Te contactaremos en menos de `
+                : "Tu solicitud fue registrada correctamente. Un especialista la revisará y te contactaremos en menos de "}
               <span className="font-semibold text-foreground">24 horas</span>.
             </p>
           </div>
@@ -243,6 +319,7 @@ export default function Quote() {
                     <Select
                       onValueChange={(val) => form.setValue("categoria", val)}
                       value={form.watch("categoria")}
+                      disabled={!!especialista}
                     >
                       <SelectTrigger data-testid="select-service-type">
                         <SelectValue placeholder="Selecciona una categoría" />
@@ -306,10 +383,11 @@ export default function Quote() {
                       accept="image/*"
                       multiple
                       onChange={(event) => {
-                        if (!event.target.files) return;
+                        const files = event.target.files ? Array.from(event.target.files) : [];
+                        if (files.length === 0) return;
                         setSelectedFiles((previousFiles) => [
                           ...previousFiles,
-                          ...Array.from(event.target.files),
+                          ...files,
                         ]);
                       }}
                       className="block w-full text-sm text-muted-foreground"
@@ -354,18 +432,39 @@ export default function Quote() {
                     />
                   </div>
 
+                  {/* Title */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">
+                      Título de la solicitud
+                      <span className="text-destructive">*</span>
+                    </label>
+                    <Input
+                      placeholder="Ej. Fuga de agua en baño principal"
+                      {...form.register("titulo")}
+                      data-testid="input-title"
+                    />
+                    {form.formState.errors.titulo && (
+                      <p className="text-sm text-destructive">
+                        {form.formState.errors.titulo.message}
+                      </p>
+                    )}
+                  </div>
+
                   {/* Description */}
                   <div className="space-y-2">
                     <label className="text-sm font-medium">
-                      Descripción del problema{" "}
+                      Descripción del pedido
                       <span className="text-destructive">*</span>
                     </label>
                     <Textarea
-                      placeholder="Describe con detalle lo que necesitas reparar o instalar..."
+                      placeholder="Detalla lo que necesitas: tipo de trabajo, problemas a resolver, materiales, accesos, horas disponibles, etc."
                       rows={5}
                       {...form.register("descripcion")}
                       data-testid="input-description"
                     />
+                    <p className="text-sm text-muted-foreground">
+                      Cuanta más información des, mejor podrá entender el técnico tu solicitud.
+                    </p>
                     <div className="flex justify-between">
                       {form.formState.errors.descripcion ? (
                         <p className="text-sm text-destructive">
@@ -435,9 +534,11 @@ export default function Quote() {
                 <ol className="space-y-3">
                   {[
                     "Describe tu necesidad en el formulario",
-                    "Un técnico revisa tu solicitud",
-                    "Recibes cotización en menos de 24h",
-                    "Confirma y agenda el servicio",
+                    "El tecnico que elijas recibirá la solicitud",
+                    "tu solicitud será respondida en menos de 24h",
+                    "Contacta con el técnico asignado para coordinar detalles en whatsapp o llamada",
+                    "El técnico acude a tu domicilio en la fecha acordada, el precio por visita debe ser pagado",
+                    "Confirma que el trabajo se realizó correctamente y califica al técnico",
                   ].map((step, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm">
                       <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-semibold shrink-0 mt-0.5">

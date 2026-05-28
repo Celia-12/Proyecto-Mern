@@ -82,11 +82,16 @@ const validarEspecialista = [
 
 
 const validarCotizacion = [
+  body("titulo")
+    .trim()
+    .notEmpty().withMessage("El título es requerido")
+    .isLength({ min: 5, max: 100 }).withMessage("El título debe tener entre 5 y 100 caracteres"),
   body("descripcion")
     .trim()
     .notEmpty().withMessage("La descripción es requerida")
     .isLength({ min: 10, max: 1000 }).withMessage("La descripción debe tener entre 10 y 1000 caracteres"),
   body("categoria")
+    .trim()
     .notEmpty().withMessage("La categoría es requerida")
     .isIn([
       "Plomería",
@@ -94,6 +99,7 @@ const validarCotizacion = [
       "Carpintería",
       "Cerrajería",
       "Aire Acondicionado",
+      "Técnico en aire acondicionado",
       "Mantenimiento General",
       "Paneles solares",
       "Seguridad",

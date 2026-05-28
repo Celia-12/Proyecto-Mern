@@ -35,6 +35,7 @@ export interface EspecialistasResponse {
 export function useEspecialistas(params?: {
   especialidad?: string;
   disponible?: boolean;
+  usuario_id?: string;
   page?: number;
   limit?: number;
 }) {
@@ -42,6 +43,7 @@ export function useEspecialistas(params?: {
   if (params?.especialidad) query.set("especialidad", params.especialidad);
   if (params?.disponible !== undefined)
     query.set("disponible", String(params.disponible));
+  if (params?.usuario_id) query.set("usuario_id", params.usuario_id);
   if (params?.page) query.set("page", String(params.page));
   if (params?.limit) query.set("limit", String(params.limit));
 
@@ -67,6 +69,8 @@ export function useEspecialista(id: string) {
       return res.json();
     },
     enabled: !!id,
+    staleTime: 0,
+    refetchOnMount: true,
   });
 }
 
@@ -144,8 +148,29 @@ export interface TrabajoResumen {
   monto?: number;
 }
 
+export interface Mensaje {
+  _id: string;
+  texto: string;
+  tipo: string;
+  leido: boolean;
+  createdAt: string;
+  de: {
+    _id: string;
+    nombre: string;
+    foto?: string;
+    tipo?: string;
+  };
+  para: {
+    _id: string;
+    nombre: string;
+    foto?: string;
+    tipo?: string;
+  };
+}
+
 export interface Cotizacion {
   _id: string;
+  titulo: string;
   descripcion: string;
   categoria: string;
   ubicacion: string;
@@ -158,7 +183,39 @@ export interface Cotizacion {
   imagenes?: string[];
   cliente_id: CotizacionCliente;
   especialista_asignado?: EspecialistaAsignado;
+  especialistas_notificados?: string[];
   trabajo_id?: TrabajoResumen;
+}
+
+export function useMensajes(cotizacionId: string) {
+  return useQuery<{ success: boolean; mensajes: Mensaje[] }>({
+    queryKey: ["mensajes", cotizacionId],
+    queryFn: async () => {
+      const res = await api.get(`/mensajes?cotizacion_id=${cotizacionId}`);
+      if (!res.ok) throw new Error("Error cargando el chat");
+      return res.json();
+    },
+    enabled: !!cotizacionId,
+    staleTime: 1000 * 10,
+    refetchInterval: 1000,
+    refetchOnWindowFocus: true,
+    refetchIntervalInBackground: true,
+  });
+}
+
+export function useEnviarMensaje() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: { cotizacion_id: string; para: string; texto: string }) => {
+      const res = await api.post("/mensajes", data);
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message || "Error enviando mensaje");
+      return json;
+    },
+    onSuccess: (_data, variables) => {
+      qc.invalidateQueries({ queryKey: ["mensajes", variables.cotizacion_id] });
+    },
+  });
 }
 
 export function useCotizaciones() {
@@ -191,22 +248,28 @@ export function useCrearCotizacion() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (data: {
+      titulo: string;
       descripcion: string;
       categoria: string;
       ubicacion: string;
       codigo_postal: string;
       fecha_preferida?: string;
       archivos?: File[];
+      especialista_id?: string;
     }) => {
       let res: Response;
       if (data.archivos && data.archivos.length > 0) {
         const formData = new FormData();
+        formData.append("titulo", data.titulo);
         formData.append("descripcion", data.descripcion);
         formData.append("categoria", data.categoria);
         formData.append("ubicacion", data.ubicacion);
         formData.append("codigo_postal", data.codigo_postal);
         if (data.fecha_preferida) {
           formData.append("fecha_preferida", data.fecha_preferida);
+        }
+        if (data.especialista_id) {
+          formData.append("especialista_id", data.especialista_id);
         }
         data.archivos.forEach((file) => formData.append("imagenes", file));
         res = await apiFetch("/cotizaciones", {
@@ -218,7 +281,12 @@ export function useCrearCotizacion() {
       }
 
       const json = await res.json();
-      if (!res.ok) throw new Error(json.message || "Error al enviar cotización");
+      if (!res.ok) {
+        const message = json.errores?.length
+          ? json.errores.map((err: any) => `${err.campo}: ${err.mensaje}`).join(", ")
+          : json.message || "Error al enviar cotización";
+        throw new Error(message);
+      }
       return json;
     },
     onSuccess: () => {
@@ -236,9 +304,9 @@ export function useCancelarCotizacion() {
       if (!res.ok) throw new Error(json.message || "Error cancelando cotización");
       return json;
     },
-    onSuccess: () => {
+    onSuccess: (_data, cotizacionId) => {
       qc.invalidateQueries({ queryKey: ["cotizaciones"] });
-      qc.invalidateQueries({ queryKey: ["cotizacion"] });
+      qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
     },
   });
 }
@@ -252,9 +320,26 @@ export function useAceptarCotizacionPorTecnico() {
       if (!res.ok) throw new Error(json.message || "Error aceptando cotización");
       return json;
     },
-    onSuccess: () => {
+    onSuccess: (_data, cotizacionId) => {
       qc.invalidateQueries({ queryKey: ["cotizaciones"] });
-      qc.invalidateQueries({ queryKey: ["cotizacion"] });
+      qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones", "recientes"] });
+    },
+  });
+}
+
+export function useRechazarCotizacionPorTecnico() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (cotizacionId: string) => {
+      const res = await api.put(`/cotizaciones/${cotizacionId}`, { accion: "rechazar" });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message || "Error rechazando cotización");
+      return json;
+    },
+    onSuccess: (_data, cotizacionId) => {
+      qc.invalidateQueries({ queryKey: ["cotizaciones"] });
+      qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
       qc.invalidateQueries({ queryKey: ["cotizaciones", "recientes"] });
     },
   });
@@ -269,9 +354,9 @@ export function useAceptarCotizacionPorCliente() {
       if (!res.ok) throw new Error(json.message || "Error aceptando cotización");
       return json;
     },
-    onSuccess: () => {
+    onSuccess: (_data, cotizacionId) => {
       qc.invalidateQueries({ queryKey: ["cotizaciones"] });
-      qc.invalidateQueries({ queryKey: ["cotizacion"] });
+      qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
     },
   });
 }
@@ -279,18 +364,21 @@ export function useAceptarCotizacionPorCliente() {
 export function useConfirmarTrabajo() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async ({ trabajoId }: { trabajoId: string }) => {
+    mutationFn: async ({ trabajoId, estado = "completado" }: { trabajoId: string; estado?: "pendiente_confirmacion" | "completado" | "inconcluso" }) => {
       const res = await apiFetch(`/trabajos/${trabajoId}`, {
         method: "PUT",
-        body: JSON.stringify({ estado: "completado" }),
+        body: JSON.stringify({ estado }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.message || "Error confirmando trabajo");
       return json;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       qc.invalidateQueries({ queryKey: ["cotizaciones"] });
-      qc.invalidateQueries({ queryKey: ["cotizacion"] });
+      const cotizacionId = data?.trabajo?.cotizacion_id;
+      if (cotizacionId) {
+        qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
+      }
       qc.invalidateQueries({ queryKey: ["trabajos"] });
     },
   });

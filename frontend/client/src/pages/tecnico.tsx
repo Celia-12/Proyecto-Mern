@@ -1,13 +1,16 @@
 import { useMemo } from "react";
 import { Link, useRoute } from "wouter";
-import { useEspecialista, useCalificaciones } from "@/hooks/useApi";
+import { useAuth } from "@/context/AuthContext";
+import type { Cotizacion } from "@/hooks/useApi";
+import { useEspecialista, useCalificaciones, useCotizaciones, useAceptarCotizacionPorCliente } from "@/hooks/useApi";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft, CheckCircle, MessageSquare, ShieldCheck, Star } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { ArrowLeft, AlertCircle, CheckCircle, MessageSquare, ShieldCheck, Star } from "lucide-react";
 
 export default function TecnicoPerfil() {
   const [match, params] = useRoute("/tecnico/:id");
@@ -18,6 +21,31 @@ export default function TecnicoPerfil() {
     isLoading: isLoadingEspecialista,
     isError: isErrorEspecialista,
   } = useEspecialista(tecnicoId);
+
+  const { usuario } = useAuth();
+  const { data: cotizacionesData } = useCotizaciones();
+  const aceptarCotizacionCliente = useAceptarCotizacionPorCliente();
+  const { toast } = useToast();
+
+  const solicitudesPorAceptar = usuario?.tipo === "cliente"
+    ? cotizacionesData?.cotizaciones.filter(
+        (cot: Cotizacion) =>
+          cot.estado === "en_revision" &&
+          cot.especialista_asignado?._id === tecnicoId
+      ) ?? []
+    : [];
+
+  const puedeVerContacto =
+    usuario?.tipo !== "cliente" || solicitudesPorAceptar.length === 0;
+
+  const cotizacionActiva = usuario?.tipo === "cliente"
+    ? cotizacionesData?.cotizaciones.find(
+        (cot: Cotizacion) =>
+          (cot.especialista_asignado?._id === tecnicoId ||
+            cot.especialistas_notificados?.includes(tecnicoId)) &&
+          ["pendiente", "en_revision", "aceptada", "pendiente_confirmacion"].includes(cot.estado)
+      )
+    : undefined;
 
   const {
     data: calificacionesData,
@@ -55,6 +83,27 @@ export default function TecnicoPerfil() {
     });
     return counts;
   }, [calificaciones]);
+
+  const getEstadoLabel = (cot: Cotizacion) => {
+    if (cot.estado === "pendiente_confirmacion") return "Pendiente de confirmación";
+    if (cot.estado === "completada") return "Completado";
+    if (cot.estado === "inconclusa") return "Inconcluso";
+
+    switch (cot.estado) {
+      case "pendiente":
+        return "Pendiente";
+      case "en_revision":
+        return "En revisión";
+      case "aceptada":
+        return "Aceptada";
+      case "rechazada":
+        return "Rechazada";
+      case "completada":
+        return "Completada";
+      default:
+        return cot.estado.replace(/_/g, " ");
+    }
+  };
 
   const initials = especialista?.usuario_id?.nombre
     ?.split(" ")
@@ -104,6 +153,82 @@ export default function TecnicoPerfil() {
         {!isLoadingEspecialista && especialista && (
           <div className="grid gap-6 lg:grid-cols-[1.7fr_1fr]">
             <div className="space-y-6">
+              {solicitudesPorAceptar.length > 0 && (
+                <Card className="p-6 border border-amber-200 bg-amber-50">
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-amber-600 mt-1" />
+                      <div>
+                        <p className="font-semibold">Tu técnico ya aceptó una cotización</p>
+                        <p className="text-sm text-muted-foreground">
+                          Confirma la cotización aquí para que el trabajo pueda comenzar.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      {solicitudesPorAceptar.map((cot: Cotizacion) => (
+                        <div key={cot._id} className="rounded-xl border border-border bg-white p-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <div>
+                              <div className="flex flex-wrap items-center gap-2">
+                                <p className="text-sm text-muted-foreground">{cot.categoria}</p>
+                                <Badge variant="secondary" className="text-xs uppercase">
+                                  {getEstadoLabel(cot)}
+                                </Badge>
+                              </div>
+                              <p className="font-medium">{cot.titulo}</p>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              <Link href={`/cotizacion/${cot._id}`}>
+                                <Button size="sm" variant="outline">
+                                  Ver detalles
+                                </Button>
+                              </Link>
+                              <Button
+                                size="sm"
+                                onClick={async () => {
+                                  try {
+                                    await aceptarCotizacionCliente.mutateAsync(cot._id);
+                                    toast({
+                                      title: "Cotización confirmada",
+                                      description: "El trabajo fue confirmado y quedará pendiente.",
+                                    });
+                                  } catch (err: unknown) {
+                                    toast({
+                                      variant: "destructive",
+                                      title: "No se pudo confirmar",
+                                      description:
+                                        err instanceof Error
+                                          ? err.message
+                                          : "Intenta de nuevo más tarde.",
+                                    });
+                                  }
+                                }}
+                                disabled={aceptarCotizacionCliente.status === "pending"}
+                              >
+                                {aceptarCotizacionCliente.status === "pending"
+                                  ? "Confirmando..."
+                                  : "Aceptar cotización"}
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </Card>
+              )}
+              {usuario?.tipo === "cliente" && solicitudesPorAceptar.length > 0 && (
+                <Card className="p-6 border border-amber-200 bg-amber-50">
+                  <div className="space-y-4">
+                    <p className="font-semibold">Acuerda los detalles con el técnico</p>
+                    <p className="text-sm text-muted-foreground">
+                      El técnico ya aceptó tu solicitud. Confirma la cotización aquí para ver su WhatsApp y correo, y posteriormente ponte de acuerdo con él.
+                    </p>
+                  </div>
+                </Card>
+              )}
+
               <Card className="p-6">
                 <div className="text-center">
                   <div className="flex flex-col items-center justify-center gap-4">
@@ -114,12 +239,36 @@ export default function TecnicoPerfil() {
                       </AvatarFallback>
                     </Avatar>
                     <div className="space-y-2">
-                      <p className="text-3xl font-semibold tracking-tight">
-                        {especialista.usuario_id?.nombre ?? "Técnico"}
-                      </p>
-                      
+                      <div className="flex flex-wrap items-center justify-center gap-2">
+                        <p className="text-3xl font-semibold tracking-tight">
+                          {especialista.usuario_id?.nombre ?? "Técnico"}
+                        </p>
+                        {cotizacionActiva && (
+                          <Badge variant="secondary" className="text-xs uppercase">
+                            {getEstadoLabel(cotizacionActiva)}
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          {Array.from({ length: 5 }).map((_, index) => (
+                            <Star
+                              key={index}
+                              className={`w-4 h-4 ${index < Math.round(averageRating) ? "text-amber-400" : "text-slate-300"}`}
+                            />
+                          ))}
+                        </div>
+                        <span>
+                          {totalReviews > 0
+                            ? `${roundedAverage.toFixed(1)} · ${totalReviews} reseña${totalReviews === 1 ? "" : "s"}`
+                            : "Aún no tiene reseñas"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-                    {whatsappLink ? (
+                    {whatsappLink && puedeVerContacto ? (
                       <a href={whatsappLink} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
                         <Button variant="outline" className="w-full sm:w-auto" size="sm">
                           <MessageSquare className="w-4 h-4 mr-2" />
@@ -138,56 +287,29 @@ export default function TecnicoPerfil() {
                       </Button>
                     </Link>
                   </div>
-                      
-                    </div>
-                  </div>
 
-                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {!puedeVerContacto && (
+                    <p className="text-sm text-muted-foreground mt-4">
+                      Primero confirma la cotización para ver el WhatsApp y correo del técnico.
+                    </p>
+                  )}
+
+                  <p className="text-sm text-muted-foreground mt-4">{bio || "No hay descripción disponible."}</p>
+
+                  <div className="mt-6 grid gap-4">
                     <div className="rounded-lg border border-border p-4">
-                      <p className="text-sm text-muted-foreground">Calificación</p>
-                      <p className="text-2xl font-semibold">{roundedAverage}</p>
-                      <div className="flex items-center justify-center gap-1 mt-2">
-                        {Array.from({ length: 5 }).map((_, index) => (
-                          <Star
-                            key={index}
-                            className={`w-4 h-4 ${index < Math.round(roundedAverage) ? "text-amber-400 fill-amber-400" : "text-muted-foreground"}`}
-                          />
-                        ))}
+                      <p className="text-sm text-muted-foreground">Especialidad</p>
+                      <p className="font-medium mt-1">{especialidad}</p>
+                    </div>
+                    <div className="rounded-lg border border-border p-4">
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm text-muted-foreground">Precio por visita</p>
+                        <span className="text-xs font-semibold text-destructive">(obligatorio)</span>
                       </div>
-                      <p className="text-xs text-muted-foreground mt-1">{totalReviews} reseña{totalReviews === 1 ? "" : "s"}</p>
+                      <p className="font-medium mt-1">
+                        {especialista.precio_hora ? `$${especialista.precio_hora} por visita` : "Precio pendiente"}
+                      </p>
                     </div>
-                    <div className="rounded-lg border border-border p-4">
-                      <p className="text-sm text-muted-foreground">Experiencia</p>
-                      <p className="text-2xl font-semibold">{especialista.experiencia_anos} años</p>
-                      <p className="text-xs text-muted-foreground mt-1">Experiencia comprobada</p>
-                    </div>
-                  </div>
-
-
-                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                    <div className="rounded-lg border border-border p-4">
-                      <p className="text-sm text-muted-foreground">Ubicación</p>
-                      <p className="font-medium mt-1">{ubicacion}</p>
-                    </div>
-                    <div className="rounded-lg border border-border p-4">
-                      <p className="text-sm text-muted-foreground">Horario</p>
-                      <p className="font-medium mt-1">{horario}</p>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold">Información sobre {especialista.usuario_id?.nombre?.split(" ")[0] ?? "el técnico"}</h2>
-                <p className="text-sm text-muted-foreground mt-2">{bio || "No hay descripción disponible."}</p>
-                <div className="mt-6 grid gap-4">
-                  <div className="rounded-lg border border-border p-4">
-                    <p className="text-sm text-muted-foreground">Especialidad</p>
-                    <p className="font-medium mt-1">{especialidad}</p>
-                  </div>
-                  <div className="rounded-lg border border-border p-4">
-                    <p className="text-sm text-muted-foreground">Precio por visita</p>
-                    <p className="font-medium mt-1">${especialista.precio_hora} por visita</p>
                   </div>
                 </div>
               </Card>
@@ -279,20 +401,26 @@ export default function TecnicoPerfil() {
 
               <Card className="p-6">
                 <h2 className="text-lg font-semibold">Detalles de contacto</h2>
-                <div className="mt-5 space-y-4 text-sm text-muted-foreground">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Teléfono</p>
-                    <p className="font-medium mt-1">{telefono ?? "No disponible"}</p>
+                {puedeVerContacto ? (
+                  <div className="mt-5 space-y-4 text-sm text-muted-foreground">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Teléfono</p>
+                      <p className="font-medium mt-1">{telefono ?? "No disponible"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Correo</p>
+                      <p className="font-medium mt-1">{especialista.usuario_id?.email ?? "No disponible"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Ubicación</p>
+                      <p className="font-medium mt-1">{ubicacion}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Correo</p>
-                    <p className="font-medium mt-1">{especialista.usuario_id?.email ?? "No disponible"}</p>
+                ) : (
+                  <div className="mt-5 rounded-xl border border-border bg-slate-50 p-4 text-sm text-muted-foreground">
+                    Confirma la cotización para ver el WhatsApp y correo del técnico, y después coordina los detalles con él.
                   </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Ubicación</p>
-                    <p className="font-medium mt-1">{ubicacion}</p>
-                  </div>
-                </div>
+                )}
               </Card>
             </div>
           </div>

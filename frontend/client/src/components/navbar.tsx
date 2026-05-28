@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/context/AuthContext";
+import { useEspecialistas } from "@/hooks/useApi";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -20,6 +21,7 @@ import {
   FileText,
   ChevronDown,
   Search,
+  Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -33,6 +35,15 @@ export function Navbar() {
   const [, navigate] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Obtener el especialista del usuario técnico logueado
+  const { data: especialistasData } = useEspecialistas(
+    usuario?.tipo === "tecnico" && usuario?._id 
+      ? { usuario_id: usuario._id }
+      : undefined
+  );
+
+  const especialistaActual = especialistasData?.especialistas?.[0];
 
   const enlaces = [
     ...navLinks,
@@ -141,9 +152,19 @@ export function Navbar() {
                     <DropdownMenuItem asChild>
                       <Link href="/perfil" className="cursor-pointer">
                         <User className="w-4 h-4 mr-2" />
-                        Mi Perfil
+                        Perfil de Usuario
                       </Link>
                     </DropdownMenuItem>
+                    {usuario?.tipo === "tecnico" && especialistaActual && (
+                      <>
+                        <DropdownMenuItem asChild>
+                          <Link href={`/tecnico/${especialistaActual._id}`} className="cursor-pointer">
+                            <Eye className="w-4 h-4 mr-2" />
+                            Ver mi perfil público
+                          </Link>
+                        </DropdownMenuItem>
+                      </>
+                    )}
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={logout}

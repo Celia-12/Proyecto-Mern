@@ -32,6 +32,7 @@ const listar = async (req, res, next) => {
     const {
       especialidad,
       disponible,
+      usuario_id,
       page = 1,
       limit = 10,
       sort = "-calificacion_promedio",
@@ -40,6 +41,7 @@ const listar = async (req, res, next) => {
     const filtro = {};
     if (especialidad) filtro.especialidad = especialidad;
     if (disponible !== undefined) filtro.disponible = disponible === "true";
+    if (usuario_id) filtro.usuario_id = usuario_id;
 
     const skip = (Number(page) - 1) * Number(limit);
     const [especialistas, total] = await Promise.all([
@@ -64,6 +66,7 @@ const listar = async (req, res, next) => {
     // Fallback to technicians stored in the Usuario collection
     const usuarioFiltro = { tipo: "tecnico", activo: true };
     if (especialidad) usuarioFiltro.especialidad = especialidad;
+    if (usuario_id) usuarioFiltro._id = usuario_id;
 
     const [usuarios, usuariosTotal] = await Promise.all([
       Usuario.find(usuarioFiltro)

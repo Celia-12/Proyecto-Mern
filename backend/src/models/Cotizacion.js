@@ -22,11 +22,19 @@ const cotizacionSchema = new mongoose.Schema(
         "Carpintería",
         "Cerrajería",
         "Aire Acondicionado",
+        "Técnico en aire acondicionado",
         "Mantenimiento General",
         "Paneles solares",
         "Seguridad",
         "Impermeabilización",
       ],
+    },
+    titulo: {
+      type: String,
+      required: [true, "El título es requerido"],
+      trim: true,
+      minlength: [5, "El título debe tener al menos 5 caracteres"],
+      maxlength: [100, "El título no puede exceder 100 caracteres"],
     },
     ubicacion: {
       type: String,
@@ -45,7 +53,15 @@ const cotizacionSchema = new mongoose.Schema(
     },
     estado: {
       type: String,
-      enum: ["pendiente", "en_revision", "aceptada", "rechazada", "completada"],
+      enum: [
+        "pendiente",
+        "en_revision",
+        "aceptada",
+        "pendiente_confirmacion",
+        "rechazada",
+        "completada",
+        "inconclusa",
+      ],
       default: "pendiente",
     },
     especialistas_notificados: [

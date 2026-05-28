@@ -1,6 +1,7 @@
 const Cotizacion = require("../models/Cotizacion");
 const Especialista = require("../models/Especialista");
 const Trabajo = require("../models/Trabajo");
+const Mensaje = require("../models/Mensaje");
 const logger = require("../utils/logger");
 
 // GET /api/cotizaciones
@@ -9,9 +10,21 @@ const listar = async (req, res, next) => {
     const { estado, page = 1, limit = 10 } = req.query;
     const filtro = {};
 
-    // Clients see only their own, admins see all
+    // Clients see only their own quotes, technicians see only assigned quotes,
+    // admins can see all quotes.
     if (req.usuario.tipo === "cliente") {
       filtro.cliente_id = req.usuario._id;
+    } else if (req.usuario.tipo === "tecnico") {
+      const esp = await Especialista.findOne({ usuario_id: req.usuario._id });
+      if (esp) {
+        // Show quotes where technician is assigned OR notified
+        filtro.$or = [
+          { especialista_asignado: esp._id },
+          { especialistas_notificados: esp._id }
+        ];
+      } else {
+        filtro.especialista_asignado = null;
+      }
     }
     if (estado) filtro.estado = estado;
 
@@ -49,13 +62,21 @@ const recientes = async (req, res, next) => {
     const { page = 1, limit = 20 } = req.query;
     const skip = (Number(page) - 1) * Number(limit);
 
+    // Only show general quotes (not specifically requested to one technician)
+    // Filter out quotes where especialistas_notificados.length === 1 (direct request)
     const [cotizaciones, total] = await Promise.all([
-      Cotizacion.find({ estado: "pendiente" })
+      Cotizacion.find({
+        estado: "pendiente",
+        $expr: { $gt: [{ $size: "$especialistas_notificados" }, 1] }
+      })
         .populate("cliente_id", "nombre email telefono ciudad")
         .sort("-createdAt")
         .skip(skip)
         .limit(Number(limit)),
-      Cotizacion.countDocuments({ estado: "pendiente" }),
+      Cotizacion.countDocuments({
+        estado: "pendiente",
+        $expr: { $gt: [{ $size: "$especialistas_notificados" }, 1] }
+      }),
     ]);
 
     res.json({
@@ -110,6 +131,7 @@ const crear = async (req, res, next) => {
       "Carpintería": "Carpintería",
       "Cerrajería": "Cerrajería",
       "Aire Acondicionado": "Aire Acondicionado",
+      "Técnico en aire acondicionado": "Aire Acondicionado",
       "Mantenimiento General": "Mantenimiento General",
       "Paneles solares": "Paneles solares",
       "Seguridad": "Seguridad",
@@ -123,7 +145,20 @@ const crear = async (req, res, next) => {
       disponible: true,
     });
 
-    const notificados = especialistas.map((esp) => esp._id);
+    let notificados = especialistas.map((esp) => esp._id);
+
+    // If the client explicitly selected a specialist, prefer notifying only that one
+    if (cotizacionData.especialista_id) {
+      try {
+        const espSeleccionado = await Especialista.findById(cotizacionData.especialista_id);
+        if (espSeleccionado) {
+          notificados = [espSeleccionado._id];
+        }
+      } catch (err) {
+        // ignore and fallback to the general list
+      }
+    }
+
     const cot = await Cotizacion.create({
       ...cotizacionData,
       cliente_id: req.usuario._id,
@@ -134,6 +169,25 @@ const crear = async (req, res, next) => {
 
     logger.info(`COTIZACION creada: ${cot._id} por cliente ${req.usuario._id}`);
     logger.info(`Notificados ${notificados.length} especialistas: ${notificados.join(", ")}`);
+
+    // If the client selected a specific specialist, create a direct message notification
+    if (cotizacionData.especialista_id) {
+      try {
+        const esp = await Especialista.findById(cotizacionData.especialista_id).populate("usuario_id");
+        if (esp?.usuario_id) {
+          await Mensaje.create({
+            cotizacion_id: cot._id,
+            de: req.usuario._id,
+            para: esp.usuario_id._id,
+            texto: `El cliente te solicitó una cotización para: ${cot.titulo || "(sin título)"}. Revisa la solicitud en la plataforma.`,
+          });
+          logger.info(`Notificación (mensaje) enviada a especialista ${esp._id}`);
+        }
+      } catch (err) {
+        logger.warn(`No se pudo crear mensaje de notificación al especialista: ${err.message}`);
+      }
+    }
+
     res.status(201).json({ success: true, cotizacion: cot });
   } catch (error) {
     next(error);
@@ -179,7 +233,7 @@ const actualizar = async (req, res, next) => {
     if (req.usuario.tipo === "admin") {
       camposPermitidos = req.body;
     } else if (req.usuario.tipo === "tecnico") {
-      if (req.body.accion !== "aceptar") {
+      if (!["aceptar", "rechazar"].includes(req.body.accion)) {
         return res.status(400).json({
           success: false,
           message: "Acción no válida para técnico.",
@@ -189,7 +243,7 @@ const actualizar = async (req, res, next) => {
       if (cot.estado !== "pendiente") {
         return res.status(400).json({
           success: false,
-          message: "Solo se pueden aceptar cotizaciones pendientes.",
+          message: "Solo se pueden gestionar cotizaciones pendientes.",
         });
       }
 
@@ -226,10 +280,14 @@ const actualizar = async (req, res, next) => {
         logger.info(`ESPECIALISTA auto-creado para técnico ${req.usuario._id} como ${esp._id}`);
       }
 
-      camposPermitidos = {
-        estado: "en_revision",
-        especialista_asignado: esp._id,
-      };
+      if (req.body.accion === "rechazar") {
+        camposPermitidos = { estado: "rechazada" };
+      } else {
+        camposPermitidos = {
+          estado: "en_revision",
+          especialista_asignado: esp._id,
+        };
+      }
     } else {
       // Cliente
       if (req.body.estado === "rechazada") {
@@ -292,6 +350,36 @@ const actualizar = async (req, res, next) => {
       .populate("cliente_id", "nombre email telefono")
       .populate({ path: "especialista_asignado", populate: { path: "usuario_id", select: "nombre foto ciudad telefono" } })
       .populate({ path: "trabajo_id", populate: { path: "tecnico_id", populate: { path: "usuario_id", select: "nombre foto" } } });
+
+    if (req.usuario.tipo === "tecnico" && req.body.accion === "aceptar") {
+      await Mensaje.create({
+        cotizacion_id: cot._id,
+        de: req.usuario._id,
+        para: cot.cliente_id,
+        texto: "El técnico ha aceptado tu cotización. La cotización está en proceso y ahora puedes confirmarla para continuar.",
+      });
+    }
+
+    if (req.usuario.tipo === "tecnico" && req.body.accion === "rechazar") {
+      await Mensaje.create({
+        cotizacion_id: cot._id,
+        de: req.usuario._id,
+        para: cot.cliente_id,
+        texto: "El técnico ha rechazado tu cotización. Puedes solicitar otro técnico o enviar una nueva solicitud.",
+      });
+    }
+
+    if (req.body.accion === "confirmar") {
+      const especialista = await Especialista.findById(cot.especialista_asignado);
+      if (especialista?.usuario_id) {
+        await Mensaje.create({
+          cotizacion_id: cot._id,
+          de: req.usuario._id,
+          para: especialista.usuario_id,
+          texto: "El cliente ha confirmado tu cotización. El trabajo está en proceso y pronto podrás marcarlo como realizado.",
+        });
+      }
+    }
 
     logger.info(`COTIZACION actualizada: ${req.params.id} -> estado: ${actualizada.estado}`);
     res.json({ success: true, cotizacion: actualizada });
