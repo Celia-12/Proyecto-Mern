@@ -24,13 +24,12 @@ const validarRegistro = [
     .if(body("tipo").equals("tecnico"))
     .notEmpty().withMessage("La especialidad es requerida")
     .isIn([
-      "Plomero",
-      "Electricista",
-      "Técnico en aire acondicionado",
-      "Carpintero",
-      "Albañil",
-      "Pintor",
-      "Cerrajero",
+      "Plomería",
+      "Electricidad",
+      "Carpintería",
+      "Cerrajería",
+      "Aire Acondicionado",
+      "Mantenimiento General",
       "Paneles solares",
       "Seguridad",
       "Impermeabilización",
@@ -99,7 +98,6 @@ const validarCotizacion = [
       "Carpintería",
       "Cerrajería",
       "Aire Acondicionado",
-      "Técnico en aire acondicionado",
       "Mantenimiento General",
       "Paneles solares",
       "Seguridad",

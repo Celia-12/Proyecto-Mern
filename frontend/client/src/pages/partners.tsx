@@ -24,14 +24,18 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useEspecialistas } from "@/hooks/useApi";
+import { normalizeText, matchesField } from "@/lib/search";
 
 const ESPECIALIDADES = [
   "Plomería",
   "Electricidad",
-  "Carpintería",
-  "Cerrajería",
   "Aire Acondicionado",
+  "Carpintería",
   "Mantenimiento General",
+  "Cerrajería",
+  "Paneles solares",
+  "Seguridad",
+  "Impermeabilización",
 ];
 
 const SPECIALTY_ICONS: Record<string, string> = {
@@ -40,7 +44,10 @@ const SPECIALTY_ICONS: Record<string, string> = {
   "Carpintería": "🔨",
   "Cerrajería": "🔐",
   "Aire Acondicionado": "❄️",
-  "Mantenimiento General": "🔧",
+  "Mantenimiento General": "🧱",
+  "Paneles solares": "☀️",
+  "Seguridad": "🛡️",
+  "Impermeabilización": "🌧️",
 };
 
 function EspecialistaSkeleton() {
@@ -79,13 +86,13 @@ export default function Partners() {
   const filtered = useMemo(() => {
     let result = especialistas;
     if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(
-        (s) =>
-          s.usuario_id?.nombre?.toLowerCase().includes(q) ||
-          s.especialidad.toLowerCase().includes(q) ||
-          s.ubicacion.toLowerCase().includes(q)
-      );
+      const q = searchQuery;
+      result = result.filter((s) => {
+        const nameMatch = normalizeText(s.usuario_id?.nombre ?? "").includes(normalizeText(q));
+        const specialtyMatch = matchesField(s.especialidad ?? "", q);
+        const locationMatch = normalizeText(s.ubicacion ?? "").includes(normalizeText(q));
+        return nameMatch || specialtyMatch || locationMatch;
+      });
     }
     if (categoryFilter && categoryFilter !== "all") {
       result = result.filter((s) => s.especialidad === categoryFilter);

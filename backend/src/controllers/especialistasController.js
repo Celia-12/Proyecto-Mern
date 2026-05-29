@@ -31,59 +31,38 @@ const listar = async (req, res, next) => {
   try {
     const {
       especialidad,
-      disponible,
       usuario_id,
       page = 1,
       limit = 10,
       sort = "-calificacion_promedio",
     } = req.query;
 
-    const filtro = {};
-    if (especialidad) filtro.especialidad = especialidad;
-    if (disponible !== undefined) filtro.disponible = disponible === "true";
-    if (usuario_id) filtro.usuario_id = usuario_id;
-
     const skip = (Number(page) - 1) * Number(limit);
-    const [especialistas, total] = await Promise.all([
-      Especialista.find(filtro)
-        .populate("usuario_id", "nombre email foto ciudad telefono")
-        .sort(sort)
-        .skip(skip)
-        .limit(Number(limit)),
-      Especialista.countDocuments(filtro),
-    ]);
 
-    if (total > 0) {
-      return res.json({
-        success: true,
-        total,
-        pagina: Number(page),
-        paginas: Math.ceil(total / Number(limit)),
-        especialistas,
-      });
-    }
-
-    // Fallback to technicians stored in the Usuario collection
+    // Build filter for usuarios collection
     const usuarioFiltro = { tipo: "tecnico", activo: true };
     if (especialidad) usuarioFiltro.especialidad = especialidad;
     if (usuario_id) usuarioFiltro._id = usuario_id;
 
+    // Fetch all matching technicians from Usuario collection
     const [usuarios, usuariosTotal] = await Promise.all([
       Usuario.find(usuarioFiltro)
         .select("-contrasena")
+        .sort(sort)
         .skip(skip)
         .limit(Number(limit)),
       Usuario.countDocuments(usuarioFiltro),
     ]);
 
-    const especialistasDesdeUsuarios = usuarios.map(mapUsuarioToEspecialista);
+    // Map usuarios to especialista format
+    const especialistas = usuarios.map(mapUsuarioToEspecialista);
 
     res.json({
       success: true,
       total: usuariosTotal,
       pagina: Number(page),
       paginas: Math.ceil(usuariosTotal / Number(limit)),
-      especialistas: especialistasDesdeUsuarios,
+      especialistas,
     });
   } catch (error) {
     next(error);

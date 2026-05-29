@@ -40,12 +40,12 @@ const categoryIcons: Record<string, React.ReactNode> = {
 };
 
 const TECHNICIAN_TRADES: { label: string; icon: React.ReactNode }[] = [
-  { label: "Plomero", icon: <Droplets className="w-6 h-6" /> },
-  { label: "Electricista", icon: <Zap className="w-6 h-6" /> },
-  { label: "Técnico en aire acondicionado", icon: <Wind className="w-6 h-6" /> },
-  { label: "Carpintero", icon: <Hammer className="w-6 h-6" /> },
-  { label: "Cerrajero", icon: <Lock className="w-6 h-6" /> },
-  { label: "Mantenimiento general", icon: <Paintbrush className="w-6 h-6" /> },
+  { label: "Plomería", icon: <Droplets className="w-6 h-6" /> },
+  { label: "Electricidad", icon: <Zap className="w-6 h-6" /> },
+  { label: "Aire Acondicionado", icon: <Wind className="w-6 h-6" /> },
+  { label: "Carpintería", icon: <Hammer className="w-6 h-6" /> },
+  { label: "Cerrajería", icon: <Lock className="w-6 h-6" /> },
+  { label: "Mantenimiento General", icon: <Paintbrush className="w-6 h-6" /> },
 ];
 
 function HeroSection() {
@@ -74,7 +74,7 @@ function HeroSection() {
           </h1>
 
           <p className="text-lg text-white/80 leading-relaxed max-w-lg">
-            Conectamos a clientes con los mejores técnicos de Monterrey.
+            Busca técnicos, mándales una cotización, habla con ellos y entre ustedes se arreglan. Sin intermediarios, sin comisiones, sin complicaciones.
             Servicios de calidad para tu hogar y oficina.
           </p>
 

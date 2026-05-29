@@ -23,13 +23,12 @@ import {
 import { Wrench, Eye, EyeOff, Loader2 } from "lucide-react";
 
 const TECNICOS = [
-  "Plomero",
-  "Electricista",
-  "Técnico en aire acondicionado",
-  "Carpintero",
-  "Albañil",
-  "Pintor",
-  "Cerrajero",
+  "Plomería",
+  "Electricidad",
+  "Aire Acondicionado",
+  "Carpintería",
+  "Mantenimiento General",
+  "Cerrajería",
   "Paneles solares",
   "Seguridad",
   "Impermeabilización",

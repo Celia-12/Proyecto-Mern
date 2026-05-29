@@ -22,7 +22,6 @@ const cotizacionSchema = new mongoose.Schema(
         "Carpintería",
         "Cerrajería",
         "Aire Acondicionado",
-        "Técnico en aire acondicionado",
         "Mantenimiento General",
         "Paneles solares",
         "Seguridad",

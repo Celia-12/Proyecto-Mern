@@ -24,28 +24,27 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useEspecialistas } from "@/hooks/useApi";
+import { normalizeText, mapQueryToCanonical, matchesField } from "@/lib/search";
 
 const ESPECIALIDADES = [
-  "Plomero",
-  "Electricista",
-  "Técnico en aire acondicionado",
-  "Carpintero",
-  "Albañil",
-  "Pintor",
-  "Cerrajero",
+  "Plomería",
+  "Electricidad",
+  "Aire Acondicionado",
+  "Carpintería",
+  "Mantenimiento General",
+  "Cerrajería",
   "Paneles solares",
   "Seguridad",
   "Impermeabilización",
 ];
 
 const SPECIALTY_ICONS: Record<string, string> = {
-  "Plomero": "💧",
-  "Electricista": "⚡",
-  "Carpintero": "🔨",
-  "Cerrajero": "🔐",
-  "Técnico en aire acondicionado": "❄️",
-  "Albañil": "🧱",
-  "Pintor": "🎨",
+  "Plomería": "💧",
+  "Electricidad": "⚡",
+  "Carpintería": "🔨",
+  "Cerrajería": "🔐",
+  "Aire Acondicionado": "❄️",
+  "Mantenimiento General": "🧱",
   "Paneles solares": "☀️",
   "Seguridad": "🛡️",
   "Impermeabilización": "🌧️",
@@ -80,21 +79,20 @@ export default function Tecnicos() {
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
   const [categoryFilter, setCategoryFilter] = useState(initialCategory);
 
-  const { data, isLoading, isError, refetch } = useEspecialistas();
-
-  const especialistas = data?.especialistas ?? [];
+  const { data, isLoading, isError, refetch } = useEspecialistas({ limit: 100 });
+  const especialistas = data?.especialistas?.filter((esp) => esp.usuario_id) ?? [];
 
   const filtered = useMemo(() => {
     let result = especialistas;
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(
-        (s) =>
-          s.usuario_id?.nombre?.toLowerCase().includes(q) ||
-          s.especialidad.toLowerCase().includes(q) ||
-          s.ubicacion.toLowerCase().includes(q)
-      );
-    }
+      if (searchQuery) {
+        const q = searchQuery;
+        result = result.filter((s) => {
+          const nameMatch = normalizeText(s.usuario_id?.nombre ?? "").includes(normalizeText(q));
+          const specialtyMatch = matchesField(s.especialidad ?? "", q);
+          const locationMatch = normalizeText(s.ubicacion ?? "").includes(normalizeText(q));
+          return nameMatch || specialtyMatch || locationMatch;
+        });
+      }
     if (categoryFilter && categoryFilter !== "all") {
       result = result.filter((s) => s.especialidad === categoryFilter);
     }

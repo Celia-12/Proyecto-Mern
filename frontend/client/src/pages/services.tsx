@@ -18,6 +18,7 @@ import {
   Wrench,
 } from "lucide-react";
 import { useState, useMemo } from "react";
+import { normalizeText, matchesField } from "@/lib/search";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   plomeria: <Droplets className="w-8 h-8" />,
@@ -53,12 +54,12 @@ export default function Services() {
     if (!categories) return [];
     let filtered = categories;
     if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (c) =>
-          c.name.toLowerCase().includes(q) ||
-          c.description.toLowerCase().includes(q)
-      );
+      const q = searchQuery;
+      filtered = filtered.filter((c) => {
+        const nameMatch = matchesField(c.name, q);
+        const descMatch = normalizeText(c.description ?? "").includes(normalizeText(q));
+        return nameMatch || descMatch;
+      });
     }
     if (selectedCategory) {
       filtered = filtered.filter((c) => c.slug === selectedCategory);

@@ -62,21 +62,37 @@ const recientes = async (req, res, next) => {
     const { page = 1, limit = 20 } = req.query;
     const skip = (Number(page) - 1) * Number(limit);
 
-    // Only show general quotes (not specifically requested to one technician)
-    // Filter out quotes where especialistas_notificados.length === 1 (direct request)
+    // Include general quotes (not targeted) AND those that specifically
+    // notified this technician (size === 1 but contains this specialist id).
+    const esp = await Especialista.findOne({ usuario_id: req.usuario._id });
+
+    const baseFilter = { estado: "pendiente" };
+
+    let findFilter;
+    if (esp) {
+      findFilter = {
+        ...baseFilter,
+        $or: [
+          { especialistas_notificados: esp._id },
+          { $expr: { $gt: [{ $size: "$especialistas_notificados" }, 1] } },
+        ],
+      };
+    } else {
+      // If we don't have an Especialista record for this user, fall back to
+      // showing only general quotes (more than 1 notified specialist).
+      findFilter = {
+        ...baseFilter,
+        $expr: { $gt: [{ $size: "$especialistas_notificados" }, 1] },
+      };
+    }
+
     const [cotizaciones, total] = await Promise.all([
-      Cotizacion.find({
-        estado: "pendiente",
-        $expr: { $gt: [{ $size: "$especialistas_notificados" }, 1] }
-      })
+      Cotizacion.find(findFilter)
         .populate("cliente_id", "nombre email telefono ciudad")
         .sort("-createdAt")
         .skip(skip)
         .limit(Number(limit)),
-      Cotizacion.countDocuments({
-        estado: "pendiente",
-        $expr: { $gt: [{ $size: "$especialistas_notificados" }, 1] }
-      }),
+      Cotizacion.countDocuments(findFilter),
     ]);
 
     res.json({
@@ -250,16 +266,15 @@ const actualizar = async (req, res, next) => {
       let esp = await Especialista.findOne({ usuario_id: req.usuario._id });
       if (!esp) {
         const especialidadMap = {
-          Plomero: "Plomería",
-          Electricista: "Electricidad",
-          "Técnico en aire acondicionado": "Aire Acondicionado",
-          Carpintero: "Carpintería",
-          Albañil: "Mantenimiento General",
-          Pintor: "Mantenimiento General",
-          Cerrajero: "Cerrajería",
+          "Plomería": "Plomería",
+          "Electricidad": "Electricidad",
+          "Aire Acondicionado": "Aire Acondicionado",
+          "Carpintería": "Carpintería",
+          "Mantenimiento General": "Mantenimiento General",
+          "Cerrajería": "Cerrajería",
           "Paneles solares": "Paneles solares",
-          Seguridad: "Seguridad",
-          Impermeabilización: "Impermeabilización",
+          "Seguridad": "Seguridad",
+          "Impermeabilización": "Impermeabilización",
         };
 
         const especialidad = especialidadMap[req.usuario.especialidad] || "Mantenimiento General";
