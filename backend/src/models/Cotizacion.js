@@ -69,6 +69,10 @@ const cotizacionSchema = new mongoose.Schema(
         ref: "Especialista",
       },
     ],
+    publica: {
+      type: Boolean,
+      default: true,
+    },
     especialista_asignado: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Especialista",

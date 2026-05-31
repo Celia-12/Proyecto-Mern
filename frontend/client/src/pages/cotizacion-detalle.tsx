@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { Link, useRoute } from "wouter";
+import { Link, useRoute, useLocation } from "wouter";
 import { useAuth } from "@/context/AuthContext";
 import {
   useCotizacion,
@@ -43,6 +43,7 @@ export default function CotizacionDetalle() {
   const [match, params] = useRoute("/cotizacion/:id");
   const cotizacionId = params?.id ?? "";
   const { usuario } = useAuth();
+  const [, navigate] = useLocation();
   const { toast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [mensajeTexto, setMensajeTexto] = useState("");
@@ -331,11 +332,15 @@ export default function CotizacionDetalle() {
                       className="gap-2"
                       onClick={async () => {
                         try {
-                          await aceptarCotizacionTecnico.mutateAsync(cotizacionId);
+                          const res = await aceptarCotizacionTecnico.mutateAsync(cotizacionId);
                           toast({
                             title: "Cotización aceptada",
                             description: "Tu aceptación fue enviada y el cliente recibirá la notificación.",
                           });
+                          const trabajoId = res?.cotizacion?.trabajo_id?._id ?? res?.cotizacion?.trabajo_id;
+                          if (trabajoId) {
+                            navigate(`/trabajos/${trabajoId}`);
+                          }
                         } catch (err: unknown) {
                           toast({
                             variant: "destructive",

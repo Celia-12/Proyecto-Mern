@@ -34,6 +34,21 @@ const registro = async (req, res, next) => {
       bio,
     });
 
+    if (usuario.tipo === "tecnico") {
+      await Especialista.create({
+        usuario_id: usuario._id,
+        especialidad: usuario.especialidad,
+        experiencia_anos: 0,
+        precio_hora: usuario.precio_hora ?? 0,
+        codigo_postal: usuario.codigo_postal ?? "00000",
+        ubicacion: usuario.ciudad || "Monterrey, NL",
+        bio: usuario.bio || "",
+        horario: "Todo el día",
+        disponible: usuario.activo !== false,
+        verificado: usuario.activo !== false,
+      });
+    }
+
     const token = generarToken(usuario._id);
 
     logger.info(`REGISTRO nuevo usuario: ${usuario._id} (${usuario.email})`);

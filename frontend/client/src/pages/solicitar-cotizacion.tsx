@@ -70,17 +70,36 @@ export default function Quote() {
   const { toast } = useToast();
   const { usuario } = useAuth();
   const [enviado, setEnviado] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   const especialistaId = urlParams.get("especialista") || "";
   const rawCategoriaParam = urlParams.get("categoria") || "";
 
   const CATEGORY_DISPLAY_LABELS: Record<string, string> = {
     plomeria: "Plomería",
+    plomero: "Plomería",
+    plomera: "Plomería",
+    plomería: "Plomería",
     electricidad: "Electricidad",
+    electricista: "Electricidad",
+    electricistas: "Electricidad",
     "aire-acondicionado": "Aire Acondicionado",
+    "aire acondicionado": "Aire Acondicionado",
+    "aire acondicionado tecnico": "Aire Acondicionado",
+    "aire acondicionado técnico": "Aire Acondicionado",
     mantenimiento: "Mantenimiento General",
+    "mantenimiento-general": "Mantenimiento General",
     cerrajeria: "Cerrajería",
+    cerrajería: "Cerrajería",
     carpinteria: "Carpintería",
+    carpintería: "Carpintería",
+    "paneles-solares": "Paneles solares",
+    "paneles solares": "Paneles solares",
+    "paneles": "Paneles solares",
+    seguridad: "Seguridad",
+    impermeabilizacion: "Impermeabilización",
+    impermeabilización: "Impermeabilización",
     "Plomería": "Plomería",
     "Electricidad": "Electricidad",
     "Carpintería": "Carpintería",
@@ -102,28 +121,46 @@ export default function Quote() {
     "Paneles solares": "Paneles solares",
     Seguridad: "Seguridad",
     Impermeabilización: "Impermeabilización",
+    "paneles-solares": "Paneles solares",
+    "mantenimiento-general": "Mantenimiento General",
+    "aire-acondicionado": "Aire Acondicionado",
   };
+
+  const normalizeText = (text: string) =>
+    text
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
 
   const ESPECIALIDAD_TO_CATEGORIA: Record<string, string> = {
-    "Plomería": "Plomería",
-    "Electricidad": "Electricidad",
-    "Aire Acondicionado": "Aire Acondicionado",
-    "Carpintería": "Carpintería",
-    "Mantenimiento General": "Mantenimiento General",
-    "Cerrajería": "Cerrajería",
-    "Paneles solares": "Paneles solares",
-    "Seguridad": "Seguridad",
-    "Impermeabilización": "Impermeabilización",
+    plomeria: "Plomería",
+    plomero: "Plomería",
+    plomera: "Plomería",
+    plomería: "Plomería",
+    electricidad: "Electricidad",
+    electricista: "Electricidad",
+    "aire acondicionado": "Aire Acondicionado",
+    carpinteria: "Carpintería",
+    carpintería: "Carpintería",
+    "mantenimiento general": "Mantenimiento General",
+    cerrajeria: "Cerrajería",
+    cerrajería: "Cerrajería",
+    "paneles solares": "Paneles solares",
+    seguridad: "Seguridad",
+    impermeabilizacion: "Impermeabilización",
+    impermeabilización: "Impermeabilización",
   };
 
+  const getCategoriaFromEspecialidad = (especialidad: string) =>
+    ESPECIALIDAD_TO_CATEGORIA[normalizeText(especialidad)];
+
   const categoriaParam = CATEGORY_DISPLAY_LABELS[rawCategoriaParam] || rawCategoriaParam;
-
-  const { data: espData } = useEspecialista(especialistaId);
-  const especialista = espData?.especialista;
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-
   const crearCotizacion = useCrearCotizacion();
+  const { data: especialistaData } = useEspecialista(especialistaId);
+  const especialista = especialistaData?.especialista;
 
   const form = useForm<QuoteFormValues>({
     resolver: zodResolver(quoteSchema),
@@ -146,7 +183,7 @@ export default function Quote() {
   // Pre-fill category based on specialist's expertise if preselected
   useEffect(() => {
     if (especialista?.especialidad) {
-      const categoriaFromEsp = ESPECIALIDAD_TO_CATEGORIA[especialista.especialidad];
+      const categoriaFromEsp = getCategoriaFromEspecialidad(especialista.especialidad);
       if (categoriaFromEsp) {
         form.setValue("categoria", categoriaFromEsp);
       }

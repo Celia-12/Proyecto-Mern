@@ -34,7 +34,7 @@ export default function NuevosTrabajos() {
             <p className="text-sm text-muted-foreground">Para técnicos</p>
             <h1 className="text-3xl font-bold">Nuevos trabajos</h1>
             <p className="mt-2 text-sm text-muted-foreground max-w-2xl">
-              Aquí aparecen las últimas solicitudes de los clientes que necesitan ayuda.
+              Aquí aparecen las solicitudes públicas pendientes de los clientes, no las enviadas a un técnico concreto.
             </p>
           </div>
           <Link href="/perfil">
@@ -118,11 +118,13 @@ export default function NuevosTrabajos() {
                       size="sm"
                       onClick={async () => {
                         try {
-                          await aceptarCotizacionTecnico.mutateAsync(trabajo._id);
+                          const res = await aceptarCotizacionTecnico.mutateAsync(trabajo._id);
                           toast({
                             title: "Cotización aceptada",
                             description: "El cliente fue notificado y el trabajo queda en estado pendiente.",
                           });
+                          const trabajoId = res?.cotizacion?.trabajo_id?._id ?? res?.cotizacion?.trabajo_id;
+                          if (trabajoId) navigate(`/trabajos/${trabajoId}`);
                         } catch (err: unknown) {
                           toast({
                             variant: "destructive",
@@ -138,32 +140,6 @@ export default function NuevosTrabajos() {
                       {aceptarCotizacionTecnico.status === "pending"
                         ? "Aceptando..."
                         : "Aceptar cotización"}
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={async () => {
-                        try {
-                          await rechazarCotizacionTecnico.mutateAsync(trabajo._id);
-                          toast({
-                            title: "Cotización rechazada",
-                            description: "El cliente recibió la notificación de rechazo.",
-                          });
-                        } catch (err: unknown) {
-                          toast({
-                            variant: "destructive",
-                            title: "No se pudo rechazar la cotización",
-                            description:
-                              err instanceof Error ? err.message : "Intenta de nuevo más tarde.",
-                          });
-                        }
-                      }}
-                      disabled={aceptarCotizacionTecnico.status === "pending" || rechazarCotizacionTecnico.status === "pending"}
-                      className="w-full"
-                    >
-                      {rechazarCotizacionTecnico.status === "pending"
-                        ? "Rechazando..."
-                        : "Rechazar cotización"}
                     </Button>
                     <Link href={`/cotizacion/${trabajo._id}`} className="w-full">
                       <Button size="sm" variant="outline" className="w-full">

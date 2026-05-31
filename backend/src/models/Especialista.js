@@ -75,6 +75,10 @@ const especialistaSchema = new mongoose.Schema(
       type: String,
       default: "Monterrey, NL",
     },
+    imagenes: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,

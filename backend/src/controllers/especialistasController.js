@@ -1,11 +1,12 @@
 const Especialista = require("../models/Especialista");
 const Usuario = require("../models/Usuario");
 const logger = require("../utils/logger");
+const { normalizeEspecialidad } = require("../utils/especialidades2");
 
 function mapUsuarioToEspecialista(usuario) {
   return {
     _id: usuario._id,
-    especialidad: usuario.especialidad || "General",
+    especialidad: normalizeEspecialidad(usuario.especialidad || "Mantenimiento General"),
     experiencia_anos: usuario.experiencia_anos || 0,
     precio_hora: usuario.precio_hora || 0,
     calificacion_promedio: usuario.calificacion_promedio ?? undefined,
@@ -26,6 +27,39 @@ function mapUsuarioToEspecialista(usuario) {
   };
 }
 
+async function obtenerOCrearEspecialistaDesdeUsuario(usuario) {
+  let esp = await Especialista.findOne({ usuario_id: usuario._id }).populate(
+    "usuario_id",
+    "nombre email foto ciudad telefono"
+  );
+
+  if (!esp) {
+    const especialidad = normalizeEspecialidad(usuario.especialidad);
+    try {
+      esp = await Especialista.create({
+        usuario_id: usuario._id,
+        especialidad,
+        experiencia_anos: usuario.experiencia_anos || 0,
+        precio_hora: usuario.precio_hora || 0,
+        codigo_postal: usuario.codigo_postal || "00000",
+        ubicacion: usuario.ciudad || "",
+        bio: usuario.bio || "",
+        horario: usuario.horario || "",
+        disponible: usuario.activo !== false,
+        verificado: usuario.activo !== false,
+      });
+      await esp.populate("usuario_id", "nombre email foto ciudad telefono");
+    } catch (error) {
+      logger.warn(
+        `No se pudo crear Especialista para usuario ${usuario._id}: ${error.message}`
+      );
+      return mapUsuarioToEspecialista(usuario);
+    }
+  }
+
+  return esp;
+}
+
 // GET /api/especialistas
 const listar = async (req, res, next) => {
   try {
@@ -41,7 +75,7 @@ const listar = async (req, res, next) => {
 
     // Build filter for usuarios collection
     const usuarioFiltro = { tipo: "tecnico", activo: true };
-    if (especialidad) usuarioFiltro.especialidad = especialidad;
+    if (especialidad) usuarioFiltro.especialidad = normalizeEspecialidad(especialidad);
     if (usuario_id) usuarioFiltro._id = usuario_id;
 
     // Fetch all matching technicians from Usuario collection
@@ -54,15 +88,24 @@ const listar = async (req, res, next) => {
       Usuario.countDocuments(usuarioFiltro),
     ]);
 
-    // Map usuarios to especialista format
-    const especialistas = usuarios.map(mapUsuarioToEspecialista);
+    // Map usuarios to especialista docs, creating missing perfiles
+    const especialistas = await Promise.all(
+      usuarios.map(async (usuario) => {
+        try {
+          return await obtenerOCrearEspecialistaDesdeUsuario(usuario);
+        } catch (err) {
+          logger.warn(`Error creando perfil de especialista para usuario ${usuario._id}: ${err.message}`);
+          return null;
+        }
+      })
+    );
 
     res.json({
       success: true,
       total: usuariosTotal,
       pagina: Number(page),
       paginas: Math.ceil(usuariosTotal / Number(limit)),
-      especialistas,
+      especialistas: especialistas.filter(Boolean),
     });
   } catch (error) {
     next(error);
@@ -168,3 +211,33 @@ const eliminar = async (req, res, next) => {
 };
 
 module.exports = { listar, obtenerUno, crear, actualizar, eliminar };
+
+// POST /api/especialistas/:id/imagenes
+const subirImagenes = async (req, res, next) => {
+  try {
+    const esp = await Especialista.findById(req.params.id);
+    if (!esp) {
+      return res.status(404).json({ success: false, message: "Especialista no encontrado" });
+    }
+
+    // only owner or admin can upload images
+    if (esp.usuario_id.toString() !== req.usuario._id.toString() && req.usuario.tipo !== "admin") {
+      return res.status(403).json({ success: false, message: "No autorizado" });
+    }
+
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ success: false, message: "No se recibieron archivos" });
+    }
+
+    const imagenes = req.files.map((file) => `/uploads/${file.filename}`);
+    esp.imagenes = [...new Set([...(esp.imagenes || []), ...imagenes])];
+    await esp.save();
+    await esp.populate("usuario_id", "nombre email foto ciudad telefono");
+
+    res.json({ success: true, especialista: esp });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { listar, obtenerUno, crear, actualizar, eliminar, subirImagenes };

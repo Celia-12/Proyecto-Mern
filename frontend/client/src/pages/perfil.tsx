@@ -4,6 +4,7 @@ import {
   useEspecialistas,
   useCotizaciones,
   useCancelarCotizacion,
+  useReabrirCotizacion,
   useAceptarCotizacionPorCliente,
   useAceptarCotizacionPorTecnico,
   useRechazarCotizacionPorTecnico,
@@ -210,6 +211,7 @@ export default function Perfil() {
   const { usuario, actualizarPerfil, logout } = useAuth();
   const { data, isLoading } = useCotizaciones();
   const cancelarCotizacion = useCancelarCotizacion();
+  const reabrirCotizacion = useReabrirCotizacion();
   const aceptarCotizacionCliente = useAceptarCotizacionPorCliente();
   const aceptarCotizacionTecnico = useAceptarCotizacionPorTecnico();
   const rechazarCotizacionTecnico = useRechazarCotizacionPorTecnico();
@@ -217,6 +219,7 @@ export default function Perfil() {
   const calificarTrabajo = useCalificarTrabajo();
   const cancelando = cancelarCotizacion.status === "pending";
   const aceptandoCliente = aceptarCotizacionCliente.status === "pending";
+  const reabriendo = reabrirCotizacion.status === "pending";
   const aceptandoTecnico = aceptarCotizacionTecnico.status === "pending";
   const rechazandoTecnico = rechazarCotizacionTecnico.status === "pending";
   const confirmandoTrabajo = confirmarTrabajo.status === "pending";
@@ -260,20 +263,27 @@ export default function Perfil() {
   const notificacionesPendienteConfirmacion = usuario?.tipo === "cliente"
     ? cotizaciones.filter((c) => c.estado === "pendiente_confirmacion")
     : [];
+
+  const esCotizacionParaTecnico = (cotizacion: Cotizacion) =>
+    especialistaId !== undefined &&
+    (cotizacion.especialista_asignado?._id === especialistaId ||
+      cotizacion.especialistas_notificados?.includes(especialistaId));
+
   const notificacionesTecnicoEnRevision = esTecnico
-    ? cotizaciones.filter((c) => c.estado === "en_revision")
+    ? cotizaciones.filter((c) => esCotizacionParaTecnico(c) && c.estado === "en_revision")
     : [];
   const notificacionesTecnicoListos = esTecnico
-    ? cotizaciones.filter((c) => c.estado === "aceptada")
+    ? cotizaciones.filter((c) => esCotizacionParaTecnico(c) && c.estado === "aceptada")
     : [];
   const activas = cotizaciones.filter((c) =>
     esTecnico
-      ? ["en_revision", "aceptada", "pendiente_confirmacion"].includes(c.estado) ||
-        (c.estado === "pendiente" && especialistaId !== undefined && c.especialistas_notificados?.includes(especialistaId))
+      ? esCotizacionParaTecnico(c) && ["pendiente", "en_revision", "aceptada", "pendiente_confirmacion"].includes(c.estado)
       : ["pendiente", "en_revision", "aceptada", "pendiente_confirmacion"].includes(c.estado)
   );
   const historial = cotizaciones.filter((c) =>
-    esTecnico ? ["completada", "inconclusa"].includes(c.estado) : ["completada", "rechazada", "inconclusa"].includes(c.estado)
+    esTecnico
+      ? esCotizacionParaTecnico(c) && ["completada", "inconclusa"].includes(c.estado)
+      : ["completada", "rechazada", "inconclusa"].includes(c.estado)
   );
 
   const initials =
@@ -630,6 +640,28 @@ export default function Perfil() {
                             disabled={aceptandoCliente}
                           >
                             {aceptandoCliente ? "Confirmando..." : "Aceptar cotización"}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={async () => {
+                              try {
+                                await reabrirCotizacion.mutateAsync(cot._id);
+                                toast({
+                                  title: "Solicitud cancelada",
+                                  description: "La solicitud del técnico fue cancelada y la cotización se publicó de nuevo.",
+                                });
+                              } catch (err: unknown) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "No se pudo cancelar la solicitud",
+                                  description: err instanceof Error ? err.message : "Intenta de nuevo más tarde.",
+                                });
+                              }
+                            }}
+                            disabled={reabriendo}
+                          >
+                            {reabriendo ? "Procesando..." : "Cancelar solicitud del técnico"}
                           </Button>
                         </div>
                       </div>

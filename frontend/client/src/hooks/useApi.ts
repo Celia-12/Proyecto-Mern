@@ -229,6 +229,7 @@ export function useCotizaciones() {
       return res.json();
     },
     enabled: !!usuario,
+    refetchOnMount: true,
   });
 }
 
@@ -290,7 +291,7 @@ export function useCrearCotizacion() {
       return json;
     },
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["cotizaciones"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones"], exact: false });
     },
   });
 }
@@ -305,8 +306,25 @@ export function useCancelarCotizacion() {
       return json;
     },
     onSuccess: (_data, cotizacionId) => {
-      qc.invalidateQueries({ queryKey: ["cotizaciones"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones"], exact: false });
       qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
+    },
+  });
+}
+
+export function useReabrirCotizacion() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (cotizacionId: string) => {
+      const res = await api.put(`/cotizaciones/${cotizacionId}`, { accion: "reabrir" });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message || "Error reabriendo cotización");
+      return json;
+    },
+    onSuccess: (_data, cotizacionId) => {
+      qc.invalidateQueries({ queryKey: ["cotizaciones"], exact: false });
+      qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones", "recientes"], exact: false });
     },
   });
 }
@@ -321,9 +339,9 @@ export function useAceptarCotizacionPorTecnico() {
       return json;
     },
     onSuccess: (_data, cotizacionId) => {
-      qc.invalidateQueries({ queryKey: ["cotizaciones"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones"], exact: false });
       qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
-      qc.invalidateQueries({ queryKey: ["cotizaciones", "recientes"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones", "recientes"], exact: false });
     },
   });
 }
@@ -338,9 +356,9 @@ export function useRechazarCotizacionPorTecnico() {
       return json;
     },
     onSuccess: (_data, cotizacionId) => {
-      qc.invalidateQueries({ queryKey: ["cotizaciones"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones"], exact: false });
       qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
-      qc.invalidateQueries({ queryKey: ["cotizaciones", "recientes"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones", "recientes"], exact: false });
     },
   });
 }
@@ -355,7 +373,7 @@ export function useAceptarCotizacionPorCliente() {
       return json;
     },
     onSuccess: (_data, cotizacionId) => {
-      qc.invalidateQueries({ queryKey: ["cotizaciones"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones"], exact: false });
       qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
     },
   });
@@ -374,7 +392,7 @@ export function useConfirmarTrabajo() {
       return json;
     },
     onSuccess: (data) => {
-      qc.invalidateQueries({ queryKey: ["cotizaciones"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones"], exact: false });
       const cotizacionId = data?.trabajo?.cotizacion_id;
       if (cotizacionId) {
         qc.invalidateQueries({ queryKey: ["cotizacion", cotizacionId] });
@@ -401,7 +419,7 @@ export function useCalificarTrabajo() {
       return json;
     },
     onSuccess: (_data, variables) => {
-      qc.invalidateQueries({ queryKey: ["cotizaciones"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones"], exact: false });
       qc.invalidateQueries({ queryKey: ["calificaciones"] });
       qc.invalidateQueries({ queryKey: ["trabajos"] });
       qc.invalidateQueries({ queryKey: ["especialista", variables.especialista_id] });
@@ -425,8 +443,29 @@ export function useSubirImagenesCotizacion() {
     },
     onSuccess: (_data, variables) => {
       qc.invalidateQueries({ queryKey: ["cotizacion", variables.cotizacionId] });
-      qc.invalidateQueries({ queryKey: ["cotizaciones"] });
-      qc.invalidateQueries({ queryKey: ["cotizaciones", "recientes"] });
+      qc.invalidateQueries({ queryKey: ["cotizaciones"], exact: false });
+      qc.invalidateQueries({ queryKey: ["cotizaciones", "recientes"], exact: false });
+    },
+  });
+}
+
+export function useSubirImagenesEspecialista() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: { especialistaId: string; files: File[] }) => {
+      const formData = new FormData();
+      data.files.forEach((file) => formData.append("imagenes", file));
+      const res = await apiFetch(`/especialistas/${data.especialistaId}/imagenes`, {
+        method: "POST",
+        body: formData,
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message || "Error subiendo imágenes");
+      return json;
+    },
+    onSuccess: (_data, variables) => {
+      qc.invalidateQueries({ queryKey: ["especialista", variables.especialistaId] });
+      qc.invalidateQueries({ queryKey: ["especialistas"], exact: false });
     },
   });
 }

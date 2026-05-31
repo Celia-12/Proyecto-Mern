@@ -1,8 +1,32 @@
 const Cotizacion = require("../models/Cotizacion");
 const Especialista = require("../models/Especialista");
+const Usuario = require("../models/Usuario");
 const Trabajo = require("../models/Trabajo");
 const Mensaje = require("../models/Mensaje");
 const logger = require("../utils/logger");
+const { normalizeEspecialidad } = require("../utils/especialidades2");
+
+const obtenerOCrearEspecialistaPorUsuario = async (usuario) => {
+  if (!usuario || usuario.tipo !== "tecnico") return null;
+
+  let esp = await Especialista.findOne({ usuario_id: usuario._id });
+  if (!esp) {
+    esp = await Especialista.create({
+      usuario_id: usuario._id,
+      especialidad: normalizeEspecialidad(usuario.especialidad),
+      experiencia_anos: 0,
+      precio_hora: usuario.precio_hora ?? 0,
+      codigo_postal: usuario.codigo_postal ?? "00000",
+      ubicacion: usuario.ciudad || "Monterrey, NL",
+      bio: usuario.bio || "",
+      horario: "Todo el día",
+      disponible: usuario.activo !== false,
+      verificado: usuario.activo !== false,
+    });
+    logger.info(`ESPECIALISTA auto-creado para usuario ${usuario._id}: ${esp._id}`);
+  }
+  return esp;
+};
 
 // GET /api/cotizaciones
 const listar = async (req, res, next) => {
@@ -15,7 +39,7 @@ const listar = async (req, res, next) => {
     if (req.usuario.tipo === "cliente") {
       filtro.cliente_id = req.usuario._id;
     } else if (req.usuario.tipo === "tecnico") {
-      const esp = await Especialista.findOne({ usuario_id: req.usuario._id });
+      const esp = await obtenerOCrearEspecialistaPorUsuario(req.usuario);
       if (esp) {
         // Show quotes where technician is assigned OR notified
         filtro.$or = [
@@ -62,29 +86,11 @@ const recientes = async (req, res, next) => {
     const { page = 1, limit = 20 } = req.query;
     const skip = (Number(page) - 1) * Number(limit);
 
-    // Include general quotes (not targeted) AND those that specifically
-    // notified this technician (size === 1 but contains this specialist id).
-    const esp = await Especialista.findOne({ usuario_id: req.usuario._id });
-
-    const baseFilter = { estado: "pendiente" };
-
-    let findFilter;
-    if (esp) {
-      findFilter = {
-        ...baseFilter,
-        $or: [
-          { especialistas_notificados: esp._id },
-          { $expr: { $gt: [{ $size: "$especialistas_notificados" }, 1] } },
-        ],
-      };
-    } else {
-      // If we don't have an Especialista record for this user, fall back to
-      // showing only general quotes (more than 1 notified specialist).
-      findFilter = {
-        ...baseFilter,
-        $expr: { $gt: [{ $size: "$especialistas_notificados" }, 1] },
-      };
-    }
+    // Show only public quotes, not direct client-to-technician requests.
+    const findFilter = {
+      estado: "pendiente",
+      $or: [{ publica: true }, { publica: { $exists: false } }],
+    };
 
     const [cotizaciones, total] = await Promise.all([
       Cotizacion.find(findFilter)
@@ -166,7 +172,13 @@ const crear = async (req, res, next) => {
     // If the client explicitly selected a specialist, prefer notifying only that one
     if (cotizacionData.especialista_id) {
       try {
-        const espSeleccionado = await Especialista.findById(cotizacionData.especialista_id);
+        let espSeleccionado = await Especialista.findById(cotizacionData.especialista_id);
+        if (!espSeleccionado) {
+          const usuarioSeleccionado = await Usuario.findById(cotizacionData.especialista_id);
+          if (usuarioSeleccionado?.tipo === "tecnico") {
+            espSeleccionado = await obtenerOCrearEspecialistaPorUsuario(usuarioSeleccionado);
+          }
+        }
         if (espSeleccionado) {
           notificados = [espSeleccionado._id];
         }
@@ -180,6 +192,7 @@ const crear = async (req, res, next) => {
       cliente_id: req.usuario._id,
       estado: "pendiente",
       especialistas_notificados: notificados,
+      publica: !cotizacionData.especialista_id,
       imagenes,
     });
 
@@ -296,12 +309,66 @@ const actualizar = async (req, res, next) => {
       }
 
       if (req.body.accion === "rechazar") {
-        camposPermitidos = { estado: "rechazada" };
+        // Si es pública, reactivar para otros técnicos
+        if (cot.publica) {
+          camposPermitidos = {
+            estado: "pendiente",
+            publica: true,
+            especialista_asignado: null,
+          };
+        } else {
+          // Si es solicitud directa, marcar como rechazada
+          camposPermitidos = { estado: "rechazada" };
+        }
       } else {
-        camposPermitidos = {
-          estado: "en_revision",
-          especialista_asignado: esp._id,
-        };
+        // If this was a direct request to the technician (not public),
+        // consider the technician's acceptance as a full acceptance and
+        // create the Trabajo immediately (so client doesn't need to confirm).
+        if (cot.publica === false) {
+          const fechaInicio = cot.fecha_preferida ? new Date(cot.fecha_preferida) : new Date();
+          try {
+            const trabajo = await Trabajo.create({
+              cotizacion_id: cot._id,
+              cliente_id: cot.cliente_id,
+              tecnico_id: esp._id,
+              fecha_inicio: fechaInicio,
+              monto: cot.monto_estimado ?? 0,
+              ubicacion: cot.ubicacion,
+              descripcion_trabajo: cot.descripcion,
+              estado: "programado",
+            });
+
+            camposPermitidos = {
+              estado: "aceptada",
+              especialista_asignado: esp._id,
+              trabajo_id: trabajo._id,
+            };
+
+            // Notify the client that the technician accepted and a work was scheduled
+            try {
+              await Mensaje.create({
+                cotizacion_id: cot._id,
+                de: req.usuario._id,
+                para: cot.cliente_id,
+                texto: `El técnico ha aceptado tu solicitud y programó el trabajo para ${fechaInicio.toLocaleDateString("es-MX")}.`,
+              });
+            } catch (msgErr) {
+              logger.warn(`No se pudo crear mensaje de notificación al cliente: ${msgErr.message}`);
+            }
+          } catch (err) {
+            logger.error(`No se pudo crear Trabajo al aceptar cotización ${cot._id}: ${err.message}`);
+            // Fallback: set to en_revision so the flow doesn't break
+            camposPermitidos = {
+              estado: "en_revision",
+              especialista_asignado: esp._id,
+            };
+          }
+        } else {
+          camposPermitidos = {
+            estado: "en_revision",
+            especialista_asignado: esp._id,
+          };
+        }
       }
     } else {
       // Cliente
@@ -349,6 +416,23 @@ const actualizar = async (req, res, next) => {
           estado: "aceptada",
           trabajo_id: trabajo._id,
         };
+      } else if (req.body.accion === "reabrir") {
+        if (cot.cliente_id.toString() !== req.usuario._id.toString()) {
+          return res.status(403).json({ success: false, message: "No autorizado" });
+        }
+
+        if (!["en_revision", "aceptada"].includes(cot.estado) || cot.trabajo_id) {
+          return res.status(400).json({
+            success: false,
+            message: "Solo se puede reabrir una cotización que está en revisión o aceptada sin trabajo.",
+          });
+        }
+
+        camposPermitidos = {
+          estado: "pendiente",
+          publica: true,
+          especialista_asignado: null,
+        };
       } else {
         return res.status(400).json({
           success: false,
@@ -371,7 +455,7 @@ const actualizar = async (req, res, next) => {
         cotizacion_id: cot._id,
         de: req.usuario._id,
         para: cot.cliente_id,
-        texto: "El técnico ha aceptado tu cotización. La cotización está en proceso y ahora puedes confirmarla para continuar.",
+        texto: "El técnico ha aceptado tu cotización.",
       });
     }
 
@@ -380,8 +464,20 @@ const actualizar = async (req, res, next) => {
         cotizacion_id: cot._id,
         de: req.usuario._id,
         para: cot.cliente_id,
-        texto: "El técnico ha rechazado tu cotización. Puedes solicitar otro técnico o enviar una nueva solicitud.",
+        texto: "El técnico ha rechazado tu cotización.",
       });
+    }
+
+    if (req.body.accion === "reabrir" && cot.especialista_asignado) {
+      const especialista = await Especialista.findById(cot.especialista_asignado).populate("usuario_id");
+      if (especialista?.usuario_id) {
+        await Mensaje.create({
+          cotizacion_id: cot._id,
+          de: req.usuario._id,
+          para: especialista.usuario_id._id,
+          texto: "El cliente ha cancelado la solicitud.",
+        });
+      }
     }
 
     if (req.body.accion === "confirmar") {
@@ -391,7 +487,7 @@ const actualizar = async (req, res, next) => {
           cotizacion_id: cot._id,
           de: req.usuario._id,
           para: especialista.usuario_id,
-          texto: "El cliente ha confirmado tu cotización. El trabajo está en proceso y pronto podrás marcarlo como realizado.",
+          texto: "El cliente ha confirmado tu cotización.",
         });
       }
     }

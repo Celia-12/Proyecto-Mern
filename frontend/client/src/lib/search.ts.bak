@@ -62,15 +62,7 @@ export function mapQueryToCanonical(q: string) {
 export function matchesField(field = "", query = "") {
   const nf = normalizeText(field);
   const nq = normalizeText(query);
-  const canonicalField = normalizeText(mapQueryToCanonical(field));
-  const canonicalQuery = normalizeText(mapQueryToCanonical(query));
-  const fieldCandidates = Array.from(new Set([nf, canonicalField]));
-  const queryCandidates = Array.from(new Set([nq, canonicalQuery]));
-
-  return fieldCandidates.some((fieldValue) =>
-    queryCandidates.some(
-      (queryValue) =>
-        fieldValue.includes(queryValue) || queryValue.includes(fieldValue)
-    )
-  );
+  const canonical = normalizeText(mapQueryToCanonical(query));
+  const mqCandidates = Array.from(new Set([nq, canonical]));
+  return mqCandidates.some((mq) => nf.includes(mq) || mq.includes(nf));
 }
